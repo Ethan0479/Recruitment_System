@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'ckeditor',
     'ckeditor_uploader',
+    'apps.interviewer',
+    'apps.freshman'
 ]
 
 MIDDLEWARE = [

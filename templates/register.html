@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div align="center">
+        <form action="/register/" method="post">
+            {% csrf_token%}
+            <div>
+                <label>学号：<input type="text" value="" name="uid"></label>
+            </div>
+            <div>
+                <label>姓名：<input type="text" value="" name="uname"></label>
+            </div>
+            <div>
+                <label>密码：<input type="password" value="" name="pwd"></label>
+            </div>
+            <div>
+                <label>重复密码：<input type="password" value="" name="pwd"></label>
+            </div>
+            <div>
+                <label>性别：</label>
+                <label><input name="gender" type="radio" value="1">男</label>
+                <label><input name="gender" type="radio" value="0">女</label>
+            </div>
+            <div>
+                <label>学院：</label>
+                <label>
+                    <select>
+                        <option value="1">学院1</option>
+                        <option value="2">学院2</option>
+                        <option value="3">学院3</option>
+                        <option value="4">学院4</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>专业：</label>
+                <label>
+                    <select>
+                        <option value="1">专业1</option>
+                        <option value="2">专业2</option>
+                        <option value="3">专业3</option>
+                        <option value="4">专业4</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>专业班级：<input type="text" value="" name="major_class"></label>
+            </div>
+            <div>
+                <label>专业：</label>
+                <label>
+                    <select>
+                        <option value="1">开发</option>
+                        <option value="2">设计</option>
+                        <option value="3">秘书处</option>
+                    </select>
+                </label>
+            </div>
+            <div>联系方式</div>
+            <div>
+                <label>手机号：<input type="text" value="" name="phone_number"></label>
+            </div>
+            <div>
+                <label>QQ：<input type="text" value="" name="QQ"></label>
+            </div>
+            <div>
+                <label>邮箱：<input type="text" value="" name="mail"></label>
+            </div>
+            <div>
+                <label><input type="button" value="发送邮箱验证"></label>
+            </div>
+            <div>
+                <label>验证码：<input type="text" value="" name="verification"></label>
+            </div>
+            <div>
+                <input type="submit" value="注册">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
