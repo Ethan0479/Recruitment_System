@@ -18,7 +18,12 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
+from Recruitment_System.settings import DEBUG, MEDIA_ROOT
+
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     url(r'^',include('apps.freshman.urls')),
 ]
+from django.views.static import serve
+if DEBUG:
+    urlpatterns+=url(r'^media/(?P<path>.*)/$', serve, {"document_root": MEDIA_ROOT}),
