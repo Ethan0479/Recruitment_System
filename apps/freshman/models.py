@@ -12,11 +12,11 @@ class GlobalSettings(object):
     site_footer = '云顶书院'
 
 
-class Freshman(AbstractUser):   # 此处继承AbstractUser， 改写auth_user表，以便登录
+class Freshman(models.Model):   # 此处继承AbstractUser， 改写auth_user表，以便登录
 
     # 学号， 姓名， 性别， 学院， 专业， 专业班级， 手机号， QQ， 邮箱， 方向为必填， 申请时填入
 
-    # newstudent_id = models.CharField(max_length=11, verbose_name=u'学号')#username存储学号
+    newstudent_id = models.CharField(max_length=11, verbose_name=u'学号')#username存储学号
     newname = models.CharField(max_length=50, verbose_name=u'姓名')
     gender = models.CharField(max_length=5, verbose_name='性别')
     college = models.CharField(max_length=30, verbose_name='所属学院')

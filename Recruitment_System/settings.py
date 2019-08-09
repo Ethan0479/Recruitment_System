@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'apps.interviewer',
-    'apps.freshman'
+    'apps.freshman',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +131,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,  'media')
-MEDIA_URL = '/media'
+MEDIA_URL = '/media/'
 CKEDITOR_UPLOAD_PATH = 'upload/'
 
 CKEDITOR_CONFIGS = {

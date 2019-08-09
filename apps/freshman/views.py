@@ -4,11 +4,11 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 
 from .forms import Applyfrom
-from .models import PersonalMessageAndInterview
+from .models import Freshman
 # Create your views here.
 
 # 获取学生信息那里要改，应为request.Post.get('', '')
-# models中的PersonalMessageAndInterview表改为继承AbstractUser
+# models中的Freshman表改为继承AbstractUser
 # 实现可根据专业确定学院
 
 
@@ -21,7 +21,7 @@ class ApplyView(View):
     def post(self, request):
         apply_form = Applyfrom(request.Post)
         if apply_form.is_valid():
-            applicant = PersonalMessageAndInterview()
+            applicant = Freshman()
             applicant.student_id = request.Post.student_id   # 学号
             applicant.name = request.Post.name               # 姓名
             applicant.sex = request.Post.sex                 # 性别
@@ -53,11 +53,11 @@ class SearchView(View):
 # 方向选择查看、修改
 # class DirectionView(View):
 #     def get(self, request):
-#         direction = PersonalMessageAndInterview.objects.get(student_id=request.user.student, name=request.user.name)
+#         direction = Freshman.objects.get(student_id=request.user.student, name=request.user.name)
 #         return render(request, )  # 显示该学生选择的方向，可修改
 #
 #     def post(self, request):
-#         student = PersonalMessageAndInterview.objects.get(student_id=request.user.student, name=request.user.name)
+#         student = Freshman.objects.get(student_id=request.user.student, name=request.user.name)
 #         student.direction = request.Post.direction
 #         student.save()
 #
@@ -92,7 +92,7 @@ class ModifyView(View):
 class InterviewInformView(View):
     # 如果从查询界面得到
     def get(self, request):
-        interviewed_student = PersonalMessageAndInterview.objects.get(student_id=request.user.student,
+        interviewed_student = Freshman.objects.get(student_id=request.user.student,
                                                                       name=request.user.name)
         interview_place = interviewed_student.interview_place
         interview_time = interviewed_student.interview_time
@@ -109,7 +109,7 @@ class InterviewInformView(View):
     # def get(self, request):
     #     return render(request)
     # def post(self, request):
-    #     interviewed_student = PersonalMessageAndInterview.objects.get(student_id=request.Post.student,
+    #     interviewed_student = Freshman.objects.get(student_id=request.Post.student,
     #                                                                   name=request.Post.name)
     #     interview_place = interviewed_student.interview_place
     #     interview_time = interviewed_student.interview_time
