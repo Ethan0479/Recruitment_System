@@ -60,8 +60,7 @@ ROOT_URLCONF = 'Recruitment_System.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,9 +82,9 @@ WSGI_APPLICATION = 'Recruitment_System.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "recruitment_system",
+        'NAME': "recruitmentsystem",
         "USER": "root",
-        "PASSWORD": "mysql",
+        "PASSWORD": "nmb19720",
         "HOST": "127.0.0.1"
     }
 }
