@@ -22,7 +22,8 @@ from Recruitment_System.settings import DEBUG, MEDIA_ROOT
 
 urlpatterns = [
     # path('xadmin/', xadmin.site.urls),
-    url(r'^',include('apps.freshman.urls')),
+    url(r'^', include('apps.freshman.urls')),
+    path(r'interview/', include('apps.interviewer.urls')),
 ]
 from django.views.static import serve
 if DEBUG:
