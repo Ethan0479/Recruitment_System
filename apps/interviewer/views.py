@@ -4,57 +4,18 @@ from apps.freshman.models import Freshman
 import json
 from django.shortcuts import render
 from django.views.generic.base import View
-from django.contrib.auth import login, authenticate, logout
+#from django.contrib.auth import login, authenticate, logout
 
 from .forms import Applyfrom
 from .models import Interview
 
-
 # Create your views here.
 
-
-def interviewer_search(request):
-    # 用于查找面试官
-    cookie = request.COOKIES.get("user_info", None)
-    if cookie:
-        cookie = cookie.replace('\'', '\"')
-        user_info = json.loads(cookie, strict=False)
-
-        interview_id = user_info.get('interview_id')
-        interview_name = user_info.get('interview_name')
-
-        id = Interview.objects.filter(interview_id=interview_id)
-        name = Interview.objects.filter(interview_name=interview_name)
-
-        if interview_name == name and interview_id == id:
-            return interview_id, interview_name
-        else:
-            return '没有注册'
-    else:
-        return None, None
-
-
-def freshman_search(request):
-    # 用于模糊搜索新生,可以通过名字或者学号查
-    cookie = request.COOKIES.get("user_info", None)
-    if cookie:
-        cookie = cookie.replace('\'', '\"')
-        user_info = json.loads(cookie, strict=False)
-
-        info = user_info.get('info')
-
-        name_list = Freshman.objects.filter(newname__contains=info)
-        id_list = Freshman.objects.filter(newstudent_id__contains=info)
-
-        return name_list, id_list
-    else:
-        return None
-
-
-class Applyfrom(View):
+#注册
+class RegisterView(View):
 
     def get(self, request):
-        return render(request)
+        return render(request, 'interviewer_register.html')
 
     # 面试官注册
     def post(self, request):
@@ -70,34 +31,71 @@ class Applyfrom(View):
                 applicant.reason = None
 
             applicant.save()
-        return render(request)  # 提交信息成功后跳转面试界面
+        return render(request, "interviewer_register.html")  # 提交信息成功后跳转面试界面
 
+#登录
+class LoginView(View):
 
-class SearchView(View):
+    def get(self, request):
+        return render(request, 'interviewer_login.html')
 
-    # 登录
     def acc_login(self, request):
         if request.method == "GET":
             return render(request, ".html")
         else:
             interview_id = request.POST.get("id")
             interview_name = request.POST.get("name")
-            user = authenticate(interview_id=interview_id, interview_name=interview_name)  # 验证:返回验证对象,失败则是None
-            if user:
-                login(request, user)
-                return redirect('.html')
-            else:
-                error = "学号或姓名错误"
-                return render(request, ".html", {'error': error})
+            check = self.interviewer_search(interview_id=interview_id, interview_name=interview_name)  # 验证:返回验证对象,失败则是None
+            if check == 1:
+                return redirect('interviewer_login.html')
+            elif check == 2:
+                error = "姓名错误"
+                return render(request, "interviewer_login.html", {'error': error})
+            elif check == 3:
+                error = "学号错误"
+                return render(request, "interviewer_login.html", {'error': error})
 
     # 登出
     def acc_logout(self, request):
         # 用户登出，即删除记录登录信息的cookie
-        logout(request)
         return response('')
 
+    def interviewer_search(self, interview_id, interview_name):
+        try:
+            id = Interview.objects.filter(interview_id=interview_id)
+            name = Interview.objects.filter(interview_name=interview_name)
+        except:
+            return '没有注册'
+        # 查有此人
+        if interview_name == name:
+            return '1'
+        # 姓名不正确
+        elif interview_name != name:
+            return '2'
+        # 学号不正确
+        elif interview_id != id:
+            return '3'
 
+#申请书
 class Audition(View):
+    def get(self, request):
+        return render(request, 'audition.html')
+
+    def freshman_search(request):
+        # 用于模糊搜索新生,可以通过名字或者学号查
+        cookie = request.COOKIES.get("user_info", None)
+        if cookie:
+            cookie = cookie.replace('\'', '\"')
+            user_info = json.loads(cookie, strict=False)
+
+            info = user_info.get('info')
+
+            name_list = Freshman.objects.filter(newname__contains=info)
+            id_list = Freshman.objects.filter(newstudent_id__contains=info)
+
+            return render({'name': name_list, 'id': id_list})
+        else:
+            return None
 
     # 查看新生申请书
     def check_application(self, request):
@@ -108,7 +106,7 @@ class Audition(View):
         except:
             pass
 
-        return application
+        return render({'application' : application})
 
     # 评分和评价
     def scoree_valuate(self, request):
@@ -124,4 +122,4 @@ class Audition(View):
 
         fresh.save()
 
-        return '修改成功'
+        return render({'data' : '修改成功'})#'修改成功'
