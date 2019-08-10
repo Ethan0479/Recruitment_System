@@ -6,13 +6,13 @@
 </head>
 <body>
     <div align="center">
-        <form action="/login/" method="post">
+        <form action="{% url 'login' %}" method="post">
             {% csrf_token%}
             <div>
-                <label>学号<input type="text" value="" name="uid"></label>
+                <label>学号<input type="text" value="" name="newstudent_id"></label>
             </div>
             <div>
-                <label>密码<input type="password" value="" name="pwd"></label>
+                <label>密码<input type="password" value="" name="password"></label>
             </div>
             <div>
                 <label><input type="submit" value="登陆"></label>
