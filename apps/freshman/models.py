@@ -12,7 +12,7 @@ class GlobalSettings(object):
     site_footer = '云顶书院'
 
 
-class Freshman(models.Model):   # 此处继承AbstractUser， 改写auth_user表，以便登录
+class Freshman(models.Model):
 
     # 学号， 姓名， 性别， 学院， 专业， 专业班级， 手机号， QQ， 邮箱， 方向为必填， 申请时填入
 

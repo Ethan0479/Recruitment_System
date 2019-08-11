@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.views.generic.base import View
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 import random
 
-from .forms import Applyfrom
+from .forms import Applyfrom, ModifyForm
 from .models import Freshman
+from Recruitment_System.settings import EMAIL_FROM
 
 
 # Create your views here.
@@ -46,7 +49,7 @@ class RegisterView(View):
             else:
                 return render(request, 'register.html', {'error': error})
         else:
-            return render(request, 'register.html')
+            return render(request, 'register.html')  # 提示错误信息
 
     def comfirm_password(self, password, comfirm_password):
         if password != comfirm_password:
@@ -61,6 +64,15 @@ def generate_code():
         num_list.append(str(random.randint(0, 9)))
     num_code = ''.join(num_list)
     return num_code
+
+
+# 可能需要重写
+def send_code_by_email(email):
+    title = '注册验证码'
+    code = generate_code()
+    content = '验证码为：' + code
+    status = send_mail(title, content, EMAIL_FROM, [email])
+    return status
 
 
 # 查询的登录界面(可查询、更改预约时间，申请书；查询面试通知，查询面试结果）（需要学号，密码）
@@ -86,7 +98,7 @@ class LoginView(View):
                 else:
                     return render(request, 'login.html', {'error': '用户名或密码不正确！'})
         except Freshman.DoesNotExist:
-            render(request, 'register.html', {'error': '你还没有注册报名哦'})
+            return render(request, 'register.html', {'error': '你还没有注册报名哦'})
 
 
 class IndexView(View):
@@ -94,7 +106,7 @@ class IndexView(View):
         return render(request, 'index.html')
 
 
-# 个人信息查看、修改(这里只有学院，专业，专业班级，选择方向可改)
+# 个人信息查看、修改(学号不可改)
 class PersonalView(View):
     def get(self, request):
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))  # 根据cookie中的
@@ -102,40 +114,78 @@ class PersonalView(View):
         return render(request, 'personal.html', {'student': student})  # 显示该学生选择的方向，可修改
 
     def post(self, request):
-        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
-        student.newstudent_id = request.POST.get('newstudent_id', '')
-        student.newname = request.POST.get('newname', '')
-        student.gender = request.POST.get('gender', '')
-        student.college = request.POST.get('college', '')
-        student.major = request.POST.get('major', '')
-        student.newclass = request.POST.get('newclass', '')
-        student.phone = request.POST.get('phone', '')  # 手机号
-        student.qq = request.POST.get('qq', '')  # QQ
-        student.email = request.POST.get('email', '')  # 邮箱
-        student.direction = request.POST.get('direction', '')  # 选择方向
-        student.save()
-        msg = '修改成功'
-        return render(request, 'index.html', {'msg': msg})
+        newstudent_id = request.COOKIES.get('newstudent_id', '')
+        student = Freshman.objects.get(newstudent_id=newstudent_id)
+        modify_form = ModifyForm(request.POST)  # 验证学号，手机号，名字的格式是否正确
+        if modify_form.is_valid():
+            same_phones = Freshman.objects.filter(phone=request.POST.get('phone', ))
+            same_student_ids = Freshman.objects.filter(newstudent_id=request.POST.get('newstudent_id', ''))
+            dumplicated_phone = None
+            dumplicated_student_id = None
+            # 根据id检验手机号是否与别人重复
+            for same_phone in same_phones:
+                if same_phone.id != student.id:
+                    dumplicated_phone = '手机号重复！'
+            # 根据id检验学号是否与别人重复
+            for same_student_id in same_student_ids:
+                if same_student_id.id != student.id:
+                    dumplicated_student_id = '学号重复！'
+            # 如果都不重复则保存，有重复则返回该页面并提示
+            if not dumplicated_phone and not dumplicated_student_id:
+                student.newstudent_id = request.POST.get('newstudent_id', '')
+                student.newname = request.POST.get('newname', '')
+                student.gender = request.POST.get('gender', '')
+                student.college = request.POST.get('college', '')
+                student.major = request.POST.get('major', '')
+                student.newclass = request.POST.get('newclass', '')
+                student.phone = request.POST.get('phone', '')  # 手机号
+                student.qq = request.POST.get('qq', '')  # QQ
+                student.email = request.POST.get('email', '')  # 邮箱
+                student.direction = request.POST.get('direction', '')  # 选择方向
+                student.save()
+                msg = '修改成功'
+                if newstudent_id == student.newstudent_id:  # 没改学号正常跳回index页面
+                    return render(request, 'index.html', {'msg': msg})
+                else:  # 改了学号则需要退出并重新登录
+                    response = log_out(request)
+                    return response
+            else:
+                return render(request, 'personal.html', locals())
+        else:
+            return render(request, 'personal.html', )  # 提示错误信息
 
 
 # 查看、修改预约时间界面
 class AppointmentView(View):
     def get(self, request):
-        return render(request, '')
+        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
+        return render(request, 'time.html', locals())  # # 显示该学生的预约时间，
 
     def post(self, request):
-        return render(request)  # 显示该学生的预约时间，并可以修改
+        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
+        student.appointment_one = request.POST.get('appointment_one', '')
+        student.appointment_two = request.POST.get('appointment_two', '')
+        student.appointment_three = request.POST.get('appointment_three', '')
+        student.save()
+        msg = '选择成功！记得关注面试通知哦！'
+        return render(request, 'index.html', {'msg': msg})  # 可以修改
 
 
-#
-#
-# # 查询申请书界面
-# class ApplicationView(View):
-#     def get(self, request):
-#         return render(request)
-#
-#     def post(self, request):
-#         return render(request)  # 显示该学生的申请书提交情况，并可以修改
+# 查询申请书界面
+class ApplicationView(View):
+    def get(self, request):  # 显示该学生的申请书提交情况
+        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
+        tip = ''
+        if not student.application:
+            tip = '记得及时提交申请书哦，不然就没有面试资格啦！'
+        return render(request, 'application.html', locals())
+
+    def post(self, request):  # 可以修改
+        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
+        student.application = request.POST.get('application', '')
+        student.save()
+        msg = '申请书提交成功!'
+        return render(request, 'index.html', {'msg': msg})
 
 
 # 面试通知界面
@@ -176,6 +226,14 @@ class InterviewInformView(View):
 
 # 面试结果查看界面
 class InterviewResultView(View):
-    def get(self, request):
-        return render(request, '', )  # 显示该学生的面试结果，不可修改
+    def get(self, request):  # 显示该学生的面试结果，不可修改
+        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
+        return render(request, 'result.html', {'interview_result': student.interview_result})
 
+
+# 退出函数
+def log_out(request):
+    response = render(request, 'login.html')
+    response.delete_cookie('newstudent_id')
+    response.delete_cookie('idnum')
+    return response

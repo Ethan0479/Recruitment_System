@@ -22,17 +22,17 @@
             </div>
             <div>
                 <label>性别：</label>
-                <label><input name="gender" type="radio" value="1">男</label>
-                <label><input name="gender" type="radio" value="0">女</label>
+                <label><input name="gender" type="radio" value="男">男</label>
+                <label><input name="gender" type="radio" value="女">女</label>
             </div>
             <div>
                 <label>学院：</label>
                 <label>
                     <select name="college">
-                        <option value="1" selected="selected">学院1</option>
-                        <option value="2">学院2</option>
-                        <option value="3">学院3</option>
-                        <option value="4">学院4</option>
+                        <option value="学院1" selected="selected">学院1</option>
+                        <option value="学院2">学院2</option>
+                        <option value="学院3">学院3</option>
+                        <option value="学院4">学院4</option>
 {#                        {% for key, value in apply_form.college %}#}
 {#                            <option value="{{ value }}">{{ key }}</option>#}
 {#                        {% endfor %}#}
@@ -43,10 +43,10 @@
                 <label>专业：</label>
                 <label>
                     <select name="major">
-                        <option value="1" selected="selected">专业1</option>
-                        <option value="2">专业2</option>
-                        <option value="3">专业3</option>
-                        <option value="4">专业4</option>
+                        <option value="专业1" selected="selected">专业1</option>
+                        <option value="专业2">专业2</option>
+                        <option value="专业3">专业3</option>
+                        <option value="专业4">专业4</option>
                     </select>
                 </label>
             </div>
@@ -54,14 +54,10 @@
                 <label>专业班级：<input type="text" value="" name="newclass"></label>
             </div>
             <div>
-                <label>专业：</label>
-                <label>
-                    <select name="direction">
-                        <option value="1" selected="selected">开发</option>
-                        <option value="2">设计</option>
-                        <option value="3">秘书处</option>
-                    </select>
-                </label>
+                <label>方向：</label>
+                <label><input name="direction" type="radio" value="开发">开发</label>
+                <label><input name="direction" type="radio" value="设计">设计</label>
+                <label><input name="direction" type="radio" value="秘书处">秘书处</label>
             </div>
             <div>联系方式</div>
             <div>
