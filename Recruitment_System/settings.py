@@ -150,3 +150,10 @@ CKEDITOR_CONFIGS = {
         ),
     }
 }
+
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+EMAIL_FROM = ''

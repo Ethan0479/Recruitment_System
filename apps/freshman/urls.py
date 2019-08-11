@@ -2,7 +2,7 @@
 from django.conf.urls import url
 from django.urls import path
 
-from .views import RegisterView, LoginView, PersonalView, IndexView
+from .views import RegisterView, LoginView, PersonalView, IndexView, AppointmentView, ApplicationView, InterviewResultView
 
 
 from . import views
@@ -17,7 +17,10 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('register/', RegisterView.as_view(), name='register'),
     path('index/', IndexView.as_view(), name='index'),
-    path('personal/', PersonalView.as_view(), name='personal')
+    path('personal/', PersonalView.as_view(), name='personal'),
+    path('appointment/', AppointmentView.as_view(), name='appointment'),
+    path('application/', ApplicationView.as_view(), name='application'),
+    path('interview_result/', InterviewResultView.as_view(), name='interview_result'),
 ]
 
 
