@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'ckeditor',
-    'ckeditor_uploader',
+    # 'ckeditor_uploader',
     'apps.interviewer',
     'apps.freshman',
 ]
@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'Recruitment_System.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "recruitmentsystem",
+        'NAME': "recruitment_system",
         "USER": "root",
-        "PASSWORD": "nmb19720",
+        "PASSWORD": "mysql",
         "HOST": "127.0.0.1"
     }
 }

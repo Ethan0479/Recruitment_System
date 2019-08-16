@@ -1,4 +1,5 @@
 # _*_ encoding:utf-8 _*_
+from ckeditor.fields import RichTextField
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -33,7 +34,7 @@ class Freshman(models.Model):
     appointment_one = models.DateTimeField(verbose_name='预约时间一', null=True, blank=True)
     appointment_two = models.DateTimeField(verbose_name='预约时间二', null=True, blank=True)
     appointment_three = models.DateTimeField(verbose_name='预约时间三', null=True, blank=True)
-    application = RichTextUploadingField(null=True, blank=True, verbose_name='申请书')
+    application = RichTextField(null=True, blank=True, verbose_name='申请书')
     interview_time = models.DateTimeField(verbose_name='面试时间', null=True, blank=True)
     interview_place = models.CharField(max_length=50, verbose_name='面试地点', blank=True, null=True)
     score = models.IntegerField(verbose_name='评分', null=True, blank=True)
