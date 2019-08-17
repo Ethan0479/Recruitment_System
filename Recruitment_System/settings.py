@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'ckeditor',
-    # 'ckeditor_uploader',
+    'ckeditor_uploader',
     'apps.interviewer',
     'apps.freshman',
+    'apps.data',
 ]
 
 MIDDLEWARE = [
