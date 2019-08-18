@@ -25,6 +25,7 @@ urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     url(r'^', include('apps.freshman.urls')),
     path(r'interview/', include('apps.interviewer.urls')),
+    path(r'data/', include('apps.data.urls')),
     url(r'ckeditor', include('ckeditor_uploader.urls'))
 ]
 from django.views.static import serve
