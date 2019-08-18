@@ -15,9 +15,15 @@ from Recruitment_System.settings import EMAIL_FROM
 # Create your views here.
 
 # 获取学生信息那里要改，应为request.Post.get('', '')
-# models中的Freshman表改为继承AbstractUser
 # 实现可根据专业确定学院
-
+'''
+登陆
+注册
+个人信息修改
+提交申请书
+面试时间（修改/确定）
+面试（时间/地点/结果）查询
+'''
 
 # 注册、信息填写界面
 class RegisterView(View):
