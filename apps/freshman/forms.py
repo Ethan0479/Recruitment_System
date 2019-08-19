@@ -17,7 +17,8 @@ class Applyfrom(forms.Form):
     phone = forms.CharField(required=True)
     qq = forms.CharField(required=True)
     email = forms.EmailField(required=True)
-    direction = forms.CharField(required=True)  # 下拉框
+    apartment = forms.CharField(required=True)
+    dormitory = forms.CharField(required=True)
 
     def clean_newstudent_id(self):
         newstudent_id = self.cleaned_data.get('newstudent_id')
@@ -61,25 +62,13 @@ class Applyfrom(forms.Form):
 
 
 class ModifyForm(forms.Form):
-    newstudent_id = forms.CharField(required=True)
-    newname = forms.CharField(required=True)
-    gender = forms.CharField(required=True)
+    password = forms.CharField(required=True)
     college = forms.CharField(required=True)  # 下拉框
     major = forms.CharField(required=True)  # 下拉框
     newclass = forms.CharField(required=True)
     phone = forms.CharField(required=True)
     qq = forms.CharField(required=True)
     email = forms.EmailField(required=True)
-    direction = forms.CharField(required=True)
-
-    def clean_newname(self):
-        newname = self.cleaned_data.get('newname')
-        processed_name = re.sub('·', '', newname)
-        regex = re.compile('[\u4E00-\u9FA5]{2,10}')
-        if regex.match(processed_name):
-            return newname
-        else:
-            raise forms.ValidationError('名字格式不正确', code='wrong name')
 
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
@@ -88,11 +77,3 @@ class ModifyForm(forms.Form):
             return phone
         else:
             raise forms.ValidationError('手机号格式不正确', code='wrong phone')
-
-    def clean_newstudent_id(self):
-        newstudent_id = self.cleaned_data.get('newstudent_id')
-        regex = re.compile('^2019\\d{6}$')
-        if regex.match(newstudent_id):
-            return newstudent_id
-        else:
-            raise forms.ValidationError('学号格式不正确', code='wrong student_id')

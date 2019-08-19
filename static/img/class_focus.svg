@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fbfbfb;
+      }
+
+      .cls-2 {
+        fill: #297aff;
+      }
+    </style>
+  </defs>
+  <g id="组_374" data-name="组 374" transform="translate(-1212 -2116)">
+    <rect id="矩形_169" data-name="矩形 169" class="cls-1" width="40" height="40" rx="6" transform="translate(1212 2116)"/>
+    <g id="班级" transform="translate(1224 2126)">
+      <path id="路径_25" data-name="路径 25" class="cls-2" d="M-253.8-331l-8.123,4.832L-262-311.056l16.321.056.022-15.078Zm2.182,18.21-4.285-.015v-3.527a2.144,2.144,0,0,1,2.144-2.144,2.144,2.144,0,0,1,2.144,2.144Zm4.173.012-2.337-.009v-4.074a3.456,3.456,0,0,0-3.456-3.456h-1.047a3.456,3.456,0,0,0-3.456,3.456v4.049l-2.48-.009.062-12.34,6.349-3.776,6.38,3.853Zm0,0" transform="translate(262 331)"/>
+    </g>
+  </g>
+</svg>
