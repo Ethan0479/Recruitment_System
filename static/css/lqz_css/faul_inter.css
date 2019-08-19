@@ -1,0 +1,143 @@
+body{
+	background: #297AFF;
+}
+
+.header{
+	height: 220px;
+	z-index: -1;
+}
+.cloud{
+	height: 151.3px;
+	width: 232px;
+	position: absolute;
+	top: 18px;
+	left: 133px;
+}
+
+
+
+.name{
+	position: absolute; top:90px; left: 40px;
+	letter-spacing: 2px;
+	color: #FFFFFF;
+}
+
+.name1{
+	padding-top: 20px;
+}
+
+.header p{
+	
+	/* display: inline-block; */
+	color: white;
+	font-size: 32px;
+	letter-spacing:2px;
+	padding-bottom: 51px;
+}
+
+.white{
+	width: 100%;
+	background-color: white;
+	border-radius:15px 15px 0 0;
+}
+
+.content{
+		/* margin: 0 auto; */
+		margin-left: 64px;
+		padding-top: 54px;
+		font-size: 1rem;
+		color: #9E9E9E;
+		letter-spacing: 0.0625rem;
+		line-height: 2.25rem;
+}
+
+.fault{
+	margin-left: 4.625rem;
+	padding-top: 0.75rem;
+	padding-bottom: 71px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body,div,dl,dt,dd,ul,li,h1,h2,h3,h4,h5,h6,input,form,a,p,textarea{
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neve",Helvetica,Arial,sans-serif;
+}
+
+ol,ul,li{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;
+	display: block;
+	color: #fff;
+}
+
+img{
+	border: none;
+	display: block;
+	margin: 0;
+}
+
+figure{
+	margin: 0;
+	padding: 0;
+}
+input, button{
+	padding: 0;
+    border: none;
+    outline: none;
+}
+.clearfloat{
+	zoom:1;
+}
+
+.clearfloat:after{
+	display: block;
+	clear: both;
+	content: "";
+	visibility: hidden;
+	height: 0;
+}

@@ -15,7 +15,7 @@ class GlobalSettings(object):
 
 class Freshman(models.Model):
 
-    # 学号， 姓名， 性别， 学院， 专业， 专业班级， 手机号， QQ， 邮箱， 方向为必填， 申请时填入
+    # 学号， 姓名， 性别， 学院， 专业， 专业班级， 手机号， QQ， 邮箱为必填， 申请时填入
 
     newstudent_id = models.CharField(max_length=11, verbose_name=u'学号')#username存储学号
     password = models.CharField(max_length=25, verbose_name='密码')
@@ -27,10 +27,9 @@ class Freshman(models.Model):
     phone = models.CharField(max_length=11, verbose_name='手机')
     qq = models.CharField(max_length=15, verbose_name='QQ号')
     email = models.EmailField(max_length=30, verbose_name='邮箱')
-    direction = models.CharField(max_length=15, verbose_name='选择方向', choices=(('development', '开发'), ('design', '设计'), ('secretariat', '秘书处')))
 
     # 预约时间， 申请书， 面试时间， 面试地点， 面试得分， 评价， 面试者， 面试结果为后续填入事项，设为不必填
-
+    direction = models.CharField(max_length=15, verbose_name='选择方向', choices=(('development', '开发'), ('design', '设计'), ('secretariat', '秘书处')), null=True, blank=True)
     appointment_one = models.CharField(verbose_name='预约时间一', null=True, blank=True, max_length=60)
     appointment_two = models.CharField(verbose_name='预约时间二', null=True, blank=True, max_length=60)
     appointment_three = models.CharField(verbose_name='预约时间三', null=True, blank=True, max_length=60)

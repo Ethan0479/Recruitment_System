@@ -22,7 +22,7 @@ class Interview(models.Model):   # 此处继承AbstractUser， 改写auth_user�
 
 
 class Question(models.Model):
-    content = RichTextField(verbose_name='问题详情')
+    content = models.TextField(verbose_name='问题详情')
     interview = models.ForeignKey(Interview, on_delete=models.CASCADE)
 
     class Meta:

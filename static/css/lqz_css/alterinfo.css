@@ -1,0 +1,305 @@
+body{
+	background: #297AFF;
+}
+
+.header{
+	color: white;
+	font-size: 1.625rem;
+	letter-spacing:10px;
+	position: absolute; top:0; left: 0;
+	padding-left: 40px;
+	padding-top: 18px;
+	margin-bottom: 20px;
+	width: 54%;
+}
+
+.white{
+	width: 100%;
+	background-color: white;
+	border-radius:15px 15px 0 0;
+	position: absolute; top:68px; left: 0;
+}
+
+.name1{
+	color: #BCBCBC;
+	font-size: 12px;
+	letter-spacing:16px;
+	text-align: center;
+	margin-top: 17px;
+	margin-bottom: 30px;
+}
+
+.bbox{
+	color: #666666;
+	font-size: 16px;
+	letter-spacing: 2px;
+	line-height: 40px;
+	text-align: center;
+}
+
+input{
+    width: 67%;
+    height: 40px;
+    border: none;
+    margin-top: 30px;
+    text-indent: 3%;
+    outline: none;
+}
+input:focus{
+    border-left: solid 2px #297AFF;
+    box-shadow: 0 1px #E9E9E9;
+}
+#button{
+	letter-spacing: 9px;
+    margin-top: 50px;
+	margin-bottom: 50px;
+    border-radius: 10px;
+	border: 1px solid #297AFF;
+    width: 35%;
+    color: #297AFF;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+#button:focus{
+	background-color: #297AFF;
+	color: #FFFFFF;
+}
+.name{
+	background-image: url("/static/img/name.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.name:focus{
+	background-image: url("/static/img/name_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.student{
+	background-image: url("/static/img/id.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.student:focus{
+	background-image: url("/static/img/id_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.pass{
+	background-image: url("/static/img/pwd.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.pass:focus{
+	background-image: url("/static/img/pwd_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.genders{
+	box-pack:justify
+}
+.gender{
+	font-size: 16px;
+	letter-spacing: 2px;
+	line-height: 40px;
+	text-align: center;
+	display: inline-block;
+	margin-right: 60px;
+	margin-left: -130px;
+	}	
+.boy{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	margin-left: 9px;
+	position: absolute;
+}
+.qq{
+	background-image: url("/static/img/QQ.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.qq:focus{
+	background-image: url("/static/img/QQ_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.phone{
+	background-image: url("/static/img/phone.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.phone:focus{
+	background-image: url("/static/img/phone_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.email{
+	background-image: url("/static/img/email.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.email:focus{
+	background-image: url("/static/img/email_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+select{
+	border: 0;
+	color:#666666 ;
+	background-color: white;
+	-webkit-appearance: none;
+	background-repeat: no-repeat;
+	width: 67%;
+	height: 40px;
+	border: none;
+	text-indent: 3%;
+	outline: none;
+}
+.selectone{
+	background-image: url("/static/img/college.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.selectone:focus{
+	background-image: url("/static/img/college_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+	border-left: solid 2px #297AFF;
+	box-shadow: 0 1px #E9E9E9;
+}
+.selecttwo{
+	background-image: url("/static/img/major.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.selecttwo:focus{
+	background-image: url("/static/img/major_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+	border-left: solid 2px #297AFF;
+	box-shadow: 0 1px #E9E9E9;
+}
+.classes{
+	background-image: url("/static/img/class.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.classes:focus{
+	background-image: url("/static/img/class_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.selectthree{
+	background-image: url("/static/img/apartment.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.selectthree:focus{
+	background-image: url("/static/img/apartment_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+	border-left: solid 2px #297AFF;
+	box-shadow: 0 1px #E9E9E9;
+}
+.room{
+	background-image: url("/static/img/dormitory.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+.room:focus{
+	background-image: url("/static/img/dormitory_focus.svg");
+	background-repeat: no-repeat;
+	background-position-x: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body,div,dl,dt,dd,ul,li,h1,h2,h3,h4,h5,h6,input,form,a,p,textarea{
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neve",Helvetica,Arial,sans-serif;
+}
+
+ol,ul,li{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;
+	display: block;
+	color: #fff;
+}
+
+img{
+	border: none;
+	display: block;
+	margin: 0;
+}
+
+figure{
+	margin: 0;
+	padding: 0;
+}
+input, button{
+	padding: 0;
+    border: none;
+    outline: none;
+}
+.clearfloat{
+	zoom:1;
+}
+
+.clearfloat:after{
+	display: block;
+	clear: both;
+	content: "";
+	visibility: hidden;
+	height: 0;
+}

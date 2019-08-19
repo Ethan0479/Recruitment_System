@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>招新系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+    <link rel="stylesheet" href="{% static 'css/lkl_css/index.css' %}" type="text/css">
+</head>
+<body>
+<div id="top">
+    <img src="{% static 'img/logo_one.png' %}" alt="" id="YD_logo">
+</div>
+<div id="center">
+    <p>2019/</p>
+    <b>云顶招新</b>
+    <div id="slogan">
+        <p>振翅云顶之上</p>
+        <br>
+        <p>极目星辰大海</p>
+    </div>
+
+</div>
+<div id="footer">
+    <div id="login">
+        <a href="{% url 'freshman:login' %}">登&nbsp;&nbsp;&nbsp;录</a>
+    </div>
+    <div id="register">
+        <a href="{% url 'freshman:register' %}">注&nbsp;&nbsp;&nbsp;册</a>
+    </div>
+</div>
+</body>
+</html>
