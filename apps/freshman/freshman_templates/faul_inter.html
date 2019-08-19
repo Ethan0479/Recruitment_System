@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>面试失败</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/lqz_css/faul_inter.css' %}" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="name">
+				<h1>面试失败！</h1>
+				<div class="name1">再接再厉</div>
+			</div>
+			<img src="{% static 'img/cloud.png' %}" alt="" class="cloud">
+		</div>
+		
+		<div class="white">
+			<!-- 内容 -->
+			<div class="content">
+						<ul>
+						<li>亲爱的同学:</li>
+						<li>很遗憾,你没有通过A轮面试.</li>
+						<li>希望你不要灰心哦，请关注迎新</li>
+						<li>群，报名参加B轮面试</li>
+					</ul>
+			</div>
+			<!-- 成功图片 -->
+			<img src="{% static 'img/fail.png' %}" alt="" class="fault">
+		</div>
+	</body>
+</html>

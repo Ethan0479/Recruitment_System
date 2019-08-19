@@ -1,0 +1,41 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>报名成功</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/lqz_css/regi.css' %}" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="name">
+				<h1>报名成功！</h1>
+				<div class="name1">期待你的精彩表现</div>
+			</div>
+			<img src="{% static 'img/cloud.png' %}" alt="" class="cloud">
+		</div>
+		
+		<div class="white">
+			<!-- 内容 -->
+			<div class="content">
+						<ul>
+						<li>亲爱的{{ student.newname }}同学:</li>
+						<!-- 接口 -->
+						<li>为了让学姐学长更好的了解你,</li>
+						<li>请尽快写一份申请书(电子版和</li>
+						<li>纸质版),并提交!</li>
+					</ul>
+			</div>
+			<div id="text3" class="text"></div>
+		        <div class="apply_stb">
+					<input id="btn4" type="button" value="">
+				</div>
+		        <div id="text4">点击按钮编写电子版</div>
+		        <div id="text5">纸质版请交至云顶数港基地</div>
+				<input id="sbt1" type="submit" value="修改报名表" >
+				<input id="sbt2" type="submit" value="确认" >
+
+		</div>
+	</body>
+</html>

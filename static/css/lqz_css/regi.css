@@ -1,0 +1,198 @@
+body{
+	background: #297AFF;
+}
+
+.header{
+	height: 220px;
+	z-index: -1;
+}
+
+
+
+.header p{
+	
+	/* display: inline-block; */
+	color: white;
+	font-size: 32px;
+	letter-spacing:2px;
+	padding-bottom: 51px;
+}
+
+
+.cloud{
+	height: 9.45625rem;
+	width: 14.5rem;
+	position: absolute;
+	top: 1.125rem;
+	left: 8.3125rem;
+}
+
+
+
+.name{
+	position: absolute; top:5.625rem; left: 2.5rem;
+	letter-spacing: 0.125rem;
+	color: #FFFFFF;
+}
+
+.name1{
+	padding-top: 20px;
+}
+
+
+.white{
+	width: 100%;
+	background-color: white;
+	border-radius:15px 15px 0 0;
+}
+
+.content{
+		/* margin: 0 auto; */
+		margin-left: 64px;
+		padding-top: 54px;
+		margin-bottom: 33px;
+		font-size: 1rem;
+		color: #9E9E9E;
+		letter-spacing: 0.0625rem;
+		line-height: 2.25rem;
+}
+
+#btn4{
+            background-image: url("/static/img/button.png");
+			background-color: white;
+			background-repeat: no-repeat;
+            border-radius: 9px;
+            width: 22%;
+            height: 40px;
+            border: solid 2px #2b7bff;
+            margin-left: 14%;
+            outline: medium;
+            position: absolute;
+        }
+#sbt{
+        color: white;
+        background-color: #2b7bff;
+        font-weight: lighter;
+        font-size: 20px;
+        width: 45%;
+        height: 40px;
+        border: solid 1px #2b7bff;
+        border-radius: 9px;
+        letter-spacing: 9px;
+        margin-top: 45px;
+        margin-left: 27%;
+        outline: medium;
+        }
+ #text4{
+        color: #bcbcbc;
+        height: 24px;
+        width: 40%;
+        position: relative;
+        margin-top: 44px;
+        margin-left: 42%;
+        }
+#text5{
+        margin-top: 20px;
+        margin-left: 20%;
+		color: #bcbcbc;
+      }
+	  
+input[type=submit]{
+    margin-top: 34px;
+	margin-bottom: 70px;
+	margin-left: 24px;
+    border-radius: 10px;
+	border: 1px solid #297AFF;
+    width: 140px;
+	height: 40px;
+    color: #297AFF;
+    background-color: #FFFFFF;
+    text-align: center;
+	letter-spacing: 9px;
+	text-indent: 9%;
+}
+input[type=submit]:focus{
+	background-color: #297AFF;
+	color: #FFFFFF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body,div,dl,dt,dd,ul,li,h1,h2,h3,h4,h5,h6,input,form,a,p,textarea{
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neve",Helvetica,Arial,sans-serif;
+}
+
+ol,ul,li{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;
+	display: block;
+	color: #fff;
+}
+
+img{
+	border: none;
+	display: block;
+	margin: 0;
+}
+
+figure{
+	margin: 0;
+	padding: 0;
+}
+input, button{
+	padding: 0;
+    border: none;
+    outline: none;
+}
+.clearfloat{
+	zoom:1;
+}
+
+.clearfloat:after{
+	display: block;
+	clear: both;
+	content: "";
+	visibility: hidden;
+	height: 0;
+}

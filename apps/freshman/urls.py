@@ -2,10 +2,10 @@
 from django.conf.urls import url
 from django.urls import path
 
-from .views import RegisterView, LoginView, PersonalView, IndexView, AppointmentView, ApplicationView, InterviewResultView
 
+from .views import IndexView, LoginView, RegisterView, PersonalView
 
-from . import views
+app_name = 'freshman'
 urlpatterns = [
     # url(r'^login/$',views.login)
     # url(r'^register/$',views.)
@@ -14,13 +14,10 @@ urlpatterns = [
     # url(r'^application/$',views.)
     # url(r'^result/$',views.)
     # url(r'^application/$',views.ApplicationView.get)
-    path('login/', LoginView.as_view(), name='login'),
-    path('register/', RegisterView.as_view(), name='register'),
-    path('index/', IndexView.as_view(), name='index'),
-    path('personal/', PersonalView.as_view(), name='personal'),
-    path('appointment/', AppointmentView.as_view(), name='appointment'),
-    path('application/', ApplicationView.as_view(), name='application'),
-    path('interview_result/', InterviewResultView.as_view(), name='interview_result'),
+    url('index/', IndexView.as_view(), name='index'),
+    url('login/', LoginView.as_view(), name='login'),
+    url('register/', RegisterView.as_view(), name='register'),
+    url('alterinfo/', PersonalView.as_view(), name='alterinfo'),
 ]
 
 

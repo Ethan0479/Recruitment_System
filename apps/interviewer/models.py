@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -13,8 +14,20 @@ class Interview(models.Model):   # 此处继承AbstractUser， 改写auth_user�
     reason = models.TextField (verbose_name=u"原因", null=True, blank=True)
 
     class Mate:
-        verbose_name = '面试官'
-        verbose_name_plural = verbose_name
+        verbose_name = u'面试官'
+        verbose_name_plural = u'面试官'
 
     def __str__(self):
         return self.interview_name
+
+
+class Question(models.Model):
+    content = models.TextField(verbose_name='问题详情')
+    interview = models.ForeignKey(Interview, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = u'面试问题'
+        verbose_name_plural = u'面试问题'
+
+    def __str__(self):
+        return self.content

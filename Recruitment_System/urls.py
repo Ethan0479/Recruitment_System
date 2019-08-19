@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # import xadmin
+# import xadmin
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
@@ -22,8 +23,10 @@ from Recruitment_System.settings import DEBUG, MEDIA_ROOT
 
 urlpatterns = [
     # path('xadmin/', xadmin.site.urls),
-    url(r'^', include('apps.freshman.urls')),
+    url(r'^', include('apps.freshman.urls', namespace='freshman')),
     path(r'interview/', include('apps.interviewer.urls')),
+    path(r'data/', include('apps.data.urls')),
+    url(r'ckeditor', include('ckeditor_uploader.urls'))
 ]
 from django.views.static import serve
 if DEBUG:

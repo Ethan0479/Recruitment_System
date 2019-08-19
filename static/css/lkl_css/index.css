@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+}
+body{
+    background-image: url("/static/img/backgorund.png");background-repeat: no-repeat;background-size: 100%;
+}
+#top{
+     height: 93px;
+     width: 100%;
+ }
+#center{
+    position: relative;
+    height: 347px;
+    width: 89%;
+    left: 11%;
+    color: #FFFFFF;
+    padding-top: 85px;
+}
+#footer {
+    height: 115px;
+    width: 100%;
+}
+#login,#register{
+    border: solid 1px #FFFFFF;
+    width: 35%;
+    height: 40px;
+    border-radius: 10px;
+    float: left;
+    margin-left: 10%;
+}
+#footer div a{
+    font-size: 18px;
+    text-decoration: none;
+    color: #FFFFFF;
+    padding-left: 28%;padding-right: 28%;
+    position: relative;
+    top: 7px;
+}
+#register:hover,#login:hover{
+    background-color: #297AFF;
+    border: #297AFF;
+    transition: 0.5s;
+}
+#YD_logo{
+    max-height: 30px;
+    max-width: 45px;
+    position: relative;
+    top: 64px;
+    left: 77%;
+}
+div p{
+    font-size: 20px;
+}
+div b{
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 8px;
+}
+#slogan{
+    font-weight: 100;
+    padding-top: 168px;
+    letter-spacing: 8px;
+}
