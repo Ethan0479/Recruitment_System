@@ -60,7 +60,7 @@ input, .select_list{
     outline: none;
 }
 input[type=submit], input[type=button]{
-    margin-top: 60px;
+    margin-top: -15px;
     border-radius: 10px;
     width: 35%;
     color: #FFFFFF;
@@ -270,7 +270,7 @@ input[type=radio]:checked+.female_icon{
     font-weight: 100;
 }
 .main_footer{
-    position: absolute;
+    position: fixed;
     bottom: 5%;
     width: 100%;
 }

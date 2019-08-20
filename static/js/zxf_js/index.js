@@ -50,10 +50,6 @@ function btnChange(btn) {
     }
 }
 
-//模拟鼠标点击按钮
-// function click(btnID){
-//     document.getElementById(btnID).click();
-// }
 function btnClick(direction) {
     if (direction == '开发') {
         btnChange(document.getElementById('btn1'));
@@ -76,7 +72,38 @@ function selectClick(time1,time2,time3) {
     var select_2_2 = document.getElementById('time_2_2').getElementsByClassName("opt");
     var select_1_3 = document.getElementById('time_1_3').getElementsByClassName("opt");
     var select_2_3 = document.getElementById('time_2_3').getElementsByClassName("opt");
-    for (i=0;i<select_1_1.length;i++){
 
+    //时间段一
+    for (i=0; i<select_1_1.length; i++){
+        if (select_1_1[i].value == time1_list[0]) {
+            select_1_1[i].selected = 'selected';
+        }
+    }
+    for (i=0; i<select_2_1.length; i++){
+        if (select_2_1[i].value == time1_list[1]) {
+            select_2_1[i].selected = 'selected';
+        }
+    }
+    //时间段二
+    for (i=0; i<select_1_2.length; i++){
+        if (select_1_2[i].value == time2_list[0]) {
+            select_1_2[i].selected = 'selected';
+        }
+    }
+    for (i=0; i<select_2_2.length; i++){
+        if (select_2_2[i].value == time2_list[1]) {
+            select_2_2[i].selected = 'selected';
+        }
+    }
+    //时间段三
+    for (i=0; i<select_1_3.length; i++){
+        if (select_1_3[i].value == time3_list[0]) {
+            select_1_3[i].selected = 'selected';
+        }
+    }
+    for (i=0; i<select_2_3.length; i++){
+        if (select_2_3[i].value == time3_list[1]) {
+            select_2_3[i].selected = 'selected';
+        }
     }
 }

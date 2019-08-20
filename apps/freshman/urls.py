@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^homepage/$', HomepageView.as_view(), name='homepage'),
     url(r'^sign_up/$', AppointmentView.as_view(), name='sign_up'),
     url(r'^alter_sign_up/$', AlterAppointmentView.as_view(), name='alter_sign_up'),
+    url(r'^application/$', ApplicationView.as_view(), name='application'),
 ]
 
 
