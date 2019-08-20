@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic.base import View
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -60,8 +60,8 @@ class RegisterView(View):
             applicant.dormitory = request.POST.get('dormitory', '')
             # applicant.direction = request.POST.get('direction', '')  # 选择方向
             applicant.save()
-            response = redirect('/login/')
-            return response  # 注册成功跳转登录页面
+            # response = redirect('/login/')
+            return HttpResponseRedirect  # 注册成功跳转登录页面
             # else:
             #     return render(request, 'register.html', {'error': error})
         else:
@@ -107,7 +107,7 @@ class LoginView(View):
                 if user.password == password:
                     # url = '/index/' + newstudent_id + '/'
                     # 要改，不叫index
-                    url = '/alterinfo/'
+                    url = '/homepage/'
                     response = redirect(url)
                     response.set_cookie('newstudent_id', newstudent_id)
                     response.set_cookie('idnum', user.id)
@@ -116,6 +116,11 @@ class LoginView(View):
                     return render(request, '../freshman_templates/login.html', {'error': '用户名或密码不正确！'})
         except Freshman.DoesNotExist:
             return render(request, '../freshman_templates/register.html', {'error': '你还没有注册报名哦'})
+
+
+class HomepageView(View):
+    def get(self, request):
+        return render(request, '../freshman_templates/homepage.html')
 
 
 # 个人信息查看、修改(姓名、学号、性别不可改，方向不在此处修改)
@@ -150,7 +155,7 @@ class PersonalView(View):
                 student.dormitory = request.POST.get('dormitory', '')  # 宿舍号
                 student.save()
                 msg = '修改成功'
-                return render(request,)  # 成功则返回主页面
+                return HttpResponse("200")  # 成功则返回主页面
                 # if newstudent_id == student.newstudent_id:  # 没改学号正常跳回index页面
                 #     return render(request, 'index.html', {'msg': msg})
                 # else:  # 改了学号则需要退出并重新登录
@@ -166,7 +171,10 @@ class PersonalView(View):
 class AppointmentView(View):
     def get(self, request):
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
-        return render(request, 'time.html', locals())  # # 显示该学生的预约时间，
+        if not student.direction and not student.appointment_one:
+            return render(request, '../freshman_templates/sign_up.html', locals())  # 没选择方向以及至少一个预约时间的话跳转报名界面
+        else:
+            return render(request, '../freshman_templates/sign_up_success.html')  # 选择了跳转报名成功界面
 
     def post(self, request):
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
@@ -176,7 +184,7 @@ class AppointmentView(View):
         student.direction = request.POST.get('direction', '')
         student.save()
         msg = '选择成功！记得关注面试通知哦！'
-        return render(request, '../freshman_templates/regi.html', {'msg': msg, 'student': student})  # 可以修改
+        return render(request, '../freshman_templates/sign_up_success.html', {'msg': msg, 'student': student})  # 可以修改
 
 
 # 查询申请书界面
@@ -220,10 +228,13 @@ class InterviewResultView(View):
     def get(self, request):  # 显示该学生的面试结果，不可修改
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
         # 大概逻辑
-        if student.interview_result == '成功':  # 面试成功
-            return render(request, '../freshman_templates/succ_inter.html', {'interview_result': student.interview_result})
-        else:                                    # 面试失败
-            return render(request, '../freshman_templates/faul_inter.html')
+        if not student.interview_result:
+            return
+        else:
+            if '通过' in student.interview_result:  # 面试成功
+                return render(request, '../freshman_templates/succ_inter.html', {'interview_result': student.interview_result})
+            else:                                    # 面试失败
+                return render(request, '../freshman_templates/faul_inter.html')
 
 
 # 退出函数
