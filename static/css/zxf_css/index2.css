@@ -1,0 +1,142 @@
+img, #logo_1 {
+    margin-left: 33%;
+    position: absolute;
+    margin-top: 3%;
+    width: 14rem;
+    height: 8.5rem;
+}
+
+#head {
+    font-size: 25px;
+    margin-left: 10%;
+    padding-top: 13%;
+    position: relative;
+    color: #2b7bff;
+}
+
+#head_1 {
+    font-weight: normal;
+}
+
+#head_2 {
+    font-weight: bolder;
+    font-size: 35px;
+}
+
+#text1 {
+    margin-top: 35px;
+}
+
+.text {
+    margin-left: 14%;
+    letter-spacing: 7px;
+    color: #c7c7c7;
+    font-size: 14px;
+    margin-bottom: 15px;
+    font-weight: lighter;
+}
+
+.btn {
+    background-color: #ffffff;
+    border: solid 1px #BCBCBC;
+    border-radius: 12px;
+    width: 26%;
+    height: 49px;
+    margin-left: 5%;
+    color: #bcbcbc;
+    letter-spacing: 7px;
+    text-align: center;
+    font-weight: 500;
+    outline: medium;
+    font-size: 16px;
+}
+
+#content {
+    margin: 0 auto;
+}
+
+select {
+    background-color: #2b7bff;
+    border: solid 1px #2b7bff;
+    color: #ffffff;
+    border-radius: 10px;
+    height: 42px;
+    text-align: center;
+    font-size: 16px;
+    outline: medium;
+    -webkit-appearance: none;
+}
+
+.time_1 {
+    width: 31%;
+    margin-left: 6%;
+}
+
+.time_2 {
+    width: 52%;
+    margin-left: 2%;
+}
+
+.opt {
+    color: #bcbcbc;
+    background-color: white;
+    outline: medium;
+    border: solid 1px #2b7bff;
+    border-radius: 10px;
+}
+
+#btn4 {
+    background-color: white;
+    border-radius: 9px;
+    width: 22%;
+    height: 40px;
+    border: solid 2px #2b7bff;
+    margin-left: 14%;
+    outline: medium;
+    position: absolute;
+}
+
+.text2 {
+    font-size: 12px;
+}
+
+#text3 {
+    margin-top: 22px;
+}
+
+#text4 {
+    color: #bcbcbc;
+    height: 24px;
+    width: 40%;
+    position: relative;
+    margin-top: 20px;
+    margin-left: 42%;
+}
+
+#text5 {
+    margin-top: 30px;
+    margin-left: 20%;
+}
+
+#stb_img {
+    width: 20px;
+    height: 19px;
+    margin-top: 11px;
+    margin-left: 22%;
+}
+
+#sbt {
+    color: white;
+    background-color: #2b7bff;
+    font-weight: lighter;
+    font-size: 20px;
+    width: 45%;
+    height: 40px;
+    border: solid 1px #2b7bff;
+    border-radius: 9px;
+    letter-spacing: 9px;
+    margin-top: 45px;
+    margin-left: 27%;
+    margin-bottom: 30px;
+    outline: medium;
+}
