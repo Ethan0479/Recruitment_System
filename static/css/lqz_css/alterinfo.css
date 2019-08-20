@@ -303,3 +303,7 @@ input, button{
 	visibility: hidden;
 	height: 0;
 }
+input:disabled{
+    opacity: 1;
+    background-color: #fbfbfb;
+}

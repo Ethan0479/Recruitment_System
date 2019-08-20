@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'xadmin',
-    'crispy_forms',
+    # 'xadmin',
+    # 'crispy_forms',
     'ckeditor',
     'ckeditor_uploader',
     'apps.interviewer',
@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "recruitment_system",
         "USER": "root",
-        "PASSWORD": "mysql",
+        "PASSWORD": "root",
         "HOST": "127.0.0.1"
     }
 }

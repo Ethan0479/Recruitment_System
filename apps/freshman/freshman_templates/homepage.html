@@ -1,0 +1,119 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/htt_css/homepage.css' %}">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        function a(){
+            swal({
+                title : "云顶微信公众号",
+                text:"扫码关注",
+                imageUrl: "/static/img/QRcode.png",
+                     allowOutsideClick:"ture",
+                confirmButtonText : "确认",
+                closeOnConfirm : false,
+                animation:"pop",
+             });
+        }
+        function b(){
+            swal({
+                title : "面试安排",
+                text:"时间:9月1日 17:00-21:00"+"\n"+"地点：行远楼A221",
+                     allowOutsideClick:"ture",
+                confirmButtonText : "我已知晓",
+                closeOnConfirm : false,
+                animation:"pop",
+         });
+        }
+
+        //时间
+        window.onload=function(){
+        //定时器每秒调用一次fnDate()
+            setInterval(function(){
+            fnDate();
+            },100);
+        }
+        //js 获取当前时间
+        function fnDate(){
+            var one=document.getElementById("date_one");
+            var two=document.getElementById("date_two");
+            var date=new Date();
+            var year=date.getFullYear();//当前年份
+            var month=date.getMonth();//当前月份
+            var day=date.getDate();//天
+            var time=(month+1)+"/"+day;
+            one.innerHTML=year;
+            two.innerHTML=time;
+        }
+    </script>
+    <title>主页</title>
+</head>
+<body>
+<!--设置头部-->
+<div id="header">
+    <div id="up"></div>
+    <div id="cover">
+        <div id="cover_welcome">
+            <p id="cover_welcome_one">欢迎你</p>
+            <p id="cover_welcome_two">云小某</p>
+        </div>
+        <div id="cover_data">
+            <div id="date_one"></div>
+            <div id="date_two"></div>
+        </div>
+        <div id="cover_understand">
+            <input type="button" value="了解云顶书院" id="understand" onclick="a()"/>
+        </div>
+    </div>
+    <div id="down"></div>
+</div>
+<!--设置主体-->
+<div id="main">
+    <div id="line_one">
+        <div id="sign_up">
+            <div class="content_two">云顶报名</div>
+            <a href="{% url 'freshman:sign_up' %}" target="_self" id="text_1">
+                <div class="a">
+                    <div class="content_one">SIGN<br>UP
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div id="modify_information" >
+            <div class="content_two">修改信息</div>
+            <a href="{% url 'freshman:alterinfo' %}" target="_self">
+                <div class="a">
+                    <div class="content_one">INFORMA<br>TION
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div id="line_two">
+        <div id="arrangement">
+            <input type="button" class="a" onclick="b()" id="arrange"/>
+            <div class="content_two">面试安排</div>
+            <div class="content_one" id="arranges">ADDRESS<br>TIME</div>
+        </div>
+        <div id="interview_result">
+            <div class="content_two">面试结果</div>
+            <a href="{% url 'freshman:result' %}" target="_self">
+                <div class="a">
+                    <div class="content_one">INTER<br>VIEW
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<!--设置底部-->
+<div id="footer">
+    <div id="logo"></div>
+</div>
+</body>
+</html>
