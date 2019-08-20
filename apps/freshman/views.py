@@ -42,8 +42,6 @@ class RegisterView(View):
     def post(self, request):
         apply_form = Applyfrom(request.POST)
         if apply_form.is_valid():
-            # error = self.comfirm_password(request.POST.get('password', ''), request.POST.get('pwd', '1'))
-            # if not error:
             applicant = Freshman()
             applicant.newstudent_id = request.POST.get('newstudent_id', '')  # 学号
             applicant.password = request.POST.get('password', '')  # 密码
@@ -60,18 +58,12 @@ class RegisterView(View):
             applicant.dormitory = request.POST.get('dormitory', '')
             # applicant.direction = request.POST.get('direction', '')  # 选择方向
             applicant.save()
-            # response = redirect('/login/')
-            return HttpResponseRedirect  # 注册成功跳转登录页面
+            response = redirect('/login/')
+            return response  # 注册成功跳转登录页面
             # else:
             #     return render(request, 'register.html', {'error': error})
         else:
             return render(request, '../freshman_templates/register.html')  # 提示错误信息
-
-    def comfirm_password(self, password, comfirm_password):
-        if password != comfirm_password:
-            msg = '两次密码不统一！'
-            return msg
-
 
 # 随机生成数字验证码
 def generate_code():
@@ -186,6 +178,16 @@ class AppointmentView(View):
         msg = '选择成功！记得关注面试通知哦！'
         return HttpResponse("200")  # 可以修改
 
+class AlterAppointmentView(View):
+    def get(self,request):
+        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
+        direction = student.direction
+        time1 = student.appointment_one
+        time2 = student.appointment_three
+        time3 = student.appointment_two
+        return render(request, '../freshman_templates/alter_sign_up.html',{'student':student})
+    def post(self,request):
+        pass
 
 # 查询申请书界面
 class ApplicationView(View):
@@ -243,3 +245,4 @@ def log_out(request):
     response.delete_cookie('newstudent_id')
     response.delete_cookie('idnum')
     return response
+

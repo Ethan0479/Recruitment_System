@@ -2,8 +2,8 @@
 from django.conf.urls import url
 from django.urls import path
 
-
-from .views import IndexView, LoginView, RegisterView, PersonalView, InterviewResultView, HomepageView, AppointmentView
+from . import views
+from .views import *
 
 app_name = 'freshman'
 urlpatterns = [
@@ -14,13 +14,14 @@ urlpatterns = [
     # url(r'^application/$',views.)
     # url(r'^result/$',views.)
     # url(r'^application/$',views.ApplicationView.get)
-    url('index/', IndexView.as_view(), name='index'),
-    url('login/', LoginView.as_view(), name='login'),
-    url('register/', RegisterView.as_view(), name='register'),
-    url('alterinfo/', PersonalView.as_view(), name='alterinfo'),
-    url('result/', InterviewResultView.as_view(), name='result'),
-    url('homepage/', HomepageView.as_view(), name='homepage'),
-    url('sign_up/', AppointmentView.as_view(), name='sign_up'),
+    url(r'^index/$', IndexView.as_view(), name='index'),
+    url(r'^login/$', LoginView.as_view(), name='login'),
+    url(r'^register/$', RegisterView.as_view(), name='register'),
+    url(r'^alterinfo/$', PersonalView.as_view(), name='alterinfo'),
+    url(r'^result/$', InterviewResultView.as_view(), name='result'),
+    url(r'^homepage/$', HomepageView.as_view(), name='homepage'),
+    url(r'^sign_up/$', AppointmentView.as_view(), name='sign_up'),
+    url(r'^alter_sign_up/$', AlterAppointmentView.as_view(), name='alter_sign_up'),
 ]
 
 

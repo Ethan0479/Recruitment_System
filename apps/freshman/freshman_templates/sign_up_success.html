@@ -30,16 +30,18 @@
 			<div id="text3" class="text"></div>
 		        <div class="apply_stb">
 					<input id="btn4" type="button" value="">
+                    <img src="/static/img/墨笔.svg" width="25px" height="25px" style="position: absolute;margin-top: 7px;margin-left: 81px ">
 				</div>
 		        <div id="text4">点击按钮编写电子版</div>
 		        <div id="text5">纸质版请交至云顶数港基地</div>
-				<input id="sbt1" type="submit" value="修改报名表" >
-				<input id="sbt2" type="submit" value="确认" onclick="backtohomepage()">
+				<input id="sbt1" type="button" value="修改报名表" onclick="location.href='/alter_sign_up/'">
+				<input id="sbt1" type="button" value="修改报名表" onclick="location.href='/alter_sign_up/'">
+				<input id="sbt2" type="button" value="确认" onclick="location.href='/homepage/'">
 		</div>
 	</body>
-<script>
-    function backtohomepage() {
-        window.location.href = '/homepage/'
-    }
-</script>
+{#<script>#}
+{#    function backtohomepage() {#}
+{#        window.location.href = '/homepage/'#}
+{#    }#}
+{#</script>#}
 </html>
