@@ -34,8 +34,12 @@
 		        <div id="text4">点击按钮编写电子版</div>
 		        <div id="text5">纸质版请交至云顶数港基地</div>
 				<input id="sbt1" type="submit" value="修改报名表" >
-				<input id="sbt2" type="submit" value="确认" >
-
+				<input id="sbt2" type="submit" value="确认" onclick="backtohomepage()">
 		</div>
 	</body>
+<script>
+    function backtohomepage() {
+        window.location.href = '/homepage/'
+    }
+</script>
 </html>

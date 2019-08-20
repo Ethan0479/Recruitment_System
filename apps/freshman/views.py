@@ -174,7 +174,7 @@ class AppointmentView(View):
         if not student.direction and not student.appointment_one:
             return render(request, '../freshman_templates/sign_up.html', locals())  # 没选择方向以及至少一个预约时间的话跳转报名界面
         else:
-            return render(request, '../freshman_templates/sign_up_success.html')  # 选择了跳转报名成功界面
+            return render(request, '../freshman_templates/sign_up_success.html', {'student': student})  # 选择了跳转报名成功界面
 
     def post(self, request):
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
@@ -184,7 +184,7 @@ class AppointmentView(View):
         student.direction = request.POST.get('direction', '')
         student.save()
         msg = '选择成功！记得关注面试通知哦！'
-        return render(request, '../freshman_templates/sign_up_success.html', {'msg': msg, 'student': student})  # 可以修改
+        return HttpResponse("200")  # 可以修改
 
 
 # 查询申请书界面

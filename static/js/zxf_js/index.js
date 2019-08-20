@@ -18,6 +18,7 @@ function timeSet(sel) {
 function btnChange(btn) {
     btn.style.backgroundColor = "#2b7bff";
     btn.style.color = "#ffffff";
+    var direction = document.getElementById("button_list");
     if (btn.id === "btn1"){
         var btn_1 = document.getElementById("btn2");
         var btn_2 = document.getElementById("btn3");
@@ -25,6 +26,9 @@ function btnChange(btn) {
         btn_2.style.backgroundColor = "#ffffff";
         btn_1.style.color = "#bcbcbc";
         btn_2.style.color = "#bcbcbc";
+        direction.value = "开发";
+        var tip = document.getElementById("head_2").value;
+        tip.innerHTML = "nishizhuma";
     }else if (btn.id === "btn2"){
         var btn_1 = document.getElementById("btn1");
         var btn_2 = document.getElementById("btn3");
@@ -32,6 +36,7 @@ function btnChange(btn) {
         btn_2.style.backgroundColor = "#ffffff";
         btn_1.style.color = "#bcbcbc";
         btn_2.style.color = "#bcbcbc";
+        direction.value = "设计";
     }else if (btn.id === "btn3") {
         var btn_1 = document.getElementById("btn1");
         var btn_2 = document.getElementById("btn2");
@@ -39,6 +44,7 @@ function btnChange(btn) {
         btn_2.style.backgroundColor = "#ffffff";
         btn_1.style.color = "#bcbcbc";
         btn_2.style.color = "#bcbcbc";
+        direction.value = "秘书处";
     }else {
         alert("错误")
     }
