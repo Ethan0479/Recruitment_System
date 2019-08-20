@@ -77,6 +77,6 @@ function selectClick(time1,time2,time3) {
     var select_1_3 = document.getElementById('time_1_3').getElementsByClassName("opt");
     var select_2_3 = document.getElementById('time_2_3').getElementsByClassName("opt");
     for (i=0;i<select_1_1.length;i++){
-        select_1_1
+
     }
 }
