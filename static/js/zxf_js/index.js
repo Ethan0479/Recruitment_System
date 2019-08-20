@@ -51,6 +51,32 @@ function btnChange(btn) {
 }
 
 //模拟鼠标点击按钮
-function click(btnID){
-    document.getElementById(btnID).click();
+// function click(btnID){
+//     document.getElementById(btnID).click();
+// }
+function btnClick(direction) {
+    if (direction == '开发') {
+        btnChange(document.getElementById('btn1'));
+    } else if (direction == '设计') {
+        btnChange(document.getElementById('btn2'));
+    } else if (direction == '秘书处') {
+        btnChange(document.getElementById('btn3'));
+    } else {
+        alert(direction);
+    }
+}
+
+function selectClick(time1,time2,time3) {
+    var time1_list = time1.split("_");
+    var time2_list = time2.split("_");
+    var time3_list = time3.split("_");
+    var select_1_1 = document.getElementById('time_1_1').getElementsByClassName("opt");
+    var select_2_1 = document.getElementById('time_2_1').getElementsByClassName("opt");
+    var select_1_2 = document.getElementById('time_1_2').getElementsByClassName("opt");
+    var select_2_2 = document.getElementById('time_2_2').getElementsByClassName("opt");
+    var select_1_3 = document.getElementById('time_1_3').getElementsByClassName("opt");
+    var select_2_3 = document.getElementById('time_2_3').getElementsByClassName("opt");
+    for (i=0;i<select_1_1.length;i++){
+        select_1_1
+    }
 }

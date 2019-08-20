@@ -4,71 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=0">
     <title>Title</title>
-    <link type="text/css" rel="stylesheet" href="css/index2.css">
-    <script type="text/javascript" src="js/index.js"></script>
+    <link type="text/css" rel="stylesheet" href="/static/css/zxf_css/index2.css">
+    <script type="text/javascript" src="/static/js/zxf_js/index.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script type="text/javascript">
-        function a(){
-         swal({
-        title : "修改成功",
-        type : "success",
-        confirmButtonText : "确定",
-        closeOnConfirm : false
-        });
-        }
-        // function b(){
-        //  swal({
-        // title : "修改失败",
-        // type : "error",
-        // confirmButtonText : "确定",
-        // closeOnConfirm : false
-        // });
-        // }
+        	function a(){
+        	    $.ajax({
+                    url: "/alter_sign_up/",
+                    type: "POST",
+                    data: $('#alter_sign_up').serialize(),
+                    success:function (result) {
+                        if (result === '200'){
+                            swal({
+				                title : "修改成功",
+				                type : "success",
+				                confirmButtonText : "确定",
+				                closeOnConfirm : false
+        		            }, function () {
+                              window.location.href = '/homepage/'
+                            });
+                        }
+                    }
+                });
+        		}
+            function b(){
+        	    $.ajax({
+                    url: "/alter_sign_up/",
+                    type: "POST",
+                    data: $('#alter_sign_up').serialize(),
+                    error:function (result) {
+                        if (result !== '200'){
+                            swal({
+				                title : "修改失败",
+				                type : "error",
+				                confirmButtonText : "确定",
+				                closeOnConfirm : false
+        		            }, function () {
+                              window.location.href = '/homepage/'
+                            });
+                        }
+                    }
+                });
+        		}
     </script>
 </head>
-<body onload="click()">
+<body onload="btnClick('{{ student.direction }}');selectClick('{{ student.appointment_one }}','{{ student.appointment_two }}','{{ student.appointment_three }}')">
     <img id="logo_1" src="img/logo_1@2x.png" />
     <div id="head"><span id="head_1">2019/</span><br/><span id="head_2">修&nbsp改&nbsp报&nbsp名</span></div>
     <div id="content">
-        <form action="" method="post">
+        <form action="" method="post" id="alter_sign_up">
             <div id="text1" class="text">请选择方向</div>
+            <div id="button_list">
             <input class="btn" id="btn1" type="button" value="开发" onmousedown="btnChange(this)">
             <input class="btn" id="btn2" type="button" value="设计" onmousedown="btnChange(this)">
             <input class="btn" id="btn3" type="button" value=" 秘书处" onmousedown="btnChange(this)">
+            </div>
             <br/><br/>
             <div id="text2" class="text">请选择面试时间 </div>
             <select name="direction" class="time_1" id="time_1_1">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
+                <option class="opt" value="10月1日">10月1日</option>
+                <option class="opt" value="10月2日">10月2日</option>
+                <option class="opt" value="10月3日">10月3日</option>
+                <option class="opt" value="10月4日">10月4日</option>
+                <option class="opt" value="10月5日">10月5日</option>
+                <option class="opt" value="10月6日">10月6日</option>
+                <option class="opt" value="10月7日">10月7日</option>
             </select>
             <select name="direction" class="time_2" id="time_2_1">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
+                <option class="opt" value="8:00-10:00">8:00-10:00</option>
+                <option class="opt" value="8:00-10:00">10:00-12:00</option>
+                <option class="opt" value="8:00-10:00">14:00-16:00</option>
+                <option class="opt" value="8:00-10:00">16:00-18:00</option>
+                <option class="opt" value="8:00-10:00">19:00-21:00</option>
             </select>
             <br/><br/>
             <select name="direction" class="time_1" id="time_1_2">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
+                <option class="opt" value="10月1日">10月1日</option>
+                <option class="opt" value="10月2日">10月2日</option>
+                <option class="opt" value="10月3日">10月3日</option>
+                <option class="opt" value="10月4日">10月4日</option>
+                <option class="opt" value="10月5日">10月5日</option>
+                <option class="opt" value="10月6日">10月6日</option>
+                <option class="opt" value="10月7日">10月7日</option>
             </select>
             <select name="direction" class="time_2" id="time_2_2">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
+                <option class="opt" value="8:00-10:00">8:00-10:00</option>
+                <option class="opt" value="8:00-10:00">10:00-12:00</option>
+                <option class="opt" value="8:00-10:00">14:00-16:00</option>
+                <option class="opt" value="8:00-10:00">16:00-18:00</option>
+                <option class="opt" value="8:00-10:00">19:00-21:00</option>
             </select>
             <br/><br/>
             <select name="direction" class="time_1" id="time_1_3">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
+                <option class="opt" value="10月1日">10月1日</option>
+                <option class="opt" value="10月2日">10月2日</option>
+                <option class="opt" value="10月3日">10月3日</option>
+                <option class="opt" value="10月4日">10月4日</option>
+                <option class="opt" value="10月5日">10月5日</option>
+                <option class="opt" value="10月6日">10月6日</option>
+                <option class="opt" value="10月7日">10月7日</option>
             </select>
             <select name="direction" class="time_2" id="time_2_3">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
+                <option class="opt" value="8:00-10:00">8:00-10:00</option>
+                <option class="opt" value="8:00-10:00">10:00-12:00</option>
+                <option class="opt" value="8:00-10:00">14:00-16:00</option>
+                <option class="opt" value="8:00-10:00">16:00-18:00</option>
+                <option class="opt" value="8:00-10:00">19:00-21:00</option>
             </select>
             <br/><br/>
             <div id="text3" class="text">修改申请书</div>
@@ -76,7 +118,6 @@
             <div id="text4" class="text2">点击开始编写<br/>电子版申请书</div>
             <div id="text5" class="text2">纸质版交到云顶数港基地(大数据学院9层)</div>
             <input id="sbt" type="button" value="确认修改"  onclick="a()">
-            <!--<input id="sbt" type="button" value="确认修改"  onclick="b()">-->
         </form>
     </div>
 
