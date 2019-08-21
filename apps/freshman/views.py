@@ -246,3 +246,6 @@ def log_out(request):
     response.delete_cookie('idnum')
     return response
 
+class Show404View(View):
+    def get(self,request):
+        return render(request,'404.html')
