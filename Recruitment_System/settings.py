@@ -25,7 +25,7 @@ SECRET_KEY = 'qi4)c&u7+svs!lnllk957$e0t8^arheeh*_h0c-w0-^loq*i(!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.137.1','127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'xadmin',
-    # 'crispy_forms',
+    'xadmin',
+    'crispy_forms',
     'ckeditor',
     'ckeditor_uploader',
     'apps.interviewer',
@@ -61,7 +61,11 @@ ROOT_URLCONF = 'Recruitment_System.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'apps/freshman/freshman_templates')],
+
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(BASE_DIR, 'apps/interviewer/inter_template'),
+                 os.path.join(BASE_DIR, 'apps/freshman/freshman_templates')],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,12 +87,13 @@ WSGI_APPLICATION = 'Recruitment_System.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "recruitment_system",
+        'NAME': "recruitmentsystem",
         "USER": "root",
-        "PASSWORD": "root",
+        "PASSWORD": "nmb19720",
         "HOST": "127.0.0.1"
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -129,7 +134,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-MEDIA_ROOT = os.path.join(BASE_DIR,  'media')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 CKEDITOR_UPLOAD_PATH = 'upload/'
 

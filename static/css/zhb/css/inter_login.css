@@ -1,0 +1,269 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "思源黑体 CN";
+}
+/*SourceHanSansCN Normal*/
+body {
+    /*360*640为手机比例*/
+    width: 100%;
+    height: 100%;
+    /*margin-left: 25%;
+    margin: 0 auto;*/
+    background: url(/static/css/zhb/img/登录.svg) no-repeat center top;
+    background-size: 1920px 1080px;
+    zoom: 0.8;
+}
+
+#main {
+    /*360*640为手机比例*/
+    width: 1080px;
+    height: 640px;
+    /*margin-left: 25%;*/
+    border-radius: 30px;
+    margin: 0 auto;
+    margin-top: 120px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+#left {
+    width: 500px;
+    height: 640px;
+    border-radius: 30px 0px 0px 30px;
+    background: url(../img/矩形105.jpg) no-repeat center top;
+    float: left;
+}
+
+#float {
+    width: 500px;
+    height: 640px;
+    border-radius: 30px 0px 0px 30px;
+    /*background-color: blue(98, 27, 163, 0.8);*/
+    background: -webkit-gradient(linear, 50% 0, 50% 100%, from(rgba(0, 97, 255, 0.74)), to(rgba(0, 28, 139, 0.5)));
+    float: left;
+    position: absolute;
+    color: white;
+}
+
+    #year {
+        margin-top: 120px;
+        margin-left: 80px;
+        font-size: 32px;
+        letter-spacing: 5px;
+        font-weight: normal;
+    }
+
+    #yunding {
+        margin-top: -10px;
+        margin-left: 80px;
+        font-size: 48px;
+        font-weight: bold;
+        letter-spacing: 5px;
+    }
+
+    #interviewer {
+        margin-top: 30px;
+        margin-left: 80px;
+        font-size: 32px;
+        letter-spacing: 5px;
+        font-weight: normal;
+    }
+
+    #logo {
+        width: 60px;
+        height: 40px;
+        margin-top: 240px;
+        margin-left: 360px;
+        background: url(../img/logo.svg) no-repeat center top;
+        transform:scale(1.2);
+    }
+
+#right {
+    width: 580px;
+    height: 640px;
+    /*border: 1px solid red;*/
+    border-radius: 0px 30px 30px 0px;
+    background-color: rgb(255, 255, 255);
+    float: left;
+}
+
+    #login{
+        width: 130px;
+        height: 48px;
+        margin-top: 90px;
+        margin-left: 340px;
+        font-size: 48px;
+        font-weight:300;
+        letter-spacing: 15px;
+        color: rgb(41, 126, 255);
+    }
+
+    #user_login{
+        width: 300px;
+        height: 300px;
+        margin-left: 30px;
+        margin-top: 30px; 
+        /*font-size: 18px;*/
+    }
+
+    /*去掉×和眼睛*/
+    input::-ms-clear{display:none;}
+    input::-ms-reveal{display:none;}
+
+    /*输入框内阴影字*/
+    input::-webkit-input-placeholder{
+        font-size: 16px;
+        letter-spacing: 8px;
+        color:rgba(27, 25, 25, 0.349);
+    }
+
+    /*输入框点击效果*/
+    #input_id:focus{
+        border-left: 2px solid rgb(41, 126, 255);
+        -moz-box-shadow:0px 3px 6px rgba(0, 0, 0, 0.1);
+        box-shadow:0px 3px 6px rgba(0, 0, 0, 0.1);
+        background: url(../img/student_id_link.svg) no-repeat right top;
+        background-size: 60px;
+    }
+
+    #input_password:focus{
+        border-left: 2px solid rgb(41, 126, 255);
+        -moz-box-shadow:0px 3px 6px rgba(0, 0, 0, 0.1);
+        box-shadow:0px 3px 6px rgba(0, 0, 0, 0.1);
+        background: url(../img/password_link.svg) no-repeat right top;
+        background-size: 60px;
+    }
+
+    #input_id{
+        width: 310px;
+        height: 60px;
+        margin-top: 20px;
+        margin-left: 100px;
+        padding-left: 12px;
+        font-size: 18px;
+        letter-spacing: 2px;
+        background: url(../img/student_id.svg) no-repeat right top;
+        background-size: 60px;
+        border:none;
+        outline:medium;
+        border-radius: 0px 10px 10px 0px;
+        border: 1px solid rgb(245, 245, 245);
+        background-color: rgba(241, 243, 245, 0.3);
+        border-left: 2px solid rgba(41, 126, 255, 0);
+        -moz-box-shadow:0px 3px 6px rgba(0, 0, 0, 0);
+        box-shadow:0px 3px 6px rgba(0, 0, 0, 0);
+
+    }
+
+    #input_password{
+        width: 310px;
+        height: 60px;
+        margin-top: 20px;
+        margin-left: 100px;
+        padding-left: 12px;
+        font-size: 18px;
+        letter-spacing: 2px;
+        background: url(../img/password.svg) no-repeat right top;
+        background-size: 60px;
+        border:none;
+        outline:medium;
+        border-radius: 0px 10px 10px 0px;
+        border: 1px solid rgb(245, 245, 245);
+        background-color: rgba(241, 243, 245, 0.3);
+        border-left: 2px solid rgba(41, 126, 255, 0);
+        -moz-box-shadow:0px 3px 6px rgba(0, 0, 0, 0);
+        box-shadow:0px 3px 6px rgba(0, 0, 0, 0);
+
+    }
+
+    .input_text{
+        width: 310px;
+        height: 60px;
+        margin-top: 20px;
+        margin-left: 100px;
+        padding-left: 12px;
+        font-size: 18px;
+        letter-spacing: 2px;
+        border:none;
+        outline:medium;
+        border-radius: 0px 10px 10px 0px;
+        border: 1px solid rgb(245, 245, 245);
+        background-color: rgba(241, 243, 245, 0.3);
+        border-left: 2px solid rgba(41, 126, 255, 0);
+        -moz-box-shadow:0px 3px 6px rgba(0, 0, 0, 0);
+        box-shadow:0px 3px 6px rgba(0, 0, 0, 0);
+    }
+
+    #tip{
+         margin-top: 5px;
+         margin-left: 100px;
+         color: red;
+     }
+
+    #submit{
+        width: 200px;
+        height: 50px;
+        margin-top: 60px;
+        margin-left: 221px;
+        background-color: rgb(41, 126, 255);
+        border-radius: 10px;
+        border:none;
+        outline:medium;
+        font-size: 20px;
+        letter-spacing: 5px;
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+    }
+
+    #null_picture{
+        background-color: rgba(255, 255, 255, 0); 
+    }
+
+#link_register{
+    width: 200px;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 260px;
+    font-size: 16px;
+    letter-spacing: 4px;
+    color: rgb(41, 126, 255);
+    cursor: pointer;
+}
+
+#LOG_IN{
+    width: 198px;
+    height: 211px;
+    font-size: 82px;
+    position: absolute;
+    margin-left: 370px;
+    margin-top: 390px;
+    font-weight: 300;
+}
+
+    #LO{
+        color: rgba(255, 255, 255, 0.267);
+        margin-left: 10px;
+        float: left;
+        letter-spacing: 11px;
+
+    }
+
+    #G{
+        color: rgba(0, 0, 0, 0.219);
+        margin-right: 5px;
+        float: right;
+    }
+
+    #I{
+        color: rgba(255, 255, 255, 0.267);
+        margin-top: 6px;
+        margin-right: 15px;
+        float: right;
+
+    }
+
+    #N{
+        color: rgba(0, 0, 0, 0.219);
+        margin-top: 6px;
+        float: right;
+    }
