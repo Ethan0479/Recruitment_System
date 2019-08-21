@@ -6,6 +6,10 @@ from . import views
 from .views import *
 
 app_name = 'freshman'
+
+
+
+
 urlpatterns = [
     # url(r'^login/$',views.login)
     # url(r'^register/$',views.)
@@ -22,6 +26,8 @@ urlpatterns = [
     url(r'^homepage/$', HomepageView.as_view(), name='homepage'),
     url(r'^sign_up/$', AppointmentView.as_view(), name='sign_up'),
     url(r'^alter_sign_up/$', AlterAppointmentView.as_view(), name='alter_sign_up'),
+    url(r'^application/$', ApplicationView.as_view(), name='application'),
+    url(r'^404/$', Show404View.as_view()),
 ]
 
 

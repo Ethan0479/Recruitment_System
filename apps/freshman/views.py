@@ -187,7 +187,7 @@ class AlterAppointmentView(View):
         time3 = student.appointment_two
         return render(request, '../freshman_templates/alter_sign_up.html',{'student':student})
     def post(self,request):
-        pass
+        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
 
 # 查询申请书界面
 class ApplicationView(View):
@@ -196,7 +196,7 @@ class ApplicationView(View):
         tip = ''
         if not student.application:
             tip = '记得及时提交申请书哦，不然就没有面试资格啦！'
-        return render(request, 'application.html', locals())
+        return render(request, '../freshman_templates/editor.html', locals())
 
     def post(self, request):  # 可以修改
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
@@ -246,3 +246,6 @@ def log_out(request):
     response.delete_cookie('idnum')
     return response
 
+class Show404View(View):
+    def get(self,request):
+        return render(request,'404.html')

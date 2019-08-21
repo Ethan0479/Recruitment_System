@@ -50,10 +50,11 @@
     </script>
 </head>
 <body onload="btnClick('{{ student.direction }}');selectClick('{{ student.appointment_one }}','{{ student.appointment_two }}','{{ student.appointment_three }}')">
-    <img id="logo_1" src="img/logo_1@2x.png" />
+    <img id="logo_1" src="/static/img/logo_1@2x.png" />
     <div id="head"><span id="head_1">2019/</span><br/><span id="head_2">修&nbsp改&nbsp报&nbsp名</span></div>
     <div id="content">
         <form action="" method="post" id="alter_sign_up">
+            {% csrf_token %}
             <div id="text1" class="text">请选择方向</div>
             <div id="button_list">
             <input class="btn" id="btn1" type="button" value="开发" onmousedown="btnChange(this)">
@@ -63,61 +64,61 @@
             <br/><br/>
             <div id="text2" class="text">请选择面试时间 </div>
             <select name="direction" class="time_1" id="time_1_1">
-                <option class="opt" value="10月1日">10月1日</option>
-                <option class="opt" value="10月2日">10月2日</option>
-                <option class="opt" value="10月3日">10月3日</option>
-                <option class="opt" value="10月4日">10月4日</option>
-                <option class="opt" value="10月5日">10月5日</option>
-                <option class="opt" value="10月6日">10月6日</option>
-                <option class="opt" value="10月7日">10月7日</option>
+                <option class="opt" value="10月1日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月1日</option>
+                <option class="opt" value="10月2日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月2日</option>
+                <option class="opt" value="10月3日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月3日</option>
+                <option class="opt" value="10月4日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月4日</option>
+                <option class="opt" value="10月5日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月5日</option>
+                <option class="opt" value="10月6日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月6日</option>
+                <option class="opt" value="10月7日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月7日</option>
             </select>
             <select name="direction" class="time_2" id="time_2_1">
-                <option class="opt" value="8:00-10:00">8:00-10:00</option>
-                <option class="opt" value="8:00-10:00">10:00-12:00</option>
-                <option class="opt" value="8:00-10:00">14:00-16:00</option>
-                <option class="opt" value="8:00-10:00">16:00-18:00</option>
-                <option class="opt" value="8:00-10:00">19:00-21:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8:00-10:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10:00-12:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14:00-16:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:00-18:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19:00-21:00</option>
             </select>
             <br/><br/>
             <select name="direction" class="time_1" id="time_1_2">
-                <option class="opt" value="10月1日">10月1日</option>
-                <option class="opt" value="10月2日">10月2日</option>
-                <option class="opt" value="10月3日">10月3日</option>
-                <option class="opt" value="10月4日">10月4日</option>
-                <option class="opt" value="10月5日">10月5日</option>
-                <option class="opt" value="10月6日">10月6日</option>
-                <option class="opt" value="10月7日">10月7日</option>
+                <option class="opt" value="10月1日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月1日</option>
+                <option class="opt" value="10月2日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月2日</option>
+                <option class="opt" value="10月3日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月3日</option>
+                <option class="opt" value="10月4日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月4日</option>
+                <option class="opt" value="10月5日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月5日</option>
+                <option class="opt" value="10月6日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月6日</option>
+                <option class="opt" value="10月7日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月7日</option>
             </select>
             <select name="direction" class="time_2" id="time_2_2">
-                <option class="opt" value="8:00-10:00">8:00-10:00</option>
-                <option class="opt" value="8:00-10:00">10:00-12:00</option>
-                <option class="opt" value="8:00-10:00">14:00-16:00</option>
-                <option class="opt" value="8:00-10:00">16:00-18:00</option>
-                <option class="opt" value="8:00-10:00">19:00-21:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8:00-10:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10:00-12:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14:00-16:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:00-18:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19:00-21:00</option>
             </select>
             <br/><br/>
             <select name="direction" class="time_1" id="time_1_3">
-                <option class="opt" value="10月1日">10月1日</option>
-                <option class="opt" value="10月2日">10月2日</option>
-                <option class="opt" value="10月3日">10月3日</option>
-                <option class="opt" value="10月4日">10月4日</option>
-                <option class="opt" value="10月5日">10月5日</option>
-                <option class="opt" value="10月6日">10月6日</option>
-                <option class="opt" value="10月7日">10月7日</option>
+                <option class="opt" value="10月1日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月1日</option>
+                <option class="opt" value="10月2日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月2日</option>
+                <option class="opt" value="10月3日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月3日</option>
+                <option class="opt" value="10月4日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月4日</option>
+                <option class="opt" value="10月5日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月5日</option>
+                <option class="opt" value="10月6日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月6日</option>
+                <option class="opt" value="10月7日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月7日</option>
             </select>
             <select name="direction" class="time_2" id="time_2_3">
-                <option class="opt" value="8:00-10:00">8:00-10:00</option>
-                <option class="opt" value="8:00-10:00">10:00-12:00</option>
-                <option class="opt" value="8:00-10:00">14:00-16:00</option>
-                <option class="opt" value="8:00-10:00">16:00-18:00</option>
-                <option class="opt" value="8:00-10:00">19:00-21:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8:00-10:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10:00-12:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14:00-16:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:00-18:00</option>
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19:00-21:00</option>
             </select>
             <br/><br/>
             <div id="text3" class="text">修改申请书</div>
-            <div class="apply_stb"><input id="btn4" type="button" value=""><img id="stb_img" src="img/组%20349.png"/></div>
+            <div class="apply_stb"><input id="btn4" type="button" value=""><img id="stb_img" src="/static/img/墨笔.svg" onclick="location.href='/application/'"/></div>
             <div id="text4" class="text2">点击开始编写<br/>电子版申请书</div>
             <div id="text5" class="text2">纸质版交到云顶数港基地(大数据学院9层)</div>
-            <input id="sbt" type="button" value="确认修改"  onclick="a()">
+            <input id="sbt" type="submit" value="确认修改"  onclick="a()">
         </form>
     </div>
 
