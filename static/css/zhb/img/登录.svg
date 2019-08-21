@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-登录);
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-4 {
+        fill: #f6f6f6;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#297aff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#297aff" stop-opacity="0.302"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#297aff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#297aff" stop-opacity="0.2"/>
+    </linearGradient>
+    <clipPath id="clip-登录">
+      <rect width="1920" height="1080"/>
+    </clipPath>
+  </defs>
+  <g id="登录" class="cls-1">
+    <rect class="cls-4" width="1920" height="1080"/>
+    <rect id="矩形_110" data-name="矩形 110" class="cls-2" width="60" height="421" rx="30" transform="translate(1642.633 608.441) rotate(45)"/>
+    <rect id="矩形_101" data-name="矩形 101" class="cls-3" width="50" height="500" rx="25" transform="translate(1623.099 284.546) rotate(45)"/>
+    <rect id="矩形_103" data-name="矩形 103" class="cls-3" width="50" height="500" rx="25" transform="translate(686.099 36.546) rotate(45)"/>
+    <rect id="矩形_107" data-name="矩形 107" class="cls-3" width="90" height="922" rx="45" transform="translate(847.6 230.648) rotate(45)"/>
+    <path id="减去_1" data-name="减去 1" class="cls-3" d="M-2212.3,877.3a24.918,24.918,0,0,1-9.407-1.831,24.849,24.849,0,0,1-8.27-5.492l-84.146-84.146a24.847,24.847,0,0,1-5.491-8.27,24.918,24.918,0,0,1-1.83-9.408,24.917,24.917,0,0,1,1.83-9.408,24.847,24.847,0,0,1,5.491-8.27L-1877.648,314h239l-555.976,555.976a24.842,24.842,0,0,1-8.27,5.492A24.918,24.918,0,0,1-2212.3,877.3Z" transform="translate(3114 -314)"/>
+    <path id="减去_2" data-name="减去 2" class="cls-3" d="M-2239.644,601.047h-49.5l588.673-588.673a17.387,17.387,0,0,1,12.374-5.125,17.387,17.387,0,0,1,12.375,5.125,17.387,17.387,0,0,1,5.125,12.375,17.387,17.387,0,0,1-5.125,12.375l-563.924,563.924Z" transform="translate(3114 478.953)"/>
+    <rect id="矩形_102" data-name="矩形 102" class="cls-3" width="80" height="500" rx="40" transform="translate(1386.492 163.939) rotate(45)"/>
+  </g>
+</svg>

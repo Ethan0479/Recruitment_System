@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+{% block statics%}
+<head>
+    <meta http-equiv="Content-Type" charset="UTF-8" lang="zh">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>查看面试者资料</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="../../../static/css/zhb/css/inter_search_son.css" />
+    <script src={% static '/css/zhb/js/JQuery_1.js' %}></script>
+</head>
+{% endblock%}
+
+<body>
+    <div>
+        <table id="list">
+            <tr id="dd_dd">
+                <td class="dd1">名字</td>
+                <td class="dd2">学号</td>
+                <td class="dd3">空闲时间一</td>
+                <td class="dd4">空闲时间二</td>
+                <td class="dd5">空闲时间三</td>
+                <td class="dd6">面试日期</td>
+                <td class="dd7">面试时间</td>
+                <td class="dd8">&nbsp;&nbsp;面试地点&nbsp;&nbsp;</td>
+                <td class="dd9">面试类型</td>
+                <td class="dd0">^</td>
+            </tr>
+            <tr>
+                <td class="td1"><strong>张浩彬</strong></td>
+                <td class="td2">2018006774</td>
+                <td class="td3">09-15 15:30-16:00</td>
+                <td class="td4">10-08 15:30-16:00</td>
+                <td class="td5">10-08 15:30-16:00</td>
+                <td class="td6">09-30</td>
+                <td class="td7">15:30</td>
+                <td class="td8">云顶书院（数港）</td>
+                <td class="td9">未面试</td>
+                <td class="td0">^</td>
+            </tr>
+            <tr>
+                <td class="td1">张浩彬</td>
+                <td class="td2">2018006774</td>
+                <td class="td3">09-15 15:30-16:00</td>
+                <td class="td4">10-08 15:30-16:00</td>
+                <td class="td5">10-08 15:30-16:00</td>
+                <td class="td6">09-30</td>
+                <td class="td7">15:30</td>
+                <td class="td8">云顶书院（数港）</td>
+                <td class="td9">未面试</td>
+                <td class="td0">^</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+
+</html>
