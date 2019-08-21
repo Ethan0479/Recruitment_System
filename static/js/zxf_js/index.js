@@ -63,7 +63,7 @@ function btnClick(direction) {
 }
 
 function selectClick(time1,time2,time3) {
-    var time1_list = time1.split("_");
+    var time1_list = time1.split("_");//0为日期，1为时间
     var time2_list = time2.split("_");
     var time3_list = time3.split("_");
     var select_1_1 = document.getElementById('time_1_1').getElementsByClassName("opt");
@@ -75,35 +75,35 @@ function selectClick(time1,time2,time3) {
 
     //时间段一
     for (i=0; i<select_1_1.length; i++){
-        if (select_1_1[i].value == time1_list[0]) {
-            select_1_1[i].selected = 'selected';
+        if (select_1_1[i].value === time1_list[0]) {
+            select_1_1[i].selected = true;
         }
     }
     for (i=0; i<select_2_1.length; i++){
-        if (select_2_1[i].value == time1_list[1]) {
-            select_2_1[i].selected = 'selected';
+        if (select_2_1[i].value === time1_list[1]) {
+            select_2_1[i].selected = true;
         }
     }
     //时间段二
     for (i=0; i<select_1_2.length; i++){
-        if (select_1_2[i].value == time2_list[0]) {
-            select_1_2[i].selected = 'selected';
+        if (select_1_2[i].value === time2_list[0]) {
+            select_1_2[i].selected = true;
         }
     }
     for (i=0; i<select_2_2.length; i++){
-        if (select_2_2[i].value == time2_list[1]) {
-            select_2_2[i].selected = 'selected';
+        if (select_2_2[i].value === time2_list[1]) {
+            select_2_2[i].selected = true;
         }
     }
     //时间段三
     for (i=0; i<select_1_3.length; i++){
         if (select_1_3[i].value == time3_list[0]) {
-            select_1_3[i].selected = 'selected';
+            select_1_3[i].selected = true;
         }
     }
     for (i=0; i<select_2_3.length; i++){
         if (select_2_3[i].value == time3_list[1]) {
-            select_2_3[i].selected = 'selected';
+            select_2_3[i].selected = true;
         }
     }
 }

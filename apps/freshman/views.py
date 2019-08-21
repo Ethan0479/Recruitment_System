@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 
 import random
+import time
 
 from .forms import Applyfrom, ModifyForm
 from .models import Freshman
@@ -58,12 +59,13 @@ class RegisterView(View):
             applicant.dormitory = request.POST.get('dormitory', '')
             # applicant.direction = request.POST.get('direction', '')  # 选择方向
             applicant.save()
-            response = redirect('/login/')
-            return response  # 注册成功跳转登录页面
+            # response = redirect('/login/')
+            return HttpResponse("200")  # 注册成功跳转登录页面
             # else:
             #     return render(request, 'register.html', {'error': error})
         else:
-            return render(request, '../freshman_templates/register.html')  # 提示错误信息
+            return HttpResponse(apply_form.errors)
+            # return render(request, '../freshman_templates/register.html')  # 提示错误信息
 
 # 随机生成数字验证码
 def generate_code():
@@ -89,7 +91,6 @@ class LoginView(View):
         return render(request, '../freshman_templates/login.html')
 
     def post(self, request):
-
         newstudent_id = request.POST.get('newstudent_id', '')
         password = request.POST.get('password', '')
         # user = authenticate(username=student_id, password=password)
@@ -98,7 +99,6 @@ class LoginView(View):
             if user is not None:
                 if user.password == password:
                     # url = '/index/' + newstudent_id + '/'
-                    # 要改，不叫index
                     url = '/homepage/'
                     response = redirect(url)
                     response.set_cookie('newstudent_id', newstudent_id)
@@ -112,7 +112,8 @@ class LoginView(View):
 
 class HomepageView(View):
     def get(self, request):
-        return render(request, '../freshman_templates/homepage.html')
+        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
+        return render(request, '../freshman_templates/homepage.html', {'student': student})
 
 
 # 个人信息查看、修改(姓名、学号、性别不可改，方向不在此处修改)
@@ -178,51 +179,62 @@ class AppointmentView(View):
         msg = '选择成功！记得关注面试通知哦！'
         return HttpResponse("200")  # 可以修改
 
+
+# 修改报名
 class AlterAppointmentView(View):
-    def get(self,request):
+    def get(self, request):
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
         direction = student.direction
         time1 = student.appointment_one
         time2 = student.appointment_three
         time3 = student.appointment_two
         return render(request, '../freshman_templates/alter_sign_up.html',{'student':student})
-    def post(self,request):
-        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
 
-# 查询申请书界面
+    def post(self, request):
+        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
+        student.appointment_one = request.POST.get('appointment_one', '')
+        student.appointment_two = request.POST.get('appointment_two', '')
+        student.appointment_three = request.POST.get('appointment_three', '')
+        student.direction = request.POST.get('direction', '')
+        student.save()
+        msg = '修改成功！记得关注面试通知哦！'
+        return HttpResponse("200")
+
+
+# 查询、修改申请书界面
 class ApplicationView(View):
     def get(self, request):  # 显示该学生的申请书提交情况
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
         tip = ''
         if not student.application:
             tip = '记得及时提交申请书哦，不然就没有面试资格啦！'
-        return render(request, '../freshman_templates/editor.html', locals())
+        return render(request, '../freshman_templates/editor.html', {'student': student, 'tip': tip})
 
     def post(self, request):  # 可以修改
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
-        student.application = request.POST.get('application', '')
+        student.application = request.POST.get('content', '')
         student.save()
-        msg = '申请书提交成功!'
-        return render(request, 'index.html', {'msg': msg})
+        time.sleep(2)
+        return redirect('/homepage/')
 
 
 # 面试通知界面
-class InterviewInformView(View):
-    # 如果从查询界面得到
-    def get(self, request):
-        interviewed_student = Freshman.objects.get(student_id=request.user.student,
-                                                   name=request.user.name)
-        interview_place = interviewed_student.interview_place
-        interview_time = interviewed_student.interview_time
-        application = interviewed_student.application
-        if not application:
-            message = '由于你未提交申请书，很抱歉你没有面试资格'
-            return render(request)
-        else:
-            if not interview_place or not interview_time:
-                message = '别着急，面试还没有开始哦'
-            else:
-                return render(request)
+# class InterviewInformView(View):
+#     # 如果从查询界面得到
+#     def get(self, request):
+#         interviewed_student = Freshman.objects.get(student_id=request.user.student,
+#                                                    name=request.user.name)
+#         interview_place = interviewed_student.interview_place
+#         interview_time = interviewed_student.interview_time
+#         application = interviewed_student.application
+#         if not application:
+#             message = '由于你未提交申请书，很抱歉你没有面试资格'
+#             return render(request)
+#         else:
+#             if not interview_place or not interview_time:
+#                 message = '别着急，面试还没有开始哦'
+#             else:
+#                 return render(request)
 
 
 # 面试结果查看界面
