@@ -1,0 +1,47 @@
+* {
+    padding-top: 0px;
+    padding-left: 0px;
+    font-family: "思源黑体 CN";
+}
+
+/*输入框内阴影字*/
+input::-webkit-input-placeholder {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: rgba(187,187,187);
+}
+
+#list tr {
+    height: 40px;
+    text-align: center;
+    font-size: 12px;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+#dd_dd{
+    border-bottom:2px solid rgba(140, 156, 255, 0.16);
+    color: rgb(102,102,102);
+}
+
+.dd1 {width: 50px;}
+.dd2 {width: 110px;}
+.dd3 {width: 130px;}
+.dd4 {width: 130px;}
+.dd5 {width: 130px;}
+.dd6 {width: 60px;}
+.dd7 {width: 60px;}
+.dd8 {width: 130px;}
+.dd9 {width: 100px;}
+
+/*.td1 {width: 50px;}*/
+/*.td2 {width: 110px;}*/
+/*.td3 {width: 130px;}*/
+/*.td4 {width: 130px;}*/
+/*.td5 {width: 130px;}*/
+/*.td6 {width: 50px;}*/
+/*.td7 {width: 50px;}*/
+/*.td8 {width: 130px;}*/
+/*.td9 {width: 60px;}*/
