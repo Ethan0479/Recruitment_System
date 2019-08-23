@@ -1,0 +1,233 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "思源黑体 CN";
+    color: rgba(102, 102, 102,1);
+    /* transform:scale(1); */
+}
+
+caption, th {
+    text-align: left;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+    overflow: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+    /* for ie6 & ie7 */
+}
+
+.clear {
+    clear: both;
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.fl, .fr {
+    display: inline;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+hr {
+    width: 95%;
+    float: left;
+    margin-left: 30px;
+    border: none;
+    border-top: 2px solid rgba(140, 156, 255, 0.16);
+}
+
+body {
+    background-color: rgb(251, 251, 255);
+    zoom: 0.8;
+}
+
+#head {
+    width: 1920px;
+    height: 50px;
+    background-color: white;
+    border-bottom: 2px solid rgba(140, 156, 255, 0.2);
+}
+
+#logo_blue_pic{
+    background: url("/static/css/zhb/img/logo_blue.svg");
+}
+
+#head img {
+    float: left;
+    margin-top: 10px;
+    margin-left: 360px;
+}
+
+#out {
+    float: right;
+    width: 500px;
+    height: 20px;
+    margin-top: -35px;
+}
+
+#out p {
+    width: 150px;
+    height: 20px;
+    margin-top: -27px;
+    margin-left: 40px;
+}
+
+#head div {
+    height: 48px;
+    width: 50px;
+    float: left;
+    margin-top: 14px;
+    margin-left: 100px;
+}
+
+#mange_inter {
+    width: 63%;
+    height: 820px;
+    margin: 0 auto;
+    margin-top: 36px;
+    /* text-align:center; */
+    background-color: white;
+    border: 1px solid rgba(140, 156, 255, 0.16);
+    border-radius: 10px 10px 0px 0px;
+}
+
+#student_inter {
+    margin-top: 27px;
+    margin-left: 30px;
+    font-size: 18px;
+}
+
+#select_data {
+    color: rgb(187, 187, 187);
+    margin-top: 54px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+
+select::-ms-expand {
+    display: none;
+}
+
+#select_data select:hover{border: 1px solid rgb(41,122,255);}
+/*#place:hover{border: 1px solid rgb(41,122,255);}*/
+/*#day:hover{border: 1px solid rgb(41,122,255);}*/
+/*#time:hover{border: 1px solid rgb(41,122,255);}*/
+/*#inter_type:hover{border: 1px solid rgb(41,122,255);}*/
+
+#select_data select {
+    border: 0px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    width: 114px;
+    height: 44px;
+    margin-left: 32px;
+    border-radius: 5px;
+    padding-left: 10px;
+    background: url(../img/select.svg) no-repeat 85px center;
+    background-size: 15px;
+    color: rgb(51, 51, 51);
+    border: 1px solid rgba(234, 234, 234, 1);
+    /* outline:none ; */
+    /* border-style:none;  去掉外边框 */
+}
+
+#select_data input {
+    width: 145px;
+    height: 40px;
+    padding-left: 37px;
+    margin-left: 30px;
+    border-radius: 5px;
+    border: none;
+    outline: medium;
+    border: 1px solid rgba(234, 234, 234, 1);
+    background: url(../img/sousuo.svg) no-repeat left;
+    background-position-x: 10px;
+}
+
+.def{
+    color: rgb(187, 187, 187);
+}
+
+#select_data div {
+    width: 150px;
+    height: 80px;
+    float: right;
+    text-align: center;
+    margin-top: 0px;
+    margin-right: 40px;
+}
+
+#select_data span {
+    font-size: 30px;
+    color: black;
+}
+
+#select_data p {
+    font-size: 12px;
+}
+
+#choice {
+    height: 20px;
+    margin-top: 53px;
+    margin-left: 30px;
+}
+
+#choice div {
+    width: 180px;
+    height: 32px;
+    margin-top: -10px;
+    margin-right: 50px;
+    padding-top: 8px;
+    text-align: center;
+    float: right;
+    color: rgb(187, 187, 187);
+    border: 1px solid rgb(187, 187, 187);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#choice div:hover{border: 1px solid rgba(42,122,255, 0.6); color: rgba(42,122,255,0.6)}
+
+#inter_data {
+    margin-top: 25px;
+    margin-left: -15px;
+    letter-spacing: 2px;
+}
+
+#list {
+    margin-top: 5px;
+    margin-left: 10px;
+    letter-spacing: 2px;
+    border: 1px solid red;
+}
+
+#inter_data span {
+    margin-left: 50px;
+}
+
+#inner_box {
+    width: 100%;
+    height: 500px;
+    /* border: 1px solid black; */
+}
