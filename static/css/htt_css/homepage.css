@@ -165,6 +165,8 @@
                 top: 10px;
                 left: 10px;
                 border:0;
+                outline:none;
+                z-index: 200
             }
         #modify_information{
             width: 40%;
@@ -196,8 +198,7 @@
             border: 0;
             border-radius: 10px;
         }
-            #arrange{outline:none;
-            z-index: 200}
+
             #arranges{
                 width: 130px;
                 height: 80px;

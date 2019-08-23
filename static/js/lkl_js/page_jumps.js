@@ -220,7 +220,7 @@ function Form_Submit() {
             }, function () {
               window.location.href = '/register/'
             });}
-            },
+            }
 
 
 
