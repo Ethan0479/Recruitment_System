@@ -21,15 +21,39 @@
                 animation:"pop",
              });
         }
-        function b(){
-            swal({
+        function b(Date, place){
+            if ((Date === ''|| Date === 'None')&&(place === '' || place === 'None')){
+                swal({
+                    title:"面试安排暂未确定哦",
+                    text: "学长学姐们正在为你们安排呢",
+                    allowOutsideClick: "true",
+                    confirmButtonText: "那好吧⁽⁽ƪ(•＿•)ʃ⁾⁾",
+                    closeOnConfirm: false,
+                    animation: "pop",
+                });
+            }else{swal({
                 title : "面试安排",
-                text:"时间:9月1日 17:00-21:00"+"\n"+"地点：行远楼A221",
-                     allowOutsideClick:"ture",
+                text:"时间:"+Date+"\n"+"地点："+place,
+                allowOutsideClick:"ture",
                 confirmButtonText : "我已知晓",
                 closeOnConfirm : false,
                 animation:"pop",
-         });
+         });}
+        }
+        function c(result){
+            console.log(result);
+            if (result === '' || result === 'None'){
+                swal({
+                    title : "面试结果还没出炉",
+                    type:"info",
+                    text:"请各位小萌新耐心等待哟~",
+                    allowOutsideClick:"ture",
+                    confirmButtonText : "确认",
+                    closeOnConfirm : false,
+                    animation:"pop",
+                    imageUrl: ""
+                });
+            }else{window.location.href = '/result/'}
         }
         //时间
         window.onload=function(){
@@ -96,18 +120,17 @@
     </div>
     <div id="line_two">
         <div id="arrangement">
-            <input type="button" class="a" onclick="b()" id="arrange"/>
+            <input type="button" class="a" onclick="b('{{ student.interview_time }}','{{ student.interview_place }}')" id="arrange"/>
             <div class="content_two">面试安排</div>
             <div class="content_one" id="arranges">ADDRESS<br>TIME</div>
         </div>
         <div id="interview_result">
+            <input type="button" class="a" onclick="c('{{ student.interview_result }}')"/>
             <div class="content_two">面试结果</div>
-            <a href="{% url 'freshman:result' %}" target="_self">
-                <div class="a">
-                    <div class="content_one">INTER<br>VIEW
-                    </div>
-                </div>
-            </a>
+{#            <a href="{% url 'freshman:result' %}" target="_self">#}
+            <div class="content_one">INTER<br>VIEW
+            </div>
+{#            </a>#}
         </div>
     </div>
 </div>
