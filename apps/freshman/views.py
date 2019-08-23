@@ -70,7 +70,7 @@ class RegisterView(View):
 # 随机生成数字验证码
 def generate_code():
     num_list = []
-    for i in range(4):
+    for i in range(6):
         num_list.append(str(random.randint(0, 9)))
     num_code = ''.join(num_list)
     return num_code
@@ -110,19 +110,35 @@ class LoginView(View):
             return render(request, '../freshman_templates/register.html', {'error': '你还没有注册报名哦'})
 
 
+def student_search(request):
+    newstudent_id = request.COOKIES.get('newstudent_id', '')
+    if newstudent_id == '':
+        return 'no_student_id'
+    else:
+        return newstudent_id
+
+
 class HomepageView(View):
     def get(self, request):
-        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
-        return render(request, '../freshman_templates/homepage.html', {'student': student})
+        newstudent_id = student_search(request)
+        if newstudent_id == 'no_student_id':
+            return redirect('/login/')
+        else:
+            student = Freshman.objects.get(newstudent_id=newstudent_id)
+            return render(request, '../freshman_templates/homepage.html', {'student': student})
 
 
 # 个人信息查看、修改(姓名、学号、性别不可改，方向不在此处修改)
 # 改进：需设置登录后才能访问
 class PersonalView(View):
     def get(self, request):
-        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))  # 根据cookie中的
-        # newstudent_id在数据库中取出该学生传给前端
-        return render(request, '../freshman_templates/alterinfo.html', {'student': student})
+        newstudent_id = student_search(request)
+        if newstudent_id == 'no_student_id':
+            return redirect('/login/')
+        else:
+            student = Freshman.objects.get(newstudent_id=newstudent_id)  # 根据cookie中的
+            # newstudent_id在数据库中取出该学生传给前端
+            return render(request, '../freshman_templates/alterinfo.html', {'student': student})
 
     def post(self, request):
         newstudent_id = request.COOKIES.get('newstudent_id', '')
@@ -163,11 +179,15 @@ class PersonalView(View):
 # 选择、修改预约时间和方向（报名）界面
 class AppointmentView(View):
     def get(self, request):
-        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
-        if not student.direction and not student.appointment_one:
-            return render(request, '../freshman_templates/sign_up.html', locals())  # 没选择方向以及至少一个预约时间的话跳转报名界面
+        newstudent_id = student_search(request)
+        if newstudent_id == 'no_student_id':
+            return redirect('/login/')
         else:
-            return render(request, '../freshman_templates/sign_up_success.html', {'student': student})  # 选择了跳转报名成功界面
+            student = Freshman.objects.get(newstudent_id=newstudent_id)
+            if not student.direction and not student.appointment_one:
+                return render(request, '../freshman_templates/sign_up.html', locals())  # 没选择方向以及至少一个预约时间的话跳转报名界面
+            else:
+                return render(request, '../freshman_templates/sign_up_success.html', {'student': student})  # 选择了跳转报名成功界面
 
     def post(self, request):
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
@@ -183,12 +203,16 @@ class AppointmentView(View):
 # 修改报名
 class AlterAppointmentView(View):
     def get(self, request):
-        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
-        direction = student.direction
-        time1 = student.appointment_one
-        time2 = student.appointment_three
-        time3 = student.appointment_two
-        return render(request, '../freshman_templates/alter_sign_up.html',{'student':student})
+        newstudent_id = student_search(request)
+        if newstudent_id == 'no_student_id':
+            return redirect('/login/')
+        else:
+            student = Freshman.objects.get(newstudent_id=newstudent_id)
+            direction = student.direction
+            time1 = student.appointment_one
+            time2 = student.appointment_three
+            time3 = student.appointment_two
+            return render(request, '../freshman_templates/alter_sign_up.html',{'student':student})
 
     def post(self, request):
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
@@ -204,11 +228,15 @@ class AlterAppointmentView(View):
 # 查询、修改申请书界面
 class ApplicationView(View):
     def get(self, request):  # 显示该学生的申请书提交情况
-        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
-        tip = ''
-        if not student.application:
-            tip = '记得及时提交申请书哦，不然就没有面试资格啦！'
-        return render(request, '../freshman_templates/editor.html', {'student': student, 'tip': tip})
+        newstudent_id = student_search(request)
+        if newstudent_id == 'no_student_id':
+            return redirect('/login/')
+        else:
+            student = Freshman.objects.get(newstudent_id=newstudent_id)
+            tip = ''
+            if not student.application:
+                tip = '记得及时提交申请书哦，不然就没有面试资格啦！'
+            return render(request, '../freshman_templates/editor.html', {'student': student, 'tip': tip})
 
     def post(self, request):  # 可以修改
         student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
@@ -240,15 +268,19 @@ class ApplicationView(View):
 # 面试结果查看界面
 class InterviewResultView(View):
     def get(self, request):  # 显示该学生的面试结果，不可修改
-        student = Freshman.objects.get(newstudent_id=request.COOKIES.get('newstudent_id', ''))
-        # 大概逻辑
-        if not student.interview_result:
-            return
+        newstudent_id = student_search(request)
+        if newstudent_id == 'no_student_id':
+            return redirect('/login/')
         else:
-            if '通过' in student.interview_result:  # 面试成功
-                return render(request, '../freshman_templates/succ_inter.html', {'interview_result': student.interview_result})
-            else:                                    # 面试失败
-                return render(request, '../freshman_templates/faul_inter.html')
+            student = Freshman.objects.get(newstudent_id=newstudent_id)
+            # 大概逻辑
+            if not student.interview_result:
+                return
+            else:
+                if '通过' in student.interview_result:  # 面试成功
+                    return render(request, '../freshman_templates/succ_inter.html', {'student': student})
+                else:                                    # 面试失败
+                    return render(request, '../freshman_templates/faul_inter.html', {'student': student})
 
 
 # 退出函数
