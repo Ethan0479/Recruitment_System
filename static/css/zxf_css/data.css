@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fdfdfe;
+    width: 100%;
+}
+
+#head {
+    border: solid 2px #9a9a9a;
+    margin: 15px;
+    padding: 15px;
+}
+
+#time {
+    border: solid 2px #a1a1b6;
+    margin: 15px;
+    padding: 15px;
+}
+
+#time div {
+    margin: 10px;
+    border: solid 1px #000000;
+    margin-top: 25px;
+    padding: 5px;
+}
+
+.sbt {
+    margin-left: 350px;
+}

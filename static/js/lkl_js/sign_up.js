@@ -3,7 +3,7 @@ function appointment() {
     var appointment_two = document.getElementById("time_1_2").value + "_" + document.getElementById("time_2_2").value;
     var appointment_three = document.getElementById("time_1_3").value + "_" + document.getElementById("time_2_3").value;
     var direction = document.getElementById("button_list").value;
-    console.log(direction);
+    // console.log(direction);
     var csrf_token = getCookie('csrftoken');
     $.ajax({
         url: "/sign_up/",

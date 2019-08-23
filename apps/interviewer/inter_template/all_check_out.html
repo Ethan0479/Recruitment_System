@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>查看面试者资料</title>
+    <link rel="stylesheet" type="text/css" href="/static/inter_search.css" />
+    <script type="text/javascript" src="/static/ckeditor/ckeditor-init.js"></script>
+    <script type="text/javascript" src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/static/test2.js"></script>
+    <style type="text/css">
+        table{
+            width: 95%;
+            margin: 0 auto;
+            border-top: solid 2px rgba(140, 156, 255, 0.16);
+            border-bottom: solid 2px rgba(140, 156, 255, 0.16);
+            font-size: 12px;
+            height: 40px;
+        }
+        #markdiv{
+            width: 95%;
+            margin: 0 auto;
+            {#margin-top: 5px;#}
+            border-top: solid 2px rgba(140, 156, 255, 0.16);
+        }
+        #question{
+            border: 0;
+            position: absolute;
+            margin-top: 15px;
+            margin-left: 330px;
+            width: 400px;
+            height: 550px;
+        }
+
+        .btn {
+            outline: medium;
+            border: solid 1px #297afe;
+            background-color: white;
+            border-radius: 10px;
+            width: 30px;
+            height: 30px;
+            margin-left: 20px;
+            text-align: center;
+            color: #297afe;
+        }
+        #evaluate {
+            width: 85%;
+            margin: 0 auto;
+            height: 80px;
+            margin-top: 15px;
+            font-size: 22px;
+        }
+        #evaluate_text{
+            width: 70%;height: 80px;border: 0;margin-left: 20%;resize:none;
+        }
+
+        #sbt {
+            margin-left: 450px;
+            width: 140px;
+            height: 44px;
+            outline: medium;
+            border: solid 1px #297afe;
+            background-color: white;
+            margin-bottom: 35px;
+            letter-spacing: 4px;
+            margin-top: 15px;
+            color: #297afe;
+        }
+        #footer_text{
+            position: absolute;
+            margin-left: 4%;
+            margin-top: 20px;
+            text-align: center;
+        }
+        #footer_text1{
+            font-size: 22px;
+        }
+        #footer_text2{
+            font-size: 25px;
+            color: #297afe;
+        }
+        #tr_1{
+            color: rgba(102, 102, 102, 1);
+        }
+    </style>
+</head>
+<body onload="marginChangeTest2();widthChangeTest4()">
+    <div id="head">
+        <img src="/static/img/logo_blue.svg" alt="">
+        <div>资料</div>
+        <div>评价</div>
+    </div>
+    <div id="out">
+        <img src="/static/img/out.svg" alt="">
+        <p>欢迎你,小云云</p>
+    </div>
+    <div id="mange_inter">
+        <!-- 除了学生信息以外的东西 -->
+        <div id="inter_head">
+            <div id="student_inter">
+                <p>学生面试管理</p>
+            </div>
+            <table id="list">
+                <tr id="tr_1">
+                    <td class="td1">名字</td>
+                    <td class="td2">学号</td>
+                    <td class="td3">空闲一</td>
+                    <td class="td3">空闲二</td>
+                    <td class="td3">空闲二</td>
+                    <td class="td5">面试日期</td>
+                    <td class="td6">面试时间</td>
+                    <td class="td7">面试地点</td>
+                    <td class="td8">面试结果</td>
+                </tr>
+                <tr>
+                    <td class="td1"><p><strong>王小波</strong></p></td>
+                    <td class="td">21315154</td>
+                    <td class="td3">9-11/9:00-10:00</td>
+                    <td class="td3">9-11/9:00-10:00</td>
+                    <td class="td3">9-11/9:00-10:00</td>
+                    <td class="td5">9-11</td>
+                    <td class="td6">9:00-10:00</td>
+                    <td class="td7">数港</td>
+                    <td class="td8">-</td>
+                </tr>
+            </table>
+        </div>
+        <div id="student_data">
+            <div id="student">
+                <div class="django-ckeditor-widget" data-field-id="id_content"
+                     style="display: inline-block;width: 30%;">
+                     <textarea cols="40" id="id_content" name="content" rows="10" data-processed="0"
+                               data-config="{&quot;skin&quot;: &quot;moono-lisa&quot;, &quot;toolbar_Basic&quot;: [[&quot;Source&quot;, &quot;-&quot;, &quot;Bold&quot;, &quot;Italic&quot;]], &quot;toolbar_Full&quot;: [[&quot;Styles&quot;, &quot;Format&quot;, &quot;Bold&quot;, &quot;Italic&quot;, &quot;Underline&quot;, &quot;Strike&quot;, &quot;SpellChecker&quot;, &quot;Undo&quot;, &quot;Redo&quot;], [&quot;Link&quot;, &quot;Unlink&quot;, &quot;Anchor&quot;], [&quot;Image&quot;, &quot;Flash&quot;, &quot;Table&quot;, &quot;HorizontalRule&quot;], [&quot;TextColor&quot;, &quot;BGColor&quot;], [&quot;Smiley&quot;, &quot;SpecialChar&quot;], [&quot;Source&quot;]], &quot;toolbar&quot;: &quot;Full&quot;, &quot;height&quot;: 291, &quot;width&quot;: 835, &quot;filebrowserWindowWidth&quot;: 940, &quot;filebrowserWindowHeight&quot;: 725, &quot;filebrowserUploadUrl&quot;: &quot;/ckeditor/upload/&quot;, &quot;filebrowserBrowseUrl&quot;: &quot;/ckeditor/browse/&quot;, &quot;language&quot;: &quot;zh-Hans&quot;}"
+                               data-external-plugin-resources="[]" data-id="id_content" data-type="ckeditortype">我今年22岁了，当然很快就要23岁了，这么些年来，我靠过很多个肩膀，吻过很多瓣嘴唇，走过很多跌宕起伏的石路，流过很多爱恨交织的眼泪。我的身边总是有很多人围绕着，我享受着过分的宠爱，但是我统统都可以不要，在我遇到你的那一刻开始，我知道我要的只有你。我给你发的邮件，总是有意无意地把字数控制在520字，不多也不少，不知道你发现了没有，哈哈你那么神经大条肯定发现不了。喜欢你的这段时间以来，我偶尔会变得无所事事，所以我便开始准备将来要送给你的礼物。你知道的，我偶尔会变成一个多愁善感的姑娘，做一些你看起来很傻的事情，例如现在。我折了520颗星星，装在一个精致的玻璃瓶里。我收集了520种糖果，装在一个可爱的糖果罐里。我折了520只纸鹤，装在一个大大的塑料罐里。我编了520个冷笑话，写在一个天蓝色的本子里。 我折了520艘小船，装在一个红色的纸袋子里。我嗑了520颗无壳瓜子，装在一个小巧的愿望瓶里。我折了520朵玫瑰，装在一个木制的花篮子里。我织了一条520横针的围巾，挂在一面洁白的墙面上。我折了520颗一元爱心，装在一个厚重的储蓄罐里。我收集了两张尾数520的毛爷爷，夹在一本古老的字典里。我数了520颗M豆，装在一个精美的盒子里。我用520根棉签搭了一个雪白的小屋，放在我的床头柜上。我从我种的绿豆芽上采了520颗小绿豆，装在一个生锈的铁盒子里。每天的下午五点二十分，我都会无意中想起你。我扫雷的时候总是会无意中扫出一个爱心型。我床头的公仔，狠狠地打一下就会说出：“我爱你”。但是我好笨，我连这三个字都不敢说出来。我的手机号码尾数是1520，我希望每次你接我的电话时，都能读懂我的意思。直到我某天看到一个未接来电：我今年22岁了，当然很快就要23岁了，这么些年来，我靠过很多个肩膀，吻过很多瓣嘴唇，走过很多跌宕起伏的石路，流过很多爱恨交织的眼泪。我的身边总是有很多人围绕着，我享受着过分的宠爱，但是我统统都可以不要，在我遇到你的那一刻开始，我知道我要的只有你。我给你发的邮件，总是有意无意地把字数控制在520字，不多也不少，不知道你发现了没有，哈哈你那么神经大条肯定发现不了。喜欢你的这段时间以来，我偶尔会变得无所事事，所以我便开始准备将来要送给你的礼物。你知道的，我偶尔会变成一个多愁善感的姑娘，做一些你看起来很傻的事情，例如现在。我折了520颗星星，装在一个精致的玻璃瓶里。我收集了520种糖果，装在一个可爱的糖果罐里。我折了520只纸鹤，装在一个大大的塑料罐里。我编了520个冷笑话，写在一个天蓝色的本子里。 我折了520艘小船，装在一个红色的纸袋子里。我嗑了520颗无壳瓜子，装在一个小巧的愿望瓶里。我折了520朵玫瑰，装在一个木制的花篮子里。我织了一条520横针的围巾，挂在一面洁白的墙面上。我折了520颗一元爱心，装在一个厚重的储蓄罐里。我收集了两张尾数520的毛爷爷，夹在一本古老的字典里。我数了520颗M豆，装在一个精美的盒子里。我用520根棉签搭了一个雪白的小屋，放在我的床头柜上。我从我种的绿豆芽上采了520颗小绿豆，装在一个生锈的铁盒子里。每天的下午五点二十分，我都会无意中想起你。我扫雷的时候总是会无意中扫出一个爱心型。我床头的公仔，狠狠地打一下就会说出：“我爱你”。但是我好笨，我连这三个字都不敢说出来。我的手机号码尾数是1520，我希望每次你接我的电话时，都能读懂我的意思。直到我某天看到一个未接来电：我今年22岁了，当然很快就要23岁了，这么些年来，我靠过很多个肩膀，吻过很多瓣嘴唇，走过很多跌宕起伏的石路，流过很多爱恨交织的眼泪。我的身边总是有很多人围绕着，我享受着过分的宠爱，但是我统统都可以不要，在我遇到你的那一刻开始，我知道我要的只有你。我给你发的邮件，总是有意无意地把字数控制在520字，不多也不少，不知道你发现了没有，哈哈你那么神经大条肯定发现不了。喜欢你的这段时间以来，我偶尔会变得无所事事，所以我便开始准备将来要送给你的礼物。你知道的，我偶尔会变成一个多愁善感的姑娘，做一些你看起来很傻的事情，例如现在。我折了520颗星星，装在一个精致的玻璃瓶里。我收集了520种糖果，装在一个可爱的糖果罐里。我折了520只纸鹤，装在一个大大的塑料罐里。我编了520个冷笑话，写在一个天蓝色的本子里。 我折了520艘小船，装在一个红色的纸袋子里。我嗑了520颗无壳瓜子，装在一个小巧的愿望瓶里。我折了520朵玫瑰，装在一个木制的花篮子里。我织了一条520横针的围巾，挂在一面洁白的墙面上。我折了520颗一元爱心，装在一个厚重的储蓄罐里。我收集了两张尾数520的毛爷爷，夹在一本古老的字典里。我数了520颗M豆，装在一个精美的盒子里。我用520根棉签搭了一个雪白的小屋，放在我的床头柜上。我从我种的绿豆芽上采了520颗小绿豆，装在一个生锈的铁盒子里。每天的下午五点二十分，我都会无意中想起你。我扫雷的时候总是会无意中扫出一个爱心型。我床头的公仔，狠狠地打一下就会说出：“我爱你”。但是我好笨，我连这三个字都不敢说出来。我的手机号码尾数是1520，我希望每次你接我的电话时，都能读懂我的意思。直到我某天看到一个未接来电：我今年22岁了，当然很快就要23岁了，这么些年来，我靠过很多个肩膀，吻过很多瓣嘴唇，走过很多跌宕起伏的石路，流过很多爱恨交织的眼泪。我的身边总是有很多人围绕着，我享受着过分的宠爱，但是我统统都可以不要，在我遇到你的那一刻开始，我知道我要的只有你。我给你发的邮件，总是有意无意地把字数控制在520字，不多也不少，不知道你发现了没有，哈哈你那么神经大条肯定发现不了。喜欢你的这段时间以来，我偶尔会变得无所事事，所以我便开始准备将来要送给你的礼物。你知道的，我偶尔会变成一个多愁善感的姑娘，做一些你看起来很傻的事情，例如现在。我折了520颗星星，装在一个精致的玻璃瓶里。我收集了520种糖果，装在一个可爱的糖果罐里。我折了520只纸鹤，装在一个大大的塑料罐里。我编了520个冷笑话，写在一个天蓝色的本子里。 我折了520艘小船，装在一个红色的纸袋子里。我嗑了520颗无壳瓜子，装在一个小巧的愿望瓶里。我折了520朵玫瑰，装在一个木制的花篮子里。我织了一条520横针的围巾，挂在一面洁白的墙面上。我折了520颗一元爱心，装在一个厚重的储蓄罐里。我收集了两张尾数520的毛爷爷，夹在一本古老的字典里。我数了520颗M豆，装在一个精美的盒子里。我用520根棉签搭了一个雪白的小屋，放在我的床头柜上。我从我种的绿豆芽上采了520颗小绿豆，装在一个生锈的铁盒子里。每天的下午五点二十分，我都会无意中想起你。我扫雷的时候总是会无意中扫出一个爱心型。我床头的公仔，狠狠地打一下就会说出：“我爱你”。但是我好笨，我连这三个字都不敢说出来。我的手机号码尾数是1520，我希望每次你接我的电话时，都能读懂我的意思。直到我某天看到一个未接来电：
+                     </textarea>
+                                    <input type="button" id="sbt" value="评价">
+                </div>
+                <iframe id="question" src="/son"></iframe>
+            </div>
+        </div>
+        <div id="markdiv">
+            <form action="test.html" method="post">
+                {% csrf_token %}
+                <br/>
+                <br/>
+                <div id="footer_text">
+                    <span id="footer_text1">S.哈哈</span><br/>
+                    <span id="footer_text2">10</span>
+                </div>
+                <div id="evaluate">
+                    <textarea id="evaluate_text" style="" readonly="readonly">hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</textarea>
+                    <br/>
+                    <br/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>

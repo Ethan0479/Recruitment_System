@@ -143,3 +143,10 @@ def check_application(request):
 def internal(request):
     return render(request, 'inter_search_son.html')
 
+
+def info_check_out(request):
+    return None
+
+
+def info_check_out_son(request):
+    return None

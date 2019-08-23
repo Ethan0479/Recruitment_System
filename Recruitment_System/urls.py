@@ -15,6 +15,7 @@ Including another URLconf
 """
 # import xadmin
 # import xadmin
+import xadmin
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
@@ -25,7 +26,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    # path('xadmin/', xadmin.site.urls),
+    path('xadmin/', xadmin.site.urls),
     url(r'^', include('apps.freshman.urls', namespace='freshman')),
     path(r'interview/', include('apps.interviewer.urls')),
     path(r'data/', include('apps.data.urls')),

@@ -9,4 +9,8 @@ urlpatterns = [
     path('management/', Audition.as_view(), name='management'),
     path('management/inter_search_son/', views.internal),
     path('search/', views.freshman_search),
+    path('check_out/', views.info_check_out),
+    path('check_out/son/', views.info_check_out_son),
+    # path('editor/', views.info_editor),
+    # path('editor/son/', views.info_editor),
 ]
