@@ -14,6 +14,7 @@
 
 <body>
     <div>
+{#        这个东西需要继承#}
         <table id="list">
             <tr id="dd_dd">
                 <td class="dd1">名字</td>
@@ -52,8 +53,21 @@
                 <td class="td0">^</td>
             </tr>
         </table>
+        <p id="aaa">buhao</p>
+        <p id="id">1</p>
+        <p id="name">2</p>
     </div>
 </body>
-
+<script>
+    function update(data_list){
+        data_list = data_list['data'];
+        for (var data in data_list){
+            var student_id = data['newstudent_id'];
+        }
+        //document.getElementById("aaa").innerHTML = student_one['newstudent_id'];
+        document.getElementById("aaa").innerHTML = student_id;
+        //document.getElementById("aaa").innerHTML = student_id;
+    }
+</script>
 
 </html>

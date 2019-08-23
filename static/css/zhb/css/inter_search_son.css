@@ -8,7 +8,7 @@
 input::-webkit-input-placeholder {
     font-size: 14px;
     letter-spacing: 2px;
-    color: rgba(187,187,187);
+    color: rgba(187,187,187,1);
 }
 
 #list tr {

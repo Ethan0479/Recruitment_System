@@ -1,9 +1,10 @@
 from django.shortcuts import render_to_response, HttpResponse, redirect
 from django.http import HttpResponseRedirect, response
 from apps.freshman.models import Freshman
-import json
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic.base import View
+import json
 #from django.contrib.auth import login, authenticate, logout
 
 from .forms import Applyfrom
@@ -61,10 +62,12 @@ class LoginView(View):
 #申请书
 class Audition(View):
     def get(self, request):
-        return render(request, 'inter_search.html')
+        data_list = {}
+        return render(request, 'inter_search.html', {'data_list': data_list})
 
     def post(self, request):
-        return render(request, 'inter_search.html')
+        data_list = []
+        return  render(request, 'inter_search.html', {'data_list': data_list})
 
  # 登出
 def acc_logout(request):
@@ -105,10 +108,11 @@ def scoree_valuate(request):
 
     return render({'data' : '修改成功'})#'修改成功'
 
+# 新生信息传给前端
 def freshman_search(request):
     # 用于模糊搜索新生,可以通过名字或者学号查
-    student_id = request.POST.get('student_id', '*')
-    if(student_id == ''):
+    student_id = request.POST.get("student_id", "")
+    if(student_id == ""):
         id_or_name = '*'
     else:
         id_or_name = student_id
@@ -118,16 +122,40 @@ def freshman_search(request):
         return HttpResponse(data_list)
 
     else:
-        direction = request.POST.get('direction', '*')
-        place = request.POST.get('place', '*')
-        day = request.POST.get('day', '*')
-        time = request.POST.get('time', '*')
-        inter_type = request.POST.get('inter_type', '*')
+        direction = request.POST.get("direction", " ")
+        place = request.POST.get("place", " ")
+        day = request.POST.get("day", " ")
+        time = request.POST.get("time", " ")
+        inter_type = request.POST.get("inter_type", " ")
         inter_time = day+time
-        data_list = Freshman.objects.filter(direction=direction, interview_place=place, interview_time=inter_time,
-                                            interview_result=inter_type)
-        return HttpResponse(data_list)
+        if inter_time == "**":
+            inter_time = "*"
+        #data_list = Freshman.objects.filter(direction=direction, interview_place=place, interview_time=inter_time,
+        #                                    interview_result=inter_type)
+        data = Freshman.objects.filter(direction=direction)
+        data_list = []
+        for people in data:
+            data_one = []
+            data_one.append({"newstudent_id":people.newstudent_id})
+            data_one.append({"newname":people.newname})
+            data_one.append({"appointment_one":people.appointment_one})
+            data_one.append({"appointment_two":people.appointment_two})
+            data_one.append({"appointment_three":people.appointment_three})
+            daytime = people.interview_time.split('-')
+            day = daytime[0]
+            time = daytime[1]
+            data_one.append({"day":day})
+            data_one.append({"time":time})
+            data_one.append({"interview_place":people.interview_place})
+            data_one.append({"evaluate":people.evaluate})
+            data_list.append(data_one)
+        return JsonResponse({"status":"1", "data": data_list})
+        #return HttpResponse({"data": json.dumps(data_list)})
+        #return JsonResponse({"data":json.dumps(data_list)})
+        #return render(request, 'inter_search_son.html', {'data_list':data_list})
 
+# 查看新生申请书
+# 查看新生申请书
 # 查看新生申请书
 def check_application(request):
     newstudent_id = request.POST.get('newstudent_id')

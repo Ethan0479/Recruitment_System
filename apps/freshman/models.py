@@ -40,12 +40,12 @@ class Freshman(models.Model):
     evaluate = models.TextField(max_length=300, verbose_name='评价', null=True, blank=True)
     interview_result = models.CharField(max_length=50, choices=(('A_passd', '面试A轮通过'), ('A_failed', '面试A轮失败'), ('B_passd', '面试B轮通过'), ('B_failed', '面试B轮失败')), verbose_name='面试结果', null=True, blank=True)
     interview_name = models.CharField(max_length=60, verbose_name='面试官', null=True, blank=True)
-    province = models.CharField(max_length=30, verbose_name='省份', null=True, blank=True)
-    apartment = models.CharField(max_length=25, verbose_name='宿舍楼', null=True, blank=True)
-    dormitory = models.CharField(max_length=25, verbose_name='宿舍号', null=True, blank=True)
-    remark_1 = models.CharField(max_length=255, verbose_name='备注1', null=True, blank=True)
-    remark_2 = models.CharField(max_length=255, verbose_name='备注2', null=True, blank=True)
-    remark_3 = models.CharField(max_length=255, verbose_name='备注3', null=True, blank=True)
+    province = models.CharField(max_length=30, verbose_name='省份')
+    apartment = models.CharField(max_length=25, verbose_name='宿舍楼')
+    dormitory = models.CharField(max_length=25, verbose_name='宿舍号')
+    remark_1 = models.CharField(max_length=255, verbose_name='备注1')
+    remark_2 = models.CharField(max_length=255, verbose_name='备注2')
+    remark_3 = models.CharField(max_length=255, verbose_name='备注3')
     class Meta:
         verbose_name = u'新生信息'
         verbose_name_plural = u'新生信息'
