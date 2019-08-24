@@ -8,7 +8,7 @@
 input::-webkit-input-placeholder {
     font-size: 14px;
     letter-spacing: 2px;
-    color: rgba(187,187,187);
+    color: rgba(187,187,187,1);
 }
 
 #list tr {
@@ -28,12 +28,12 @@ table{
 
 .dd1 {width: 50px;}
 .dd2 {width: 110px;}
-.dd3 {width: 130px;}
-.dd4 {width: 130px;}
-.dd5 {width: 130px;}
-.dd6 {width: 60px;}
-.dd7 {width: 60px;}
-.dd8 {width: 130px;}
+.dd3 {width: 40px;}
+.dd4 {width: 150px;}
+.dd5 {width: 150px;}
+.dd6 {width: 120px;}
+.dd7 {width: 180px;}
+.dd8 {width: 100px;}
 .dd9 {width: 100px;}
 
 /*.td1 {width: 50px;}*/

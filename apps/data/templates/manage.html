@@ -1,0 +1,45 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/zxf_css/data.css' %}">
+    <script type="text/javascript" src="{% static 'js/lkl_js/functions.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/zxf_js/data.js' %}"></script>
+</head>
+<body>
+<div id="head">
+    人数:<input type="text" id="num"/>
+    <input type="button" value="生成模拟数据" onclick="postNum()">
+    <b>：{{ msg }}</b>
+</div>
+
+<div id="time">
+    <div id="date1_div">
+        日期:<input type="text" name="date1"/><br/>
+        <br/>
+        时间:
+        <input type="text" name="date1_1"/>
+        <input type="text" name="date1_2"/>
+        <input type="text" name="date1_3"/>
+        <input id="date1" type="button" value="增加" onclick="addTime(this)"/>
+        <br/>
+    </div>
+    <div id="date2_div">
+        日期:<input type="text" name="date2"/><br/>
+        <br/>
+        时间:
+        <input type="text" name="date2_1"/>
+        <input type="text" name="date2_2"/>
+        <input type="text" name="date2_3"/>
+        <input id="date2" type="button" value="增加" onclick="addTime(this)"/>
+        <br/>
+    </div>
+    <input class="sbt" id="add_date" type="button" value="增加" onclick="addDate(this)"/><br/><br/>
+    <input class="sbt" type="submit" value="生成面试时间表"/>
+
+</div>
+</body>
+</html>
