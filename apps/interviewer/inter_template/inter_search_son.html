@@ -14,6 +14,9 @@
 
 <body>
     <div>
+        <div id="a">1</div>
+        <div id="b">1</div>
+
 {#        这个东西需要继承#}
         <table id="list">
             <tr id="dd_dd">
@@ -28,46 +31,70 @@
                 <td class="dd9">面试类型</td>
                 <td class="dd0">^</td>
             </tr>
+            {% for student_one in data_list %}
+            {% for a in student_one %}
             <tr>
-                <td class="td1"><strong>张浩彬</strong></td>
-                <td class="td2">2018006774</td>
-                <td class="td3">09-15 15:30-16:00</td>
-                <td class="td4">10-08 15:30-16:00</td>
-                <td class="td5">10-08 15:30-16:00</td>
-                <td class="td6">09-30</td>
-                <td class="td7">15:30</td>
-                <td class="td8">云顶书院（数港）</td>
-                <td class="td9">未面试</td>
-                <td class="td0">^</td>
+                <td class="td1">{{ a.newname }}</td>
+                <td class="td2">{{ a.newstudent_id }}</td>
+                <td class="td3">{{ a.appointment_one }}</td>
+                <td class="td4">{{ a.appointment_two }}</td>
+                <td class="td5">{{ a.appointment_three }}</td>
+                <td class="td6">{{ a.day }}</td>
+                <td class="td7">{{ a.time }}</td>
+                <td class="td8">{{ a.interview_place }}</td>
+                <td class="td9">{{ a.evaluate }}</td>
+{#                <td class="td0"></td>#}
             </tr>
-            <tr>
-                <td class="td1">张浩彬</td>
-                <td class="td2">2018006774</td>
-                <td class="td3">09-15 15:30-16:00</td>
-                <td class="td4">10-08 15:30-16:00</td>
-                <td class="td5">10-08 15:30-16:00</td>
-                <td class="td6">09-30</td>
-                <td class="td7">15:30</td>
-                <td class="td8">云顶书院（数港）</td>
-                <td class="td9">未面试</td>
-                <td class="td0">^</td>
-            </tr>
+            {% endfor %}
+        {% endfor %}
         </table>
-        <p id="aaa">buhao</p>
-        <p id="id">1</p>
-        <p id="name">2</p>
+
     </div>
 </body>
 <script>
     function update(data_list){
-        data_list = data_list['data'];
-        for (var data in data_list){
-            var student_id = data['newstudent_id'];
-        }
+        var data = {};
+        var csrftoken = getCookie('csrftoken');
+        data['csrfmiddlewaretoken'] = csrftoken;
+        data['direction'] = data_list['direction'];
+        data['place'] = data_list['place'];
+        data['day'] = data_list['day'];
+        data['time'] = data_list['time'];
+        data['inter_type'] = data_list['inter_type'];
+        data['student_id'] = data_list['student_id'];
+        document.getElementById('a').innerHTML = data_list['direction'];
+        $.ajax({
+                url: "/interview/search/",
+                type: "POST",
+                data:data,
+                success:function(result){
+                    var content = {{ data_list|safe }};
+                    document.getElementById('b').innerHTML = content;
+                },
+                error:function(result){
+                    name.innerHTML="失败";
+                }
+            })
         //document.getElementById("aaa").innerHTML = student_one['newstudent_id'];
-        document.getElementById("aaa").innerHTML = student_id;
+        document.getElementById("aaa").innerHTML = data_list;
         //document.getElementById("aaa").innerHTML = student_id;
     }
+
+    function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
 </script>
 
 </html>

@@ -33,34 +33,34 @@
                 <form id="user_login">
                     {% csrf_token %}
                     <label>
-                        <select id="directions">
-                            <option class="def" value="" selected="selected" onchange="form_submit()">选择方向</option>
+                        <select id="directions" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">选择方向</option>
                             <option value="开发">开发</option>
                             <option value="设计">设计</option>
                             <option value="秘书处">秘书处</option>
                         </select>
-                        <select id="place">
-                            <option class="def" value="" selected="selected" onchange="form_submit()">选择地点</option>
+                        <select id="place" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">选择地点</option>
                             <option value="">云顶</option>
                             <option value="">xx1楼</option>
                             <option value="">xx2楼</option>
                         </select>
-                        <select id="day">
-                            <option class="def" value="" selected="selected" onchange="form_submit()">面试日期</option>
+                        <select id="day" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">面试日期</option>
                             <option value="">9月30号</option>
                             <option value="">9月31号</option>
                             <option value="">10月8号</option>
                         </select>
-                        <select id="time">
-                            <option class="def" value="" selected="selected" onchange="form_submit()">面试时间</option>
+                        <select id="time" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">面试时间</option>
                             <option value="">8-10点</option>
                             <option value="">10-12点</option>
                             <option value="">2-4点</option>
                             <option value="">4-6点</option>
                             <option value="" >7-10点</option>
                         </select>
-                        <select id="inter_type">
-                            <option class="def" value="" selected="selected" onchange="form_submit()">面试类型</option>
+                        <select id="inter_type" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">面试类型</option>
                             <option value="">未面试</option>
                             <option value="">面试迟到</option>
                             <option value="">已面试</option>
@@ -90,7 +90,7 @@
                 </iframe>
             </div>
         </div>
-        <div id="tip">1</div>
+        <div id="tip">0</div>
     </div>
     <script type="text/javascript">
         var direction = document.getElementById("directions");
@@ -99,6 +99,7 @@
         var time = document.getElementById('time');
         var inter_type = document.getElementById('inter_type');
         var student_id = document.getElementById('student_id');
+        var tip = document.getElementById('tip');
 
         function form_submit(){
             var csrftoken = getCookie('csrftoken');
@@ -110,20 +111,8 @@
             data['time'] = time.value;
             data['inter_type'] = inter_type.value;
             data['student_id'] =student_id.value;
-
-            $.ajax({
-                url: "/interview/search/",
-                type: "POST",
-                //data:$('#user_login').serialize(),
-                data:data,
-                success:function(result){
-                    document.getElementById("childFrame").contentWindow.update(result);
-                    tip.innerHTML=result;
-                },
-                error:function(result){
-                    tip.innerHTML="失败";
-                }
-            })
+            tip.innerHTML = data;
+            document.getElementById("inner_box").contentWindow.update(data);
         }
 
         function getCookie(name) {
