@@ -28,28 +28,25 @@ var secondpagehtml = "<form action=\"\">\n" +
         "        </form>";
 //第三页
 var thirdpagehtml = '<form action="">\n' +
-        '            <div class="selected">\n' +
-        '                <!--<label class="tip">请选择学院</label>-->\n' +
-        '                <label>\n' +
-        '                    <select name="college" class="select_list" id="college">\n' +
-        '                        <option value="学院1" selected="selected" class="tip" disabled>请选择学院</option>\n' +
-        '                        <option value="学院2">学院1</option>\n' +
-        '                        <option value="学院3">学院2</option>\n' +
-        '                        <option value="学院4">学院3</option>\n' +
-        '                    </select>\n' +
-        '                </label>\n' +
-        '            </div>\n' +
-        '            <div class="selected">\n' +
-        '                <!--<label class="tip">请选择专业</label>-->\n' +
-        '                <label>\n' +
-        '                    <select name="major" class="select_list" id="major">\n' +
-        '                        <option value="专业1" selected="selected" class="tip" disabled>请选择专业</option>\n' +
-        '                        <option value="专业2">专业1</option>\n' +
-        '                        <option value="专业3">专业2</option>\n' +
-        '                        <option value="专业4">专业3</option>\n' +
-        '                    </select>\n' +
-        '                </label>\n' +
-        '            </div>\n' +
+        // '            <div class="selected">\n' +
+        // '                <!--<label class="tip">请选择学院</label>-->\n' +
+        // '                <label>\n' +
+        // '                    <select name="college" class="select_list" id="college">\n' +
+        // '                        <option value="----" selected="selected" class="tip" disabled>请选择学院</option>\n' +
+        // '                        {% for college in colleges %}\n' +
+        // '                            <option value="{{ college }}">{{ college }}</option>\n' +
+        // '                        {% endfor %}' +
+        // '                    </select>\n' +
+        // '                </label>\n' +
+        // '            </div>\n' +
+        // '            <div class="selected">\n' +
+        // '                <!--<label class="tip">请选择专业</label>-->\n' +
+        // '                <label>\n' +
+        // '                    <select name="major" class="select_list" id="major">\n' +
+        // '                        <option value="" selected="selected" class="tip" disabled>请选择专业</option>\n' +
+        // '                    </select>\n' +
+        // '                </label>\n' +
+        // '            </div>\n' +
         '            <input type="text" id="class" placeholder="请输入班级" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入班级\'" name=""><br>\n' +
         '            <br>\n' +
         '            <div class="main_footer">\n' +
@@ -124,12 +121,15 @@ function SecondToThird() {
     sessionStorage.setItem("email", email);
     //显示上/下一页面
     document.getElementById('submit').innerHTML = thirdpagehtml;
+    document.getElementById('college_list').hidden = false;
+    document.getElementById('major_list').hidden = false;
+    get_major();
     //用于显示变化后的页面的值
     if (sessionStorage.getItem('college')){
         document.getElementById('college').value = sessionStorage.getItem('college');
     }
     if (sessionStorage.getItem('major')){
-       document.getElementById('major').value = sessionStorage.getItem('major');
+        setTimeout("document.getElementById('major').value = sessionStorage.getItem('major');", 100);
     }
     document.getElementById('class').value = sessionStorage.getItem('class');
 }
@@ -142,6 +142,8 @@ function ThirdToSecond() {
     sessionStorage.setItem("class", document.getElementById('class').value);
     //显示上/下一页面
     document.getElementById('submit').innerHTML = secondpagehtml;
+    document.getElementById('college_list').hidden = true;
+    document.getElementById('major_list').hidden = true;
     //用于显示变化后的页面的值
     document.getElementById('QQ').value = sessionStorage.getItem('QQ');
     document.getElementById('phone').value = sessionStorage.getItem('phone');
@@ -156,6 +158,8 @@ function ThirdToForth() {
     sessionStorage.setItem("class", document.getElementById('class').value);
     //显示上/下一页面
     document.getElementById('submit').innerHTML = forthpagehtml;
+    document.getElementById('college_list').hidden = true;
+    document.getElementById('major_list').hidden = true;
     //用于显示变化后的页面的值
     if (sessionStorage.getItem('apartment')) {
         document.getElementById('apartment').value = sessionStorage.getItem('apartment');
@@ -170,12 +174,30 @@ function ForthToThird() {
     sessionStorage.setItem("dormitory", dormitory);
     //显示上/下一页面
     document.getElementById('submit').innerHTML = thirdpagehtml;
+    document.getElementById('college_list').hidden = false;
+    document.getElementById('major_list').hidden = false;
+    get_major();
     //用于显示变化后的页面的值
     if (sessionStorage.getItem('college')){
         document.getElementById('college').value = sessionStorage.getItem('college');
     }
     if (sessionStorage.getItem('major')){
-       document.getElementById('major').value = sessionStorage.getItem('major');
+        // console.log(sessionStorage.getItem('major'));
+        // document.getElementById('major').value = sessionStorage.getItem('major');
+        // setTimeout("var list = document.getElementById('major').getElementsByTagName(\"option\");\n" +
+        //     "       var length = list.length;\n" +
+        //     "       for (var j = 0; j < length; j++){\n" +
+        //     "           console.log(list[j].value);\n" +
+        //     "           console.log(j);\n" +
+        //     "           console.log(length);\n" +
+        //     "           if (list[j].value === sessionStorage.getItem('major')) {\n" +
+        //     "               console.log('match!');\n" +
+        //     "               list[j].selecetd = true;\n" +
+        //     "               document.getElementById('major').value = list[j].value;\n" +
+        //     "               break;\n" +
+        //     "           }\n" +
+        //     "       }", 100);
+        setTimeout("document.getElementById('major').value = sessionStorage.getItem('major');", 100);
     }
     document.getElementById('class').value = sessionStorage.getItem('class');
 }
@@ -221,9 +243,44 @@ function Form_Submit() {
               window.location.href = '/register/'
             });}
             }
-
-
-
     });
-
+}
+function send_code() {
+    var email = document.getElementById('email_code').value;
+    $.ajax({
+        url: "/email_code/",
+        type: "POST",
+        data: {'email': email,
+                'csrfmiddlewaretoken': getCookie('csrftoken')}
+    });
+}
+function get_major() {
+    var academy = document.getElementById('college').value;
+    var set_major = document.getElementById("major");
+    var old_list = document.getElementById('major').getElementsByTagName('option');
+    console.log(old_list);
+    var length = old_list.length;
+    for (var j = 1; j < length; j++){
+        set_major.removeChild(old_list[1]);
+    }
+    set_major.value = '';
+    $.ajax({
+        url: "/get_major/",
+        type: "POST",
+        data: {'academy': academy,
+                'csrfmiddlewaretoken': getCookie('csrftoken')},
+        success: function (result) {
+            if (result !== ''){
+                var major_list = result.split(',');
+                for (var i = 0; i < major_list.length; i++){
+                    var item = document.createElement("option");
+                    item.value = major_list[i];
+                    var textnode = document.createTextNode(major_list[i]);
+                    item.appendChild(textnode);
+                    set_major.appendChild(item);
+                }
+            // alert(result);
+            }
+        }
+    });
 }

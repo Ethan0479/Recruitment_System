@@ -92,6 +92,7 @@
                 background-color: rgba(0,0,0,0);
                 position: absolute;
                 left: 32px;
+                outline: none;
                 top: 27px;
                 border:solid 1px white;
                 border-radius: 15px;

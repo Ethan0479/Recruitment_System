@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^sign_up/$', AppointmentView.as_view(), name='sign_up'),
     url(r'^alter_sign_up/$', AlterAppointmentView.as_view(), name='alter_sign_up'),
     url(r'^application/$', ApplicationView.as_view(), name='application'),
-    # url(r'^404/$', Show404View.as_view()),
+    url(r'^get_major/$', get_major, name='get_major'),
+    url(r'^email_code', send_code_by_email, name='email_code'),
 ]
-
 

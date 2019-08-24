@@ -60,6 +60,13 @@ class Applyfrom(forms.Form):
         else:
             raise forms.ValidationError('名字格式不正确', code='wrong name')
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Freshman.objects.filter(email=email):
+            raise forms.ValidationError('该邮箱已注册', code='duplicated email')
+        else:
+            return email
+
 
 class ModifyForm(forms.Form):
     password = forms.CharField(required=True)
