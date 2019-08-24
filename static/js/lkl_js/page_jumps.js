@@ -57,19 +57,7 @@ var thirdpagehtml = '<form action="">\n' +
         '        </form>';
 //第四页
 var forthpagehtml = '<form action="">\n' +
-    '            <div class="selected">\n' +
-    '                <!--<label class="tip">请选择学院</label>-->\n' +
-    '                <label>\n' +
-    '                    <select name="apartment" class="select_list" id="apartment">\n' +
-    '                        <option value="" selected="selected" class="tip" disabled>请选择宿舍楼</option>\n' +
-    '                        <option value="宿舍楼1">宿舍楼1</option>\n' +
-    '                        <option value="宿舍楼2">宿舍楼2</option>\n' +
-    '                        <option value="宿舍楼3">宿舍楼3</option>\n' +
-    '                    </select>\n' +
-    '                </label>\n' +
-    '            </div>\n' +
-    '            <div class="selected">\n' +
-    '                <!--<label class="tip">请选择学院</label>-->\n' +
+    '            <div>\n' +
     '                <input type="number" id="dormitory" placeholder="请输入宿舍" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入宿舍\'" name="dormitory"><br>\n' +
     '            </div>\n' +
     '            <div class="main_footer">\n' +
@@ -160,6 +148,7 @@ function ThirdToForth() {
     document.getElementById('submit').innerHTML = forthpagehtml;
     document.getElementById('college_list').hidden = true;
     document.getElementById('major_list').hidden = true;
+    document.getElementById('apartment_list').hidden = false;
     //用于显示变化后的页面的值
     if (sessionStorage.getItem('apartment')) {
         document.getElementById('apartment').value = sessionStorage.getItem('apartment');
@@ -176,6 +165,7 @@ function ForthToThird() {
     document.getElementById('submit').innerHTML = thirdpagehtml;
     document.getElementById('college_list').hidden = false;
     document.getElementById('major_list').hidden = false;
+    document.getElementById('apartment_list').hidden = true;
     get_major();
     //用于显示变化后的页面的值
     if (sessionStorage.getItem('college')){
@@ -236,6 +226,7 @@ function Form_Submit() {
             });} else {console.log(result);
             swal({
                 title : "注册失败啦",
+                text: result,
                 type : "error",
                 confirmButtonText : "确定",
                 closeOnConfirm : false
@@ -258,7 +249,6 @@ function get_major() {
     var academy = document.getElementById('college').value;
     var set_major = document.getElementById("major");
     var old_list = document.getElementById('major').getElementsByTagName('option');
-    console.log(old_list);
     var length = old_list.length;
     for (var j = 1; j < length; j++){
         set_major.removeChild(old_list[1]);
