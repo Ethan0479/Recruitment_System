@@ -3,6 +3,8 @@ import random
 from django.http import HttpResponse
 from django.shortcuts import render
 from ..freshman import models
+from apps.freshman.models import Freshman
+
 # Create your views here.
 def bar1(request):
     return render(request,'render.html')
@@ -20,6 +22,7 @@ def manage(request):
         return render(request,'manage.html')
     else:
         num = request.POST.get('num','')
+        print(num)
         try:
             num = int(num)
             name_date1 = '赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张鲁韦昌马苗凤花方'  # 32
@@ -57,7 +60,6 @@ def manage(request):
                     student.gender = '男'
                 else:
                     student.gender = '女'
-                print(a4)
                 if a4 == 20:
                     student.college = models.Academy.objects.get(id=str(19))
                     majors = models.Major.objects.filter(majorAcademy=str(19))
@@ -99,3 +101,23 @@ def timedata(request):
         return HttpResponse("成功")
     else:
         return HttpResponse("错误")
+
+def appoint_interview_time(request):
+    all_student_time = Freshman.objects.all()
+    interview_day = request.POST.get("interview_day", '')
+    month = ('9-27_','9-28_','9-29_','9-30_','9-31_','10-01_','10-02_')
+    day = ('8:00-10:00','10:00-12:00','14:00-16:00','16:00-18:00','19:00-21:00')
+    interview_day = {"9-27_8:00-10:00": 30, "9-27_10:00-12:00":20, "9-27_14:00-16:00":30, "9-27_16:00-18:00":40, "9-27_19:00-21:00":20,
+                     "9-28_8:00-10:00": 20, "9-27_10:00-12:00": 50, "9-27_14:00-16:00": 60, "9-27_16:00-18:00": 40,"9-27_19:00-21:00": 20,
+                     "9-29_8:00-10:00": 10, "9-27_10:00-12:00": 20, "9-27_14:00-16:00": 10, "9-27_16:00-18:00": 30,"9-27_19:00-21:00": 30,
+                     "9-30_8:00-10:00": 20, "9-27_10:00-12:00": 30, "9-27_14:00-16:00": 20, "9-27_16:00-18:00": 10,"9-27_19:00-21:00": 30,
+                     "9-31_8:00-10:00": 30, "9-27_10:00-12:00": 35, "9-27_14:00-16:00": 40, "9-27_16:00-18:00": 20,"9-27_19:00-21:00": 20,
+                     "10-1_8:00-10:00": 25, "9-27_10:00-12:00": 30, "9-27_14:00-16:00": 10, "9-27_16:00-18:00": 40,"9-27_19:00-21:00": 10,
+                     "10-2_8:00-10:00": 20, "9-27_10:00-12:00": 20, "9-27_14:00-16:00": 20, "9-27_16:00-18:00": 30,"9-27_19:00-21:00": 20,
+                     }
+
+    if interview_day == '':
+        return '请输入面试时间'
+
+
+

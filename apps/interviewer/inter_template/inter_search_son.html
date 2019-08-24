@@ -28,8 +28,7 @@
                 <td class="dd9">面试类型</td>
                 <td class="dd0">^</td>
             </tr>
-            {% for student_one in data_list %}
-            {% for a in student_one %}
+            {% for a in data_list %}
             <tr onclick="">
                 <td class="td1">{{ a.newname }}</td>
                 <td class="td2">{{ a.newstudent_id }}</td>
@@ -43,7 +42,6 @@
 {#                <td class="td0"></td>#}
             </tr>
             {% endfor %}
-        {% endfor %}
         </table>
 
     </div>
@@ -65,12 +63,9 @@
                     document.getElementById('list').innerHTML = result;
                 },
                 error:function(result){
-                    name.innerHTML="失败";
+                    document.getElementById('list').innerHTML = "获取失败";
                 }
             })
-        document.getElementById('a').innerHTML = data_list['direction'];
-        //document.getElementById("aaa").innerHTML = student_one['newstudent_id'];
-        //document.getElementById("aaa").innerHTML = student_id;
     }
 
     function getCookie(name) {
