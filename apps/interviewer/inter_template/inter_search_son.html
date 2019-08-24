@@ -14,46 +14,80 @@
 
 <body>
     <div>
+{#        这个东西需要继承#}
         <table id="list">
             <tr id="dd_dd">
                 <td class="dd1">名字</td>
                 <td class="dd2">学号</td>
-                <td class="dd3">空闲时间一</td>
-                <td class="dd4">空闲时间二</td>
-                <td class="dd5">空闲时间三</td>
-                <td class="dd6">面试日期</td>
-                <td class="dd7">面试时间</td>
-                <td class="dd8">&nbsp;&nbsp;面试地点&nbsp;&nbsp;</td>
+                <td class="dd3">男</td>
+                <td class="dd4">学院</td>
+                <td class="dd5">专业</td>
+                <td class="dd6">面试时间</td>
+                <td class="dd7">面试地点</td>
+                <td class="dd8">面试方向</td>
                 <td class="dd9">面试类型</td>
                 <td class="dd0">^</td>
             </tr>
-            <tr>
-                <td class="td1"><strong>张浩彬</strong></td>
-                <td class="td2">2018006774</td>
-                <td class="td3">09-15 15:30-16:00</td>
-                <td class="td4">10-08 15:30-16:00</td>
-                <td class="td5">10-08 15:30-16:00</td>
-                <td class="td6">09-30</td>
-                <td class="td7">15:30</td>
-                <td class="td8">云顶书院（数港）</td>
-                <td class="td9">未面试</td>
-                <td class="td0">^</td>
+            {% for student_one in data_list %}
+            {% for a in student_one %}
+            <tr onclick="">
+                <td class="td1">{{ a.newname }}</td>
+                <td class="td2">{{ a.newstudent_id }}</td>
+                <td class="td3">{{ a.gender }}</td>
+                <td class="td4">{{ a.college }}</td>
+                <td class="td5">{{ a.major }}</td>
+                <td class="td6">{{ a.time }}</td>
+                <td class="td7">{{ a.place }}</td>
+                <td class="td8">{{ a.direction }}</td>
+                <td class="td9">{{ a.evaluate }}</td>
+{#                <td class="td0"></td>#}
             </tr>
-            <tr>
-                <td class="td1">张浩彬</td>
-                <td class="td2">2018006774</td>
-                <td class="td3">09-15 15:30-16:00</td>
-                <td class="td4">10-08 15:30-16:00</td>
-                <td class="td5">10-08 15:30-16:00</td>
-                <td class="td6">09-30</td>
-                <td class="td7">15:30</td>
-                <td class="td8">云顶书院（数港）</td>
-                <td class="td9">未面试</td>
-                <td class="td0">^</td>
-            </tr>
+            {% endfor %}
+        {% endfor %}
         </table>
+
     </div>
 </body>
+<script>
+    function update(data_list){
+        var data = {};
+        data['csrfmiddlewaretoken'] = getCookie('csrftoken');
+        data['direction'] = data_list['direction'];
+        data['place'] = data_list['place'];
+        data['time'] = data_list['time'];
+        data['inter_type'] = data_list['inter_type'];
+        data['student_id'] = data_list['student_id'];
+        $.ajax({
+                url: "/interview/search/",
+                type: "POST",
+                data:data,
+                success:function(result){
+                    document.getElementById('list').innerHTML = result;
+                },
+                error:function(result){
+                    name.innerHTML="失败";
+                }
+            })
+        document.getElementById('a').innerHTML = data_list['direction'];
+        //document.getElementById("aaa").innerHTML = student_one['newstudent_id'];
+        //document.getElementById("aaa").innerHTML = student_id;
+    }
 
+    function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+</script>
 
 </html>

@@ -32,38 +32,30 @@
             <div id="select_data">
                 <form id="user_login">
                     {% csrf_token %}
-                    <label onclick="">
-                        <select id="directions">
-                            <option class="def" value="" selected="selected" onclick="form_submit()">选择方向</option>
-                            <option value="开发" onclick="form_submit()">开发</option>
-                            <option value="设计" onclick="form_submit()">设计</option>
-                            <option value="秘书处" onclick="form_submit()">秘书处</option>
+                    <label>
+                        <select id="directions" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">选择方向</option>
+                            <option value="开发">开发</option>
+                            <option value="设计">设计</option>
+                            <option value="秘书处">秘书处</option>
                         </select>
-                        <select id="place">
-                            <option class="def" value="" selected="selected" onclick="form_submit()">选择地点</option>
-                            <option value="" onclick="form_submit()">云顶</option>
-                            <option value="" onclick="form_submit()">xx1楼</option>
-                            <option value="" onclick="form_submit()">xx2楼</option>
+                        <select id="time" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">面试时间</option>
+                            <option value="">09月30号_15:00-15:30</option>
+                            <option value="">09月30号_15:00-15:30</option>
+                            <option value="">09月30号_15:00-15:30</option>
                         </select>
-                        <select id="day">
-                            <option class="def" value="" selected="selected" onclick="form_submit()">面试日期</option>
-                            <option value="" onclick="form_submit()">9月30号</option>
-                            <option value="" onclick="form_submit()">9月31号</option>
-                            <option value="" onclick="form_submit()">10月8号</option>
+                        <select id="place" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">选择地点</option>
+                            <option value="">云顶</option>
+                            <option value="">xx1楼</option>
+                            <option value="">xx2楼</option>
                         </select>
-                        <select id="time">
-                            <option class="def" value="" selected="selected" onclick="form_submit()">面试时间</option>
-                            <option value="" onclick="form_submit()">8-10点</option>
-                            <option value="" onclick="form_submit()">10-12点</option>
-                            <option value="" onclick="form_submit()">2-4点</option>
-                            <option value="" onclick="form_submit()">4-6点</option>
-                            <option value="" onclick="form_submit()">7-10点</option>
-                        </select>
-                        <select id="inter_type">
-                            <option class="def" value="" selected="selected" onclick="form_submit()">面试类型</option>
-                            <option value="" onclick="form_submit()">未面试</option>
-                            <option value="" onclick="form_submit()">面试迟到</option>
-                            <option value="" onclick="form_submit()">已面试</option>
+                        <select id="inter_type" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">面试类型</option>
+                            <option value="">未面试</option>
+                            <option value="">面试迟到</option>
+                            <option value="">已面试</option>
                         </select>
                         <input type="text" id="student_id" placeholder="请输入学号/姓名" onfocus="this.placeholder=''"
                             onblur="this.placeholder='请输入学号/姓名'">
@@ -90,39 +82,23 @@
                 </iframe>
             </div>
         </div>
-        <div id="tip">1</div>
     </div>
     <script type="text/javascript">
-        var direction = document.getElementById("directions");
-        var place = document.getElementById('place');
-        var day = document.getElementById('day');
-        var time = document.getElementById('time');
-        var inter_type = document.getElementById('inter_type');
-        var student_id = document.getElementById('student_id');
-
         function form_submit(){
+            var direction = document.getElementById("directions");
+            var place = document.getElementById('place');
+            var time = document.getElementById('time');
+            var inter_type = document.getElementById('inter_type');
+            var student_id = document.getElementById('student_id');
             var csrftoken = getCookie('csrftoken');
             var data = {};
             data['csrfmiddlewaretoken'] = csrftoken;
             data['direction'] = direction.value;
             data['place'] = place.value;
-            data['day'] = day.value;
             data['time'] = time.value;
             data['inter_type'] = inter_type.value;
             data['student_id'] =student_id.value;
-
-            $.ajax({
-                url: "/interview/search/",
-                type: "POST",
-                //data:$('#user_login').serialize(),
-                data:data,
-                success:function(result){
-                    tip.innerHTML="chenggong";
-                },
-                error:function(result){
-                    tip.innerHTML="失败";
-                }
-            })
+            document.getElementById("inner_box").contentWindow.update(data);
         }
 
         function getCookie(name) {

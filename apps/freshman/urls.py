@@ -29,7 +29,5 @@ urlpatterns = [
     url(r'^application/$', ApplicationView.as_view(), name='application'),
     url(r'^get_major/$', get_major, name='get_major'),
     url(r'^email_code', send_code_by_email, name='email_code'),
-    url(r'^404/$', Show404View.as_view()),
 ]
-
 
