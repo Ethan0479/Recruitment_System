@@ -174,61 +174,60 @@ def freshman_search(request):
 '''
 
 
-def freshman_search(request, type=1):
-    if type:
-        id_or_name = request.POST.get("student_id", "")
-        direction = request.POST.get("direction", "")
-        place = request.POST.get("place", "")
-        day = request.POST.get("day", "")
-        time = request.POST.get("time", "")
-        inter_type = request.POST.get("inter_type", "")
-        data_direction = []
-        data_place = []
-        data_day = []
-        data_time = []
-        data_type = []
+def freshman_search(request):
+    data_direction = []
+    data_place = []
+    data_time = []
+    data_type = []
+    data_list = []
+    id_or_name = request.POST.get("student_id", "")
+    direction = request.POST.get("direction", "")
+    place = request.POST.get("place", "")
+    time = request.POST.get("time", "")
+    inter_type = request.POST.get("inter_type", "")
 
-        all_student_data = Freshman.objects.filter()
-        for student_one in all_student_data:
-            if direction == "":
-                data_direction.append(student_one)
-            elif student_one['direction'] == direction:
-                data_direction.append(student_one)
+    all_student_data = Freshman.objects.filter()
+    all_student_data = all_student_data
 
-        for student_one in data_direction:
-            if place == "":
-                data_place.append(student_one)
-            elif student_one['place'] == place:
-                data_place.append(student_one)
+    for student_one in all_student_data:
+        if direction == "":
+            data_direction.append(student_one)
+        elif student_one.direction == direction:
+            data_direction.append(student_one)
 
+    for student_one in data_direction:
+        if place == "":
+            data_place.append(student_one)
+        elif student_one.place == place:
+            data_place.append(student_one)
+
+    for student_one in data_place:
+
+        if time == "":
+            data_time.append(student_one)
+        elif student_one.interview_time == time:
+            data_time.append(student_one)
+
+    for student_one in data_time:
+        if inter_type == "":
+            data_type.append(student_one)
+        elif student_one.interview_result == inter_type:
+            data_type.append(student_one)
+
+    for people in data_type:
+        data_one = []
         try:
-            daytime = student_one['interview_time']
-            daytime = daytime.split('-')
+            daytime = people.interview_time.split('-')
             day = daytime[0]
             time = daytime[1]
         except:
             day = ''
             time = ''
-
-        for student_one in data_place:
-            if day == "":
-                data_day.append(student_one)
-            elif student_one['interview_time'] == day + '-' + time:
-                data_day.append(student_one)
-        for student_one in data_day:
-            if time == "":
-                data_time.append(student_one)
-            elif student_one['interview_time'] == day + '-' + time:
-                data_time.append(student_one)
-        for student_one in data_time:
-            if type == "":
-                data_type.append(student_one)
-            elif student_one['interview_result'] == type:
-                data_type.append(student_one)
-        return render_to_response('inter_null.html', {"data_list": data_type})
-
-    else:
-        pass
+        data_one.append({"newstudent_id": people.newstudent_id, "newname": people.newname, "gender": people.gender,
+                         "college": people.college, "major": people.major, "time": time, "interview_place": people.interview_place,
+                         "direction":people.direction, "evaluate": people.evaluate})
+        data_list.append(data_one)
+    return render_to_response('inter_search_son.html', {"data_list": (data_list)})
 
 
 # 查看新生申请书
@@ -245,56 +244,43 @@ def check_application(request):
 
 # 内网页的登录
 def internal(request):
-    id_or_name = request.POST.get("student_id", "")
-    direction = request.POST.get("direction", "")
-    place = request.POST.get("place", "")
-    day = request.POST.get("day", "")
-    time = request.POST.get("time", "")
-    inter_type = request.POST.get("inter_type", "")
     data_direction = []
     data_place = []
-    data_day = []
     data_time = []
     data_type = []
     data_list = []
+    id_or_name = request.POST.get("student_id", "")
+    direction = request.POST.get("direction", "")
+    place = request.POST.get("place", "")
+    time = request.POST.get("time", "")
+    inter_type = request.POST.get("inter_type", "")
 
     all_student_data = Freshman.objects.filter()
-    all_student_data = all_student_data[:20]
+    all_student_data = all_student_data
+
     for student_one in all_student_data:
         if direction == "":
             data_direction.append(student_one)
-        elif student_one['direction'] == direction:
+        elif student_one.direction == direction:
             data_direction.append(student_one)
 
     for student_one in data_direction:
         if place == "":
             data_place.append(student_one)
-        elif student_one['place'] == place:
+        elif student_one.place == place:
             data_place.append(student_one)
 
-    try:
-        daytime = student_one['interview_time']
-        daytime = daytime.split('-')
-        day = daytime[0]
-        time = daytime[1]
-    except:
-        day = ''
-        time = ''
-
     for student_one in data_place:
-        if day == "":
-            data_day.append(student_one)
-        elif student_one['interview_time'] == day + '-' + time:
-            data_day.append(student_one)
-    for student_one in data_day:
+
         if time == "":
             data_time.append(student_one)
-        elif student_one['interview_time'] == day + '-' + time:
+        elif student_one.interview_time == time:
             data_time.append(student_one)
+
     for student_one in data_time:
         if inter_type == "":
             data_type.append(student_one)
-        elif student_one['interview_result'] == inter_type:
+        elif student_one.interview_result == inter_type:
             data_type.append(student_one)
 
     for people in data_type:
@@ -306,14 +292,10 @@ def internal(request):
         except:
             day = ''
             time = ''
-        data_one.append({"newstudent_id": people.newstudent_id, "newname": people.newname, "appointment_one": people.gender,
-                         "appointment_two": people.college, "appointment_three": people.major, "day": day, "time": time,
-                         "interview_place": people.interview_place, "evaluate": people.direction})
+        data_one.append({"newstudent_id": people.newstudent_id, "newname": people.newname, "gender": people.gender,
+                         "college": people.college, "major": people.major, "time": time, "interview_place": people.interview_place,
+                         "direction":people.direction, "evaluate": people.evaluate})
         data_list.append(data_one)
-
-    a = 1
-    b = 2
-
     return render_to_response('inter_search_son.html', {"data_list": (data_list)})
 
 
@@ -323,3 +305,4 @@ def info_check_out(request):
 
 def info_check_out_son(request):
     return None
+
