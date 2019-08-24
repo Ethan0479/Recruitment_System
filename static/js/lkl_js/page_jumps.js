@@ -184,8 +184,11 @@ function Form_Submit() {
     var dormitory = document.getElementById('dormitory').value;
     sessionStorage.setItem("apartment", apartment);
     sessionStorage.setItem("dormitory", dormitory);
-    post('/register/', {
-        'newname' : sessionStorage.getItem('name'),
+    var csrf_token = getCookie('csrftoken');
+    $.ajax({
+        url: '/register/',
+        type: "POST",
+        data:{'newname' : sessionStorage.getItem('name'),
         'newstudent_id' : sessionStorage.getItem('uid'),
         'password' : sessionStorage.getItem('pwd'),
         'gender' : sessionStorage.getItem('gender'),
@@ -196,6 +199,31 @@ function Form_Submit() {
         'qq' : sessionStorage.getItem('QQ'),
         'email' : sessionStorage.getItem('email'),
         'apartment' : sessionStorage.getItem('apartment'),
-        'dormitory' : sessionStorage.getItem('dormitory')
-    })
+        'dormitory' : sessionStorage.getItem('dormitory'),
+        'csrfmiddlewaretoken' : csrf_token},
+        success:function (result) {
+            if (result === '200'){
+                swal({
+                title : "注册成功",
+                text : "快去登录报名吧(●'◡'●)ﾉ",
+                type : "success",
+                confirmButtonText : "确定",
+                closeOnConfirm : false
+            }, function () {
+              window.location.href = '/login/'
+            });} else {console.log(result);
+            swal({
+                title : "注册失败啦",
+                type : "error",
+                confirmButtonText : "确定",
+                closeOnConfirm : false
+            }, function () {
+              window.location.href = '/register/'
+            });}
+            }
+
+
+
+    });
+
 }

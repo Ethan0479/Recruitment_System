@@ -9,6 +9,7 @@ class Interview(models.Model):   # 此处继承AbstractUser， 改写auth_user�
     interview_id = models.CharField(max_length=11, verbose_name=u"学号", default='',primary_key=True)
     interview_name = models.CharField(max_length=50, verbose_name=u"姓名", default='')
     interview_direction = models.CharField(max_length=15, verbose_name=u"方向", default='')
+    interview_password = models.CharField(max_length=30, verbose_name=u"密码", default='')
 
     #原因为非必填
     reason = models.TextField (verbose_name=u"原因", null=True, blank=True)

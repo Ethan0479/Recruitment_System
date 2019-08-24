@@ -5,62 +5,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=0">
     <title>Title</title>
+    <script type="text/javascript" src="{% static 'js/zxf_js/index.js' %}"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/lkl_js/functions.js' %}"></script>
     <script type="text/javascript" src="{% static  'js/lkl_js/sign_up.js'%}"></script>
     <link type="text/css" rel="stylesheet" href="{% static 'css/zxf_css/index1.css' %}">
-    <script type="text/javascript" src="{% static 'js/zxf_js/index.js' %}"></script>
+
 </head>
 <body onload="timeSet()">
     <img id="logo_1" src="{% static 'img/logo_1@2x.png' %}" />
     <div id="head"><span id="head_1">2019/</span><br/><span id="head_2">云&nbsp顶&nbsp报&nbsp名</span></div>
     <div id="content">
         <form action="" method="post">
-            {% csrf_token %}
-            <div id="text1" class="text" name="direction" value="0">请选择方向</div>
-            <input class="btn" id="btn1" type="button" value="开发" onmousedown="btnChange(this)">
-            <input class="btn" id="btn2" type="button" value="设计" onmousedown="btnChange(this)">
-            <input class="btn" id="btn3" type="button" value=" 秘书处" onmousedown="btnChange(this)">
+{#            {% csrf_token %}#}
+            <div id="text1" class="text" name="direction">请选择方向</div>
+            <div id="button_list" name="direction" value="0">
+                <input class="btn" id="btn1" type="button" value="开发" onmousedown="btnChange(this)">
+                <input class="btn" id="btn2" type="button" value="设计" onmousedown="btnChange(this)">
+                <input class="btn" id="btn3" type="button" value=" 秘书处" onmousedown="btnChange(this)">
+            </div>
+
             <br/><br/>
             <div id="text2" class="text">请选择面试时间 </div>
-            <select name="direction" class="time_1" id="time_1_1" onclick="timeSet(this)">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
-                <option class="opt" value="--" selected="selected">--</option>
+            <select name="direction" class="time_1" id="time_1_1" onchange="timeSet(this)">
+                <option class="opt" value="10月1日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月1日</option>
+                <option class="opt" value="10月2日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月2日</option>
+                <option class="opt" value="10月3日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月3日</option>
+                <option class="opt" value="10月4日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月4日</option>
+                <option class="opt" value="10月5日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月5日</option>
+                <option class="opt" value="10月6日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月6日</option>
+                <option class="opt" value="10月7日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月7日</option>
+                <option class="opt" value="--"  selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
             </select>
-            <select name="direction" class="time_2" id="time_2_1" onclick="timeSet(this)">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
-                <option class="opt" value="--" selected="selected">--</option>
-            </select>
-            <br/><br/>
-            <select name="direction" class="time_1" id="time_1_2" onclick="timeSet(this)">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
-                <option class="opt" value="--" selected="selected">--</option>
-            </select>
-            <select name="direction" class="time_2" id="time_2_2" onclick="timeSet(this)">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
-                <option class="opt" value="--" selected="selected">--</option>
+            <select name="direction" class="time_2" id="time_2_1" onchange="timeSet(this)">
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8:00-10:00</option>
+                <option class="opt" value="10:00-12:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10:00-12:00</option>
+                <option class="opt" value="14:00-16:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14:00-16:00</option>
+                <option class="opt" value="16:00-18:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:00-18:00</option>
+                <option class="opt" value="19:00-21:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19:00-21:00</option>
+                <option class="opt" value="--" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
             </select>
             <br/><br/>
-            <select name="direction" class="time_1" id="time_1_3" onclick="timeSet(this)">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
-                <option class="opt" value="--" selected="selected">--</option>
+            <select name="direction" class="time_1" id="time_1_2" onchange="timeSet(this)">
+                <option class="opt" value="10月1日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月1日</option>
+                <option class="opt" value="10月2日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月2日</option>
+                <option class="opt" value="10月3日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月3日</option>
+                <option class="opt" value="10月4日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月4日</option>
+                <option class="opt" value="10月5日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月5日</option>
+                <option class="opt" value="10月6日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月6日</option>
+                <option class="opt" value="10月7日" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月7日</option>
+                <option class="opt" value="--"  selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
             </select>
-            <select name="direction" class="time_2" id="time_2_3" onclick="timeSet(this)">
-                <option class="opt" value="时间1">时间1</option>
-                <option class="opt" value="时间2">时间2</option>
-                <option class="opt" value="时间3">时间3</option>
-                <option class="opt" value="--" selected="selected">--</option>
+            <select name="direction" class="time_2" id="time_2_2" onchange="timeSet(this)">
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8:00-10:00</option>
+                <option class="opt" value="10:00-12:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10:00-12:00</option>
+                <option class="opt" value="14:00-16:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14:00-16:00</option>
+                <option class="opt" value="16:00-18:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:00-18:00</option>
+                <option class="opt" value="19:00-21:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19:00-21:00</option>
+                <option class="opt" value="--" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
+            </select>
+            <br/><br/>
+            <select name="direction" class="time_1" id="time_1_3" onchange="timeSet(this)">
+                <option class="opt" value="10月1日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月1日</option>
+                <option class="opt" value="10月2日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月2日</option>
+                <option class="opt" value="10月3日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月3日</option>
+                <option class="opt" value="10月4日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月4日</option>
+                <option class="opt" value="10月5日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月5日</option>
+                <option class="opt" value="10月6日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月6日</option>
+                <option class="opt" value="10月7日">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10月7日</option>
+                <option class="opt" value="--"  selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
+            </select>
+            <select name="direction" class="time_2" id="time_2_3" onchange="timeSet(this)">
+                <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8:00-10:00</option>
+                <option class="opt" value="10:00-12:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10:00-12:00</option>
+                <option class="opt" value="14:00-16:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14:00-16:00</option>
+                <option class="opt" value="16:00-18:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:00-18:00</option>
+                <option class="opt" value="19:00-21:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19:00-21:00</option>
+                <option class="opt" value="--" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
             </select>
             <br/>
-            <input id="sbt" type="submit" value="提交" onclick="appointment()">
+            <input id="sbt" type="button" value="提交" onclick="appointment()">
         </form>
     </div>
 </body>

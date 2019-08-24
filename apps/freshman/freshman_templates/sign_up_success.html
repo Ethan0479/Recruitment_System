@@ -10,8 +10,8 @@
 	<body>
 		<div class="header">
 			<div class="name">
-				<h1>报名成功！</h1>
-				<div class="name1">期待你的精彩表现</div>
+				<h1>小可爱报名成功啦~</h1>
+				<div class="name1">期待你的精彩表现哦</div>
 			</div>
 			<img src="{% static 'img/cloud.png' %}" alt="" class="cloud">
 		</div>
@@ -30,12 +30,17 @@
 			<div id="text3" class="text"></div>
 		        <div class="apply_stb">
 					<input id="btn4" type="button" value="">
+                    <img src="/static/img/墨笔.svg" width="25px" height="25px" style="position: absolute;margin-top: 7px;margin-left: 81px" onclick="location.href='/application/'" >
 				</div>
-		        <div id="text4">点击按钮编写电子版</div>
+		        <div id="text4" >点击按钮编写电子版</div>
 		        <div id="text5">纸质版请交至云顶数港基地</div>
-				<input id="sbt1" type="submit" value="修改报名表" >
-				<input id="sbt2" type="submit" value="确认" >
-
+				<input id="sbt1" type="button" value="修改报名表" onclick="location.href='/alter_sign_up/'">
+				<input id="sbt2" type="button" value="确认" onclick="location.href='/homepage/'">
 		</div>
 	</body>
+{#<script>#}
+{#    function backtohomepage() {#}
+{#        window.location.href = '/homepage/'#}
+{#    }#}
+{#</script>#}
 </html>

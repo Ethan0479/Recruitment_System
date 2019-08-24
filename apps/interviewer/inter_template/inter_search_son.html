@@ -1,0 +1,100 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+{% block statics%}
+<head>
+    <meta http-equiv="Content-Type" charset="UTF-8" lang="zh">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>查看面试者资料</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="../../../static/css/zhb/css/inter_search_son.css" />
+    <script src={% static '/css/zhb/js/JQuery_1.js' %}></script>
+</head>
+{% endblock%}
+
+<body>
+    <div>
+        <div id="a">1</div>
+        <div id="b">1</div>
+
+{#        这个东西需要继承#}
+        <table id="list">
+            <tr id="dd_dd">
+                <td class="dd1">名字</td>
+                <td class="dd2">学号</td>
+                <td class="dd3">空闲时间一</td>
+                <td class="dd4">空闲时间二</td>
+                <td class="dd5">空闲时间三</td>
+                <td class="dd6">面试日期</td>
+                <td class="dd7">面试时间</td>
+                <td class="dd8">&nbsp;&nbsp;面试地点&nbsp;&nbsp;</td>
+                <td class="dd9">面试类型</td>
+                <td class="dd0">^</td>
+            </tr>
+            {% for student_one in data_list %}
+            {% for a in student_one %}
+            <tr>
+                <td class="td1">{{ a.newname }}</td>
+                <td class="td2">{{ a.newstudent_id }}</td>
+                <td class="td3">{{ a.appointment_one }}</td>
+                <td class="td4">{{ a.appointment_two }}</td>
+                <td class="td5">{{ a.appointment_three }}</td>
+                <td class="td6">{{ a.day }}</td>
+                <td class="td7">{{ a.time }}</td>
+                <td class="td8">{{ a.interview_place }}</td>
+                <td class="td9">{{ a.evaluate }}</td>
+{#                <td class="td0"></td>#}
+            </tr>
+            {% endfor %}
+        {% endfor %}
+        </table>
+
+    </div>
+</body>
+<script>
+    function update(data_list){
+        var data = {};
+        var csrftoken = getCookie('csrftoken');
+        data['csrfmiddlewaretoken'] = csrftoken;
+        data['direction'] = data_list['direction'];
+        data['place'] = data_list['place'];
+        data['day'] = data_list['day'];
+        data['time'] = data_list['time'];
+        data['inter_type'] = data_list['inter_type'];
+        data['student_id'] = data_list['student_id'];
+        document.getElementById('a').innerHTML = data_list['direction'];
+        $.ajax({
+                url: "/interview/search/",
+                type: "POST",
+                data:data,
+                success:function(result){
+                    var content = {{ data_list|safe }};
+                    document.getElementById('b').innerHTML = content;
+                },
+                error:function(result){
+                    name.innerHTML="失败";
+                }
+            })
+        //document.getElementById("aaa").innerHTML = student_one['newstudent_id'];
+        document.getElementById("aaa").innerHTML = data_list;
+        //document.getElementById("aaa").innerHTML = student_id;
+    }
+
+    function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+</script>
+
+</html>

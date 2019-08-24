@@ -58,6 +58,8 @@ input, .select_list{
     margin-top: 30px;
     text-indent: 3%;
     outline: none;
+    background-color: #ffffff;
+    font-weight: 100;
 }
 input[type=submit], input[type=button]{
     margin-top: 60px;
@@ -267,10 +269,12 @@ input[type=radio]:checked+.female_icon{
     background-repeat: no-repeat;
     background-position-x: right;
     letter-spacing: 9px;
-    font-weight: 100;
+    font-weight: 200;
+    color: #7e7e7e;
 }
 .main_footer{
-    position: absolute;
+    margin-top: 10px;
+    position: relative;
     bottom: 5%;
     width: 100%;
 }

@@ -1,0 +1,223 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+{% block statics%}
+<head>
+    <meta http-equiv="Content-Type" charset="UTF-8" lang="zh">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>注册</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href={% static '/css/zhb/css/inter_register.css' %} />
+    <script src={% static '/css/zhb/js/JQuery_1.js' %}></script>
+{#    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>#}
+</head>
+{% endblock%}
+
+{% block main %}
+    <div id="main">
+        <div id="left">
+            <!--就是个背景图-->
+        </div>
+        <div id="float">
+            <div id="year">
+                <p>2019/</p>
+            </div>
+            <div id="yunding">
+                <p>云顶招新</p>
+            </div>
+            <div id="interviewer">
+                <p>面试官</p>
+            </div>
+            <div id="logo">
+            </div>
+        </div>
+        <div id="right">
+            <div id="login">
+                <p>注册</p>
+                <br />
+            </div>
+            <form id="user_login">
+                {% csrf_token %}
+                <input id="input_id" type="test" name="student_id" placeholder="请输入学号" onfocus="this.placeholder=''"
+                    onblur="this.placeholder='请输入学号'" />
+                <input id="input_name" type="test" name="name" placeholder="请输入姓名" onfocus="this.placeholder=''"
+                    onblur="this.placeholder='请输入姓名'" />
+                <input id="input_password" type="password" name="password" placeholder="请输入密码"
+                    onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" />
+                <div id="btnlist" name="" value="0">
+                    <input class="btn" id="btn1" type="button" value="开发" onmousedown="btnChange(this)">
+                    <input class="btn" id="btn2" type="button" value="设计" onmousedown="btnChange(this)">
+                    <input class="btn" id="btn3" type="button" value=" 秘书处" onmousedown="btnChange(this)">
+                </div>
+                <div id="tip">1</div>
+                <input id="submit" type="button" value="登录" form="userForm" onclick="reg_submit()">
+            </form>
+            <div id="link_register">
+                <a onclick="goto_login()">已有账号？去登录 &nbsp;></a>
+            </div>
+        </div>
+        <div id='SIGN_UP'>
+            <div id="SI">
+                <p>SI</p>
+            </div>
+            <div id="GN">
+                <p>GN</p>
+            </div>
+            <br />
+            <div id="U">
+                <p>U</p>
+            </div>
+            <div id="P">
+                <p>P</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        var tip = document.getElementById('tip');
+        var input_id = document.getElementById('input_id').value;
+        var input_name = document.getElementById('input_name').value;
+        var input_password = document.getElementById('input_password').value;
+        var input_direction = document.getElementById('btnlist');
+
+        //验证信息是否正确
+        function verification(){
+            tip.innerHTML=input_id.value+input_name.value+input_password.value+input_direction.value;
+
+            var number = /2019+\d{6}/;
+
+            /*if(number.exec(input_id.value) && input_id.value.length == 10){
+                tip.innerHTML='陈宫';
+            }
+            else{
+                tip.innerHTML='err';
+            }
+
+            if(input_id.value == '12345'){
+                setTimeout("window.location.href = '../login/'", 2000);
+            }*/
+        }
+
+        function reg_submit(){
+            var input_id = document.getElementById('input_id').value;
+            var input_name = document.getElementById('input_name').value;
+            var input_password = document.getElementById('input_password').value;
+            var input_direction = document.getElementById('btnlist').value;
+            var csrftoken = getCookie('csrftoken');
+            var data = {};
+            data['csrfmiddlewaretoken'] = csrftoken;
+            data['student_id'] = input_id;
+            data['name'] = input_name;
+            data['password'] = input_password;
+            data['direction'] = input_direction;
+
+            $.ajax({
+                url:"/interview/register/",
+                type:"POST",
+                //data:$('#user_login').serialize(),
+                data:data,
+                success:function(result){
+                    if(result === "200"){
+                        tip.innerHTML="注册成功";
+                        setTimeout("window.location.href = '../login/'", 2000);
+                    }
+                },
+                error:function(result){
+                    if(result !== "200"){
+                        console.log(result);
+                        tip.innerHTML="注册失败";
+                    }
+                }
+            })
+        }
+
+        function goto_login() {
+            setTimeout("window.location.href = '../login/'", 2000);
+        }
+
+        /*function reg_submit(){
+            post('/register/', {
+                'id' : sessionStorage.getItem('input_id'),
+                'name' : sessionStorage.getItem('input_name'),
+                'password' : sessionStorage.getItem('input_password'),
+                'direction' : sessionStorage.getItem('input_direction'),
+             })
+        }*/
+
+        function post(URL, PARAMS) {
+            var temp = document.createElement('form');
+            temp.action = URL;
+            temp.method = "post";
+            temp.style.display = "none";
+            for (var x in PARAMS) {
+                var obj = document.createElement("textarea");
+                obj.name = x;
+                obj.value = PARAMS[x];
+                temp.appendChild(obj);
+            }
+
+            //获取csrf cookie并作为post数据递交达到{% csrf_token %}效果
+            var csrftoken = getCookie('csrftoken');
+            var csrf_token = document.createElement('input');
+            csrf_token.name = 'csrfmiddlewaretoken';
+            csrf_token.value = csrftoken;
+            temp.appendChild(csrf_token);
+
+            document.body.appendChild(temp);
+            temp.submit();
+
+            return false;
+        }
+
+        function btnChange(btn) {
+            btn.style.backgroundColor = "#2b7bff";
+            btn.style.color = "#ffffff";
+            if (btn.id === "btn1"){
+                var btn_1 = document.getElementById("btn2");
+                var btn_2 = document.getElementById("btn3");
+                btn_1.style.backgroundColor = "#ffffff";
+                btn_2.style.backgroundColor = "#ffffff";
+                btn_1.style.color = "#bcbcbc";
+                btn_2.style.color = "#bcbcbc";
+                input_direction.value = "1";
+            }else if (btn.id === "btn2"){
+                var btn_1 = document.getElementById("btn1");
+                var btn_2 = document.getElementById("btn3");
+                btn_1.style.backgroundColor = "#ffffff";
+                btn_2.style.backgroundColor = "#ffffff";
+                btn_1.style.color = "#bcbcbc";
+                btn_2.style.color = "#bcbcbc";
+                input_direction.value = "2";
+            }else if (btn.id === "btn3") {
+                var btn_1 = document.getElementById("btn1");
+                var btn_2 = document.getElementById("btn2");
+                btn_1.style.backgroundColor = "#ffffff";
+                btn_2.style.backgroundColor = "#ffffff";
+                btn_1.style.color = "#bcbcbc";
+                btn_2.style.color = "#bcbcbc";
+                input_direction.value = "3";
+            }else {
+                alert("错误")
+            }
+        }
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+    </script>
+{% endblock %}
+
+</html>

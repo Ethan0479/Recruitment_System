@@ -1,0 +1,134 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+{% block statics%}
+<head>
+    <meta http-equiv="Content-Type" charset="UTF-8" lang="zh">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>查看面试者资料</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="../../../static/css/zhb/css/inter_search.css"/>
+    <script src={% static '/css/zhb/js/JQuery_1.js' %}></script>
+</head>
+{% endblock%}
+
+<body>
+    <div id="head">
+        <img id="logo_blue_pic" src={% static '/css/zhb/img/logo_blue.svg' %} alt="">
+        <div>资料</div>
+        <div>评价</div>
+    </div>
+    <div id="out">
+        <img id="out_pic" src={% static '/css/zhb/img/out.svg' %} alt="">
+        <p>欢迎你,小云云</p>
+    </div>
+    <div id="mange_inter">
+        <!-- 除了学生信息以外的东西 -->
+        <div id="inter_head">
+            <div id="student_inter">
+                <p>学生面试管理</p>
+            </div>
+            <hr style="margin-top: 27px;">
+            <div id="select_data">
+                <form id="user_login">
+                    {% csrf_token %}
+                    <label>
+                        <select id="directions" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">选择方向</option>
+                            <option value="开发">开发</option>
+                            <option value="设计">设计</option>
+                            <option value="秘书处">秘书处</option>
+                        </select>
+                        <select id="place" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">选择地点</option>
+                            <option value="">云顶</option>
+                            <option value="">xx1楼</option>
+                            <option value="">xx2楼</option>
+                        </select>
+                        <select id="day" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">面试日期</option>
+                            <option value="">9月30号</option>
+                            <option value="">9月31号</option>
+                            <option value="">10月8号</option>
+                        </select>
+                        <select id="time" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">面试时间</option>
+                            <option value="">8-10点</option>
+                            <option value="">10-12点</option>
+                            <option value="">2-4点</option>
+                            <option value="">4-6点</option>
+                            <option value="" >7-10点</option>
+                        </select>
+                        <select id="inter_type" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">面试类型</option>
+                            <option value="">未面试</option>
+                            <option value="">面试迟到</option>
+                            <option value="">已面试</option>
+                        </select>
+                        <input type="text" id="student_id" placeholder="请输入学号/姓名" onfocus="this.placeholder=''"
+                            onblur="this.placeholder='请输入学号/姓名'">
+                        <!-- <input type="submit" id="submit" value="查询" /> -->
+                        <div>
+                            <span>0</span>
+                            <br />
+                            <p style="color: rgb(153,153,153) ">已报名人数</p>
+                        </div>
+                    </label>
+                </form>
+            </div>
+            <hr style="width: 81%; margin-top: 27px;" />
+            <div id="choice">
+                <span>已选择0人</span>
+                <div>修改面试时间</div>
+                <div>添加面试人员</div>
+                <div>导出名单</div>
+            </div>
+        </div>
+        <div id="student_data">
+            <div id="student">
+                <iframe id="inner_box" src="inter_search_son/" frameborder="no" name="ifr1" scrolling="yes">
+                </iframe>
+            </div>
+        </div>
+        <div id="tip">0</div>
+    </div>
+    <script type="text/javascript">
+        var direction = document.getElementById("directions");
+        var place = document.getElementById('place');
+        var day = document.getElementById('day');
+        var time = document.getElementById('time');
+        var inter_type = document.getElementById('inter_type');
+        var student_id = document.getElementById('student_id');
+        var tip = document.getElementById('tip');
+
+        function form_submit(){
+            var csrftoken = getCookie('csrftoken');
+            var data = {};
+            data['csrfmiddlewaretoken'] = csrftoken;
+            data['direction'] = direction.value;
+            data['place'] = place.value;
+            data['day'] = day.value;
+            data['time'] = time.value;
+            data['inter_type'] = inter_type.value;
+            data['student_id'] =student_id.value;
+            tip.innerHTML = data;
+            document.getElementById("inner_box").contentWindow.update(data);
+        }
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
