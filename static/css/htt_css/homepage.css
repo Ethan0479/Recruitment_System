@@ -92,6 +92,7 @@
                 background-color: rgba(0,0,0,0);
                 position: absolute;
                 left: 32px;
+                outline: none;
                 top: 27px;
                 border:solid 1px white;
                 border-radius: 15px;
@@ -231,7 +232,7 @@
         width: 32.67%;
         height: 26px;
         position: absolute;
-        top: 26px;
+        margin-top: 46px;
         left: 126px;
         background-image: url("/static/img/logo_two.png");
         background-repeat: no-repeat;

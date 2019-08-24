@@ -28,6 +28,25 @@
 </div>
 <div id="main">
     <p id="tip">注册你的账号</p><br>
+    <div class="selected" hidden id="college_list">
+    <!--<label class="tip">请选择学院</label>-->
+        <label>
+           <select name="college" class="select_list" id="college" onchange="get_major()">
+                <option value="" selected="selected" class="tip" disabled>请选择学院</option>
+                {% for college in colleges %}
+                    <option value="{{ college }}">{{ college }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+    <div class="selected" hidden id="major_list">
+        <!--<label class="tip">请选择专业</label>-->
+        <label>
+            <select name="major" class="select_list" id="major">
+                <option value="" selected="selected" class="tip" disabled>请选择专业</option>
+            </select>
+        </label>
+    </div>
     <div id="submit">
         <form action="">
             <input type="text" id="name" placeholder="请输入姓名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入姓名'" name=""><br>

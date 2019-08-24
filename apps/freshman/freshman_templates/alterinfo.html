@@ -26,18 +26,33 @@
                               window.location.href = '/homepage/'
                             });
 
+                        }else {
+                            if (result === '202'){
+                                swal({
+                                 title : "修改失败",
+                                 text: "新手机号和新邮箱都有人用了哦！",
+                                 type : "error",
+                                 confirmButtonText : "确定",
+                                 closeOnConfirm : false
+                             }, function () {
+                                    window.location.href = '/alterinfo/'
+                                });
+                            }else {
+                              swal({
+                                 title : "修改失败",
+                                 text: result,
+                                 type : "error",
+                                 confirmButtonText : "确定",
+                                 closeOnConfirm : false
+                             }, function () {
+                                  window.location.href = '/alterinfo/'
+                              });
+                            }
                         }
                     }
                 });
         		}
-        // 		function b(){
-        //  swal({
-        // title : "修改失败",
-        // type : "error",
-        // confirmButtonText : "确定",
-        // closeOnConfirm : false
-        // });
-        // }
+
     	</script>
 	</head>
 	<body>
