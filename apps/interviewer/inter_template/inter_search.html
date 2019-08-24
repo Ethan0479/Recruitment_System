@@ -39,25 +39,17 @@
                             <option value="设计">设计</option>
                             <option value="秘书处">秘书处</option>
                         </select>
+                        <select id="time" onchange="form_submit()">
+                            <option class="def" value="" selected="selected">面试时间</option>
+                            <option value="">09月30号_15:00-15:30</option>
+                            <option value="">09月30号_15:00-15:30</option>
+                            <option value="">09月30号_15:00-15:30</option>
+                        </select>
                         <select id="place" onchange="form_submit()">
                             <option class="def" value="" selected="selected">选择地点</option>
                             <option value="">云顶</option>
                             <option value="">xx1楼</option>
                             <option value="">xx2楼</option>
-                        </select>
-                        <select id="day" onchange="form_submit()">
-                            <option class="def" value="" selected="selected">面试日期</option>
-                            <option value="">9月30号</option>
-                            <option value="">9月31号</option>
-                            <option value="">10月8号</option>
-                        </select>
-                        <select id="time" onchange="form_submit()">
-                            <option class="def" value="" selected="selected">面试时间</option>
-                            <option value="">8-10点</option>
-                            <option value="">10-12点</option>
-                            <option value="">2-4点</option>
-                            <option value="">4-6点</option>
-                            <option value="" >7-10点</option>
                         </select>
                         <select id="inter_type" onchange="form_submit()">
                             <option class="def" value="" selected="selected">面试类型</option>
@@ -90,28 +82,22 @@
                 </iframe>
             </div>
         </div>
-        <div id="tip">0</div>
     </div>
     <script type="text/javascript">
-        var direction = document.getElementById("directions");
-        var place = document.getElementById('place');
-        var day = document.getElementById('day');
-        var time = document.getElementById('time');
-        var inter_type = document.getElementById('inter_type');
-        var student_id = document.getElementById('student_id');
-        var tip = document.getElementById('tip');
-
         function form_submit(){
+            var direction = document.getElementById("directions");
+            var place = document.getElementById('place');
+            var time = document.getElementById('time');
+            var inter_type = document.getElementById('inter_type');
+            var student_id = document.getElementById('student_id');
             var csrftoken = getCookie('csrftoken');
             var data = {};
             data['csrfmiddlewaretoken'] = csrftoken;
             data['direction'] = direction.value;
             data['place'] = place.value;
-            data['day'] = day.value;
             data['time'] = time.value;
             data['inter_type'] = inter_type.value;
             data['student_id'] =student_id.value;
-            tip.innerHTML = data;
             document.getElementById("inner_box").contentWindow.update(data);
         }
 
