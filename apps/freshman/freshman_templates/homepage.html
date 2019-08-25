@@ -58,9 +58,7 @@
         //时间
         window.onload=function(){
         //定时器每秒调用一次fnDate()
-            setInterval(function(){
-            fnDate();
-            },100);
+            setTimeout("fnDate()",100);
         };
         //js 获取当前时间
         function fnDate(){

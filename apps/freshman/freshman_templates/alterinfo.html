@@ -42,6 +42,7 @@
                             }else {
                               swal({
                                  title : "修改失败",
+                                 {# 暂待修改#}
                                  text: result,
                                  type : "error",
                                  confirmButtonText : "确定",
@@ -62,7 +63,6 @@
 	</head>
 	<body>
 		<div class="header">修改信息</div>
-		
 		<div class="white">
 			<!-- 内容 -->
 			<div class="content">
@@ -81,48 +81,42 @@
 						<input type="number" name="qq" value="{{ student.qq }}" placeholder="1234567" onfocus="this.placeholder=''" onblur="this.placeholder='1234567'" class="qq"><!--  QQ--><br/>
 						<input type="number" name="phone" value="{{ student.phone }}" placeholder="12345678901" onfocus="this.placeholder=''" onblur="this.placeholder='12345678901'" class="phone"><!--  电话--><br/>
 						<input type="email" name="email" value="{{ student.email }}" placeholder="1234567@qq.com" onfocus="this.placeholder=''" onblur="this.placeholder='1234567@qq.com'" class="email"><!--  邮箱--><br/>
-						<select class="selectone" id="college" name="college">
+						<select class="selectone" id="college" name="college" onchange="get_major()">
+                            <option value="" selected="selected" class="tip" disabled>请选择学院</option>
                             {% for college in colleges %}
                                 <option value="{{ college }}">{{ college }}</option>
                             {% endfor %}
                             <input type="hidden" id="student_college" value="{{ student.college }}">
 {#                        后期还得改#}
-{#							<option value="大数据学院" {% if student.college == '大数据学院' %}selected="selected"{% endif %}>大数据学院</option>#}
-{#							<option value="生物医学学院" {% if student.college == '生物医学学院' %}selected="selected"{% endif %}>生物医学学院</option>#}
-{#							<option value="软件学院" {% if student.college == '软件学院' %}selected="selected"{% endif %}>软件学院</option>#}
-{#							<option value="计算机学院" {% if student.college == '计算机学院' %}selected="selected"{% endif %}>计算机学院</option>#}
 						</select>
 						<select class="selecttwo" name="major" id="major">
-{#							<option value="软件工程" {% if student.college == '软件工程' %}selected="selected"{% endif %}>软件工程</option>#}
-{#							<option value="计算机科学与技术" {% if student.college == '计算机科学与技术' %}selected="selected"{% endif %}>计算机科学与技术</option>#}
-{#							<option value="数据科学与技术" {% if student.college == '数据科学与技术' %}selected="selected"{% endif %}>数据科学与技术</option>#}
-{#							<option value="机械与运载工程" {% if student.college == '机械与运载工程' %}selected="selected"{% endif %}>机械与运载工程</option>#}
+                            <option value="" selected="selected" class="tip" disabled>请选择专业</option>
 						</select>
                         <input type="hidden" id="student_major" value="{{ student.major }}">
 						<input type="number" name="newclass" value="{{ student.newclass }}" placeholder="1801" onfocus="this.placeholder=''" onblur="this.placeholder='1801'" class="classes"><!--  班级--><br/>
 						<select class="selectthree" name="apartment">
-                            <option value="明泽苑1号楼" {% if student.college == '明泽苑1号楼' %}selected="selected"{% endif %}>明泽苑1号楼</option>
-                            <option value="明泽苑2号楼" {% if student.college == '明泽苑2号楼' %}selected="selected"{% endif %}>明泽苑2号楼</option>
-                            <option value="明泽苑3号楼" {% if student.college == '明泽苑3号楼' %}selected="selected"{% endif %}>明泽苑3号楼</option>
-                            <option value="明泽苑4号楼" {% if student.college == '明泽苑4号楼' %}selected="selected"{% endif %}>明泽苑4号楼</option>
-                            <option value="明泽苑5号楼" {% if student.college == '明泽苑5号楼' %}selected="selected"{% endif %}>明泽苑5号楼</option>
-                            <option value="明泽苑6号楼" {% if student.college == '明泽苑6号楼' %}selected="selected"{% endif %}>明泽苑6号楼</option>
-                            <option value="明泽苑7号楼" {% if student.college == '明泽苑7号楼' %}selected="selected"{% endif %}>明泽苑7号楼</option>
-                            <option value="明泽苑8号楼" {% if student.college == '明泽苑8号楼' %}selected="selected"{% endif %}>明泽苑8号楼</option>
-                            <option value="明泽苑9号楼" {% if student.college == '明泽苑9号楼' %}selected="selected"{% endif %}>明泽苑9号楼</option>
-                            <option value="明泽苑10号楼" {% if student.college == '明泽苑10号楼' %}selected="selected"{% endif %}>明泽苑10号楼</option>
-                            <option value="明泽苑11号楼" {% if student.college == '明泽苑11号楼' %}selected="selected"{% endif %}>明泽苑11号楼</option>
-                            <option value="明泽苑12号楼" {% if student.college == '明泽苑12号楼' %}selected="selected"{% endif %}>明泽苑12号楼</option>
-                            <option value="明泽苑13号楼" {% if student.college == '明泽苑13号楼' %}selected="selected"{% endif %}>明泽苑13号楼</option>
-                            <option value="明泽苑14号楼" {% if student.college == '明泽苑14号楼' %}selected="selected"{% endif %}>明泽苑14号楼</option>
-                            <option value="明泽苑15号楼" {% if student.college == '明泽苑15号楼' %}selected="selected"{% endif %}>明泽苑15号楼</option>
-                            <option value="明泽苑16号楼" {% if student.college == '明泽苑16号楼' %}selected="selected"{% endif %}>明泽苑16号楼</option>
-                            <option value="明泽苑17号楼" {% if student.college == '明泽苑17号楼' %}selected="selected"{% endif %}>明泽苑17号楼</option>
-                            <option value="明泽苑18号楼" {% if student.college == '明泽苑18号楼' %}selected="selected"{% endif %}>明泽苑18号楼</option>
-                            <option value="明泽苑19号楼" {% if student.college == '明泽苑19号楼' %}selected="selected"{% endif %}>明泽苑19号楼</option>
-                            <option value="明泽苑20号楼" {% if student.college == '明泽苑20号楼' %}selected="selected"{% endif %}>明泽苑20号楼</option>
-                            <option value="明泽苑21号楼" {% if student.college == '明泽苑21号楼' %}selected="selected"{% endif %}>明泽苑21号楼</option>
-                            <option value="明泽苑22号楼" {% if student.college == '明泽苑22号楼' %}selected="selected"{% endif %}>明泽苑22号楼</option>
+                            <option value="明泽苑1号楼" {% if student.apartment == '明泽苑1号楼' %}selected="selected"{% endif %}>明泽苑1号楼</option>
+                            <option value="明泽苑2号楼" {% if student.apartment == '明泽苑2号楼' %}selected="selected"{% endif %}>明泽苑2号楼</option>
+                            <option value="明泽苑3号楼" {% if student.apartment == '明泽苑3号楼' %}selected="selected"{% endif %}>明泽苑3号楼</option>
+                            <option value="明泽苑4号楼" {% if student.apartment == '明泽苑4号楼' %}selected="selected"{% endif %}>明泽苑4号楼</option>
+                            <option value="明泽苑5号楼" {% if student.apartment == '明泽苑5号楼' %}selected="selected"{% endif %}>明泽苑5号楼</option>
+                            <option value="明泽苑6号楼" {% if student.apartment == '明泽苑6号楼' %}selected="selected"{% endif %}>明泽苑6号楼</option>
+                            <option value="明泽苑7号楼" {% if student.apartment == '明泽苑7号楼' %}selected="selected"{% endif %}>明泽苑7号楼</option>
+                            <option value="明泽苑8号楼" {% if student.apartment == '明泽苑8号楼' %}selected="selected"{% endif %}>明泽苑8号楼</option>
+                            <option value="明泽苑9号楼" {% if student.apartment == '明泽苑9号楼' %}selected="selected"{% endif %}>明泽苑9号楼</option>
+                            <option value="明泽苑10号楼" {% if student.apartment == '明泽苑10号楼' %}selected="selected"{% endif %}>明泽苑10号楼</option>
+                            <option value="明泽苑11号楼" {% if student.apartment == '明泽苑11号楼' %}selected="selected"{% endif %}>明泽苑11号楼</option>
+                            <option value="明泽苑12号楼" {% if student.apartment == '明泽苑12号楼' %}selected="selected"{% endif %}>明泽苑12号楼</option>
+                            <option value="明泽苑13号楼" {% if student.apartment == '明泽苑13号楼' %}selected="selected"{% endif %}>明泽苑13号楼</option>
+                            <option value="明泽苑14号楼" {% if student.apartment == '明泽苑14号楼' %}selected="selected"{% endif %}>明泽苑14号楼</option>
+                            <option value="明泽苑15号楼" {% if student.apartment == '明泽苑15号楼' %}selected="selected"{% endif %}>明泽苑15号楼</option>
+                            <option value="明泽苑16号楼" {% if student.apartment == '明泽苑16号楼' %}selected="selected"{% endif %}>明泽苑16号楼</option>
+                            <option value="明泽苑17号楼" {% if student.apartment == '明泽苑17号楼' %}selected="selected"{% endif %}>明泽苑17号楼</option>
+                            <option value="明泽苑18号楼" {% if student.apartment == '明泽苑18号楼' %}selected="selected"{% endif %}>明泽苑18号楼</option>
+                            <option value="明泽苑19号楼" {% if student.apartment == '明泽苑19号楼' %}selected="selected"{% endif %}>明泽苑19号楼</option>
+                            <option value="明泽苑20号楼" {% if student.apartment == '明泽苑20号楼' %}selected="selected"{% endif %}>明泽苑20号楼</option>
+                            <option value="明泽苑21号楼" {% if student.apartment == '明泽苑21号楼' %}selected="selected"{% endif %}>明泽苑21号楼</option>
+                            <option value="明泽苑22号楼" {% if student.apartment == '明泽苑22号楼' %}selected="selected"{% endif %}>明泽苑22号楼</option>
 						</select>
 						<input type="number" name="dormitory" value="{{ student.dormitory }}" placeholder="209" onfocus="this.placeholder=''" onblur="this.placeholder='209'" class="room"><!--  宿舍号 --><br/>
 						<input type="button" value="确认修改" id="button" onclick="a()">
