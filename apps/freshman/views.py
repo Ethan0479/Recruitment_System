@@ -73,7 +73,11 @@ class RegisterView(View):
             # else:
             #     return render(request, 'register.html', {'error': error})
         else:
-            return HttpResponse(apply_form.errors)
+            errors = []
+            for error in apply_form.errors:
+                errors.append(error)
+            error_list = ','.join(errors)
+            return HttpResponse(error_list)
             # return render(request, '../freshman_templates/register.html')  # 提示错误信息
 
 # 随机生成数字验证码
@@ -138,7 +142,7 @@ class LoginView(View):
 
 def student_search(request):
     newstudent_id = request.COOKIES.get('newstudent_id', '')
-    if newstudent_id == '':
+    if newstudent_id == '' or not newstudent_id:
         return 'no_student_id'
     else:
         return newstudent_id
@@ -162,9 +166,9 @@ class PersonalView(View):
         if newstudent_id == 'no_student_id':
             return redirect('/login/')
         else:
-            student = Freshman.objects.get(newstudent_id=newstudent_id)  # 根据cookie中的
-            # newstudent_id在数据库中取出该学生传给前端
-            return render(request, '../freshman_templates/alterinfo.html', {'student': student})
+            student = Freshman.objects.get(newstudent_id=newstudent_id)  # 根据cookie中的newstudent_id在数据库中取出该学生传给前端
+            colleges = Academy.objects.all()
+            return render(request, '../freshman_templates/alterinfo.html', {'student': student, 'colleges': colleges})
 
     def post(self, request):
         newstudent_id = request.COOKIES.get('newstudent_id', '')
