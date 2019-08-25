@@ -7,7 +7,7 @@ from .models import Freshman
 
 class Applyfrom(forms.Form):
     newstudent_id = forms.CharField(required=True)
-    password = forms.CharField(required=True)
+    password = forms.CharField(required=True, min_length=6)
     newname = forms.CharField(required=True)
     gender = forms.CharField(required=True)
     # college = forms.ModelChoiceField((('学院1', 1), ('学院2', 2), ('学院3', 3)), required=True)
@@ -50,15 +50,15 @@ class Applyfrom(forms.Form):
         else:
             raise forms.ValidationError('手机号格式不正确', code='wrong phone')
 
-    #检验名字全为汉字
-    def clean_newname(self):
-        newname = self.cleaned_data.get('newname')
-        processed_name = re.sub('·', '', newname)
-        regex = re.compile('[\u4E00-\u9FA5]{2,10}')
-        if regex.match(processed_name):
-            return newname
-        else:
-            raise forms.ValidationError('名字格式不正确', code='wrong name')
+    # 检验名字全为汉字
+    # def clean_newname(self):
+    #     newname = self.cleaned_data.get('newname')
+    #     processed_name = re.sub('·', '', newname)
+    #     regex = re.compile('[\u4E00-\u9FA5]{2,10}')
+    #     if regex.match(processed_name):
+    #         return newname
+    #     else:
+    #         raise forms.ValidationError('名字格式不正确', code='wrong name')
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

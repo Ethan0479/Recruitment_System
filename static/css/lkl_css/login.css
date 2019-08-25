@@ -62,7 +62,7 @@ input, .select_list{
     font-weight: 100;
 }
 input[type=submit], input[type=button]{
-    margin-top: 60px;
+    margin-top: 50px;
     border-radius: 10px;
     width: 35%;
     color: #FFFFFF;
@@ -277,4 +277,11 @@ input[type=radio]:checked+.female_icon{
     position: relative;
     bottom: 5%;
     width: 100%;
+}
+.error{
+    font-size: 5%;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 10px;
+    color: red;
 }
