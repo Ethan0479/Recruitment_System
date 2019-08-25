@@ -1,0 +1,92 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+{% block statics%}
+<head>
+    <meta http-equiv="Content-Type" charset="UTF-8" lang="zh">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>查看面试者资料</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="../../../static/css/zhb/css/inter_search.css"/>
+    <script src={% static '/css/zhb/js/JQuery_1.js' %}></script>
+    <script type="text/javascript" src="/static/js/lkl_js/functions.js"></script>
+    <script type="text/javascript" src="/static/ckeditor/ckeditor-init.js"></script>
+    <script type="text/javascript" src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/static/js/zxf_js/student_info.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/zxf_css/student_info.css' %}" />
+</head>
+{% endblock%}
+
+<body onload="marginChangeTest2();widthChangeTest4()">
+<div id="head">
+    <img id="logo_blue_pic" src={% static '/css/zhb/img/logo_blue.svg' %} alt="">
+    <div>资料</div>
+    <div>评价</div>
+</div>
+<div id="out">
+    <img id="out_pic" src={% static '/css/zhb/img/out.svg' %} alt="">
+    <p>欢迎你,小云云</p>
+</div>
+<div id="mange_inter">
+    <!-- 除了学生信息以外的东西 -->
+    <div id="inter_head">
+        <div id="student_inter">
+            <p>学生面试管理</p>
+        </div>
+        <hr style="margin-top: 27px;">
+        <table id="list" style="border-bottom: 2px solid rgba(140, 156, 255, 0.16);">
+            <tr id="dd_dd">
+                <td class="dd1">名字</td>
+                <td class="dd2" id="stu_id">学号</td>
+                <td class="dd3">性别</td>
+                <td class="dd4">学院</td>
+                <td class="dd5">专业</td>
+                <td class="dd6">面试时间</td>
+                <td class="dd7">面试地点</td>
+                <td class="dd8">面试方向</td>
+                <td class="dd9">面试类型</td>
+            </tr>
+            <tr>
+                <td class="td1"><b>{{ a.newname }}</b></td>
+                <td class="td2">{{ a.newstudent_id }}</td>
+                <td class="td3">{{ a.gender }}</td>
+                <td class="td4">{{ a.college }}</td>
+                <td class="td5">{{ a.major }}</td>
+                <td class="td6">{{ a.time }}</td>
+                <td class="td7">{{ a.place }}</td>
+                <td class="td8">{{ a.direction }}</td>
+                <td class="td9">{{ a.evaluate }}</td>
+            </tr>
+        </table>
+        <div id="student_data">
+            <div id="student">
+                <div class="django-ckeditor-widget" data-field-id="id_content"
+                     style="display: inline-block;width: 30%;">
+                     <textarea cols="40" id="id_content" name="content" rows="10" data-processed="0"
+                               data-config="{&quot;skin&quot;: &quot;moono-lisa&quot;, &quot;toolbar_Basic&quot;: [[&quot;Source&quot;, &quot;-&quot;, &quot;Bold&quot;, &quot;Italic&quot;]], &quot;toolbar_Full&quot;: [[&quot;Styles&quot;, &quot;Format&quot;, &quot;Bold&quot;, &quot;Italic&quot;, &quot;Underline&quot;, &quot;Strike&quot;, &quot;SpellChecker&quot;, &quot;Undo&quot;, &quot;Redo&quot;], [&quot;Link&quot;, &quot;Unlink&quot;, &quot;Anchor&quot;], [&quot;Image&quot;, &quot;Flash&quot;, &quot;Table&quot;, &quot;HorizontalRule&quot;], [&quot;TextColor&quot;, &quot;BGColor&quot;], [&quot;Smiley&quot;, &quot;SpecialChar&quot;], [&quot;Source&quot;]], &quot;toolbar&quot;: &quot;Full&quot;, &quot;height&quot;: 291, &quot;width&quot;: 835, &quot;filebrowserWindowWidth&quot;: 940, &quot;filebrowserWindowHeight&quot;: 725, &quot;filebrowserUploadUrl&quot;: &quot;/ckeditor/upload/&quot;, &quot;filebrowserBrowseUrl&quot;: &quot;/ckeditor/browse/&quot;, &quot;language&quot;: &quot;zh-Hans&quot;}"
+                               data-external-plugin-resources="[]" data-id="id_content"
+                               data-type="ckeditortype">{{ a.application }}
+                     </textarea>
+                    <input type="button" id="sbt1" value="评价" class="sbt" onclick="changeFrom({{ a.score }},'{{ a.evaluate }}')">
+                </div>
+                {#                <iframe style="border: 0" id="question" src="/interview/management/{{ a.newstudent_id }}/son"></iframe>#}
+                <textarea id="question" readonly="readonly"></textarea><br/>
+                <input type="button" id="sbt2" class="sbt" value="修改问题" onclick="editQuestion({{ a.newstudent_id }})">
+            </div>
+        </div>
+        <div id="markdiv">
+            <form>
+                <div id="footer_text">
+                    <span id="footer_text1">{{ a.interview_name }}</span><br/>
+                    <span id="footer_text2">{{ a.score }}</span>
+                </div>
+                <div id="evaluate">
+                        <textarea id="evaluate_show_text" style=""
+                                  readonly="readonly">{{ a.evaluate }}</textarea>
+                    <br/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
