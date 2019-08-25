@@ -29,6 +29,14 @@ from Recruitment_System.settings import EMAIL_FROM
 '''
 
 
+# def page_not_found(request, exception, template_name='new_404.html'):
+#     return render(request, template_name)
+#
+#
+# def server_error(request, template_name='new_500.html'):
+#     return render(request, template_name)
+
+
 class IndexView(View):
     def get(self, request):
         return render(request, '../freshman_templates/index.html')

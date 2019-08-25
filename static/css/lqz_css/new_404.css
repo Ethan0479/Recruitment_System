@@ -1,0 +1,108 @@
+body{
+    margin: 0;
+	padding: 0;
+	background-image: url(../img/new_404.svg);
+	background-repeat: no-repeat;
+    }
+.word1{
+	color: #FFFFFF;
+	letter-spacing: 24px;
+	font-family: '思源黑体 CN';
+	font-weight:bold;
+	font-size: 64px;
+	margin-top: 110px;
+	margin-left: 98px;
+}
+.word2{
+	color: #FFFFFF;
+	font-family: '思源黑体 CN';
+	font-size: 16px;
+	line-height: 30px;
+	margin-left: 160px;
+	letter-spacing: 4px;
+}
+.word3{
+	color: #FFFFFF;
+	font-family: '思源黑体 CN';
+	font-size: 16px;
+	margin-left: 90px;
+	letter-spacing: 6px;
+}
+#button{
+	color: #FFFFFF;
+	font-family: '思源黑体 CN';
+	font-size: 16px;
+	letter-spacing: 16px;
+	border-radius: 10px;
+	font-weight: light;
+	background-color: #45BADC;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	padding-left: 24px;
+	padding-right: 10px;
+	margin-left: 106px;
+	margin-top: 306px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body,div,dl,dt,dd,ul,li,h1,h2,h3,h4,h5,h6,input,form,a,p,textarea{
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neve",Helvetica,Arial,sans-serif;
+}
+
+ol,ul,li{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;
+	display: block;
+	color: #fff;
+}
+
+img{
+	border: none;
+	display: block;
+	margin: 0;
+}
+
+figure{
+	margin: 0;
+	padding: 0;
+}
+input, button{
+	padding: 0;
+    border: none;
+    outline: none;
+}
+.clearfloat{
+	zoom:1;
+}
+
+.clearfloat:after{
+	display: block;
+	clear: both;
+	content: "";
+	visibility: hidden;
+	height: 0;
+}

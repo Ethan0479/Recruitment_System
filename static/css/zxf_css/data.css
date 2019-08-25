@@ -11,7 +11,7 @@ body {
     padding: 15px;
 }
 
-#time {
+#time_table {
     border: solid 2px #a1a1b6;
     margin: 15px;
     padding: 15px;
@@ -26,4 +26,8 @@ body {
 
 .sbt {
     margin-left: 350px;
+}
+.appoint_time{
+    margin: 12px;
+    padding: 4px;
 }
