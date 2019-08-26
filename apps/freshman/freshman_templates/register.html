@@ -13,6 +13,11 @@
     <script type="text/javascript" src="{% static 'js/lkl_js/functions.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/lkl_js/page_jumps.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+    <script>
+        setTimeout("document.getElementById(\"name\").value = sessionStorage.getItem(\"name\");\n" +
+            "        document.getElementById(\"uid\").value = sessionStorage.getItem(\"uid\");\n" +
+            "        setRadioStatus(\"gender\");", 100);
+    </script>
 </head>
 <body>
 <div id="header">
