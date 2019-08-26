@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^data/bar2/$', views.bar2),
     url(r'^data/bar3/$', views.bar3),
     path('manage/', views.manage),
+    path('manage/timedata/', views.timedata),
 ]

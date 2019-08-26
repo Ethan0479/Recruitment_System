@@ -9,24 +9,20 @@ function addTime(btn) {
 }
 
 function addDate(btn) {
-    var time = document.getElementById('time');
+    var time = document.getElementById('time_table');
     var divs = time.getElementsByTagName('div');
     var long = divs.length + 1;
     var div = document.createElement("DIV");
     var name = "date" + long;
     div.id = name + '_div';
-    div.innerHTML = "日期:<input type=\"text\" name=\"" + name + "\"/><br/>\n" +
-        "        <br/>\n" +
-        "        时间:\n" +
-        "        <input type=\"text\" name=\"" + name + "_1\"/>\n" +
-        "        <input type=\"text\" name=\"" + name + "_2\"/>\n" +
-        "        <input type=\"text\" name=\"" + name + "_3\"/>\n" +
-        "        <input id=\"" + name + "\" type=\"button\" value=\"增加\" onclick=\"addTime(this)\"/>\n";
+    div.className = 'appoint_time';
+    div.innerHTML = "日期:<input type=\"text\" class=\"date\"/><br/><br/>\n" +
+        "        时间:<input type=\"text\" class = \"text\"/><input type=\"text\" class = \"text\"/><input type=\"text\" class = \"text\"/><input id=\"" + name + "\" type=\"button\" value=\"增加\" onclick=\"addTime(this)\"/><br/>\n";
     var add = document.getElementById('add_date');
     time.insertBefore(div, add);
 }
 
-function postNum() {
+function getPostNum() {
     var b = document.getElementsByTagName('B');
     b[0].innerText = '生成中';
     var num = document.getElementById('num').value;
@@ -41,7 +37,43 @@ function postNum() {
         success: function (result) {
             if (result === '200') {
                 window.location.href = '/data/manage/'
+            }else if(result === '数据生成出错，请输入数字'){
+                b[0].innerText = result;
+            }else if (result==='数据生成完成'){
+                b[0].innerText = result;
             }
         }
     })
+}
+
+function getAppointmentTime() {
+    var b = document.getElementsByTagName('B');
+    b[1].innerText = '生成中';
+    var appointment_time = document.getElementsByClassName("appoint_time");
+    var date = '';
+    for (i = 0; i < appointment_time.length; i++) {
+        var timeList = appointment_time[i].childNodes;
+        for (j=0;j<timeList.length-8;j++){
+            date = date+timeList[1].value + '_' + timeList[j+5].value + '@';
+        }
+    }
+    var csrf_token = getCookie('csrftoken');
+    $.ajax({
+        url: "/data/manage/timedata/",
+        type: "POST",
+        data: {
+            'date': date,
+            'csrfmiddlewaretoken': csrf_token
+        },
+        success: function (result) {
+            if (result === '200') {
+                window.location.href = '/data/manage/'
+            }else if(result === '成功'){
+                b[1].innerText = result;
+            }else if (result==='错误'){
+                b[1].innerText = result;
+            }
+        }
+    })
+
 }

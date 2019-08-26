@@ -1,0 +1,152 @@
+
+#list tr {
+    height: 40px;
+    text-align: center;
+    font-size: 16px;
+    border: 2px solid rgba(140, 156, 255, 0.16);
+}
+
+#dd_dd {
+    border-bottom: 2px solid rgba(140, 156, 255, 0.16);
+    color: rgb(102, 102, 102);
+}
+
+.dd1 {
+    width: 60px;
+}
+
+.dd2 {
+    width: 120px;
+}
+
+.dd3 {
+    width: 40px;
+}
+
+.dd4 {
+    width: 170px;
+}
+
+.dd5 {
+    width: 150px;
+}
+
+.dd6 {
+    width: 120px;
+}
+
+.dd7 {
+    width: 180px;
+}
+
+.dd8 {
+    width: 100px;
+}
+
+.dd9 {
+    width: 100px;
+}
+
+#markdiv {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 6%;
+    border-top: solid 2px rgba(140, 156, 255, 0.16);
+}
+
+#question {
+    border: 0;
+    border-left: solid 2px rgba(140, 156, 255, 0.16);
+    font-size: 20px;
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 420px;
+    width: 360px;
+    height: 400px;
+    resize: none;
+}
+
+.btn {
+    outline: medium;
+    border: solid 1px #297afe;
+    background-color: white;
+    border-radius: 10px;
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
+    text-align: center;
+    color: #297afe;
+}
+
+#evaluate {
+    width: 85%;
+    margin: 0 auto;
+    height: 80px;
+    margin-top: 15px;
+    font-size: 22px;
+}
+
+#evaluate_show_text {
+    width: 70%;
+    height: 80px;
+    outline: medium;
+    border: 0;
+    margin-left: 20%;
+    resize: none;
+    font-size: 20px;
+}
+
+#evaluate_text {
+    width: 70%;
+    height: 80px;
+    border: solid 2px rgba(140, 156, 255, 0.16);
+    resize: none;
+    font-size: 20px;
+}
+
+.sbt {
+    position: absolute;
+    width: 140px;
+    height: 44px;
+    outline: medium;
+    letter-spacing: 4px;
+    border: solid 1px #297afe;
+    background-color: white;
+    color: #297afe;
+}
+
+#sbt1 {
+    margin-left: 550px;
+    margin-bottom: 35px;
+    margin-top: 15px;
+}
+
+#sbt2 {
+    margin-left: 1000px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+#sbt3 {
+    margin-left: 760px;
+}
+
+#footer_text {
+    position: absolute;
+    margin-left: 4%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#footer_text1 {
+    font-size: 22px;
+}
+
+#footer_text2 {
+    font-size: 25px;
+    color: #297afe;
+}
+
+#markdiv form {
+    margin-top: 5%;
+}
