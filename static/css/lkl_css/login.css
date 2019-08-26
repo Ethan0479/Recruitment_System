@@ -44,7 +44,7 @@ body{
     margin-top: 10px;
 }
 #tip{
-    font-size: 3px;
+    font-size: 12px;
     font-weight: 100;
     text-align: center;
     letter-spacing: 20px;
@@ -279,7 +279,7 @@ input[type=radio]:checked+.female_icon{
     width: 100%;
 }
 .error{
-    font-size: 5%;
+    font-size: 10px;
     font-weight: 700;
     text-align: center;
     padding-top: 10px;

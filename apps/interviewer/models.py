@@ -32,3 +32,13 @@ class Question(models.Model):
 
     def __str__(self):
         return self.content
+
+class AppointmentTiem(models.Model):
+    time = models.CharField(max_length=255,verbose_name='面试时间',blank=True,null=True)
+
+    class Meta:
+        verbose_name = u'面试时间'
+        verbose_name_plural = u'面试时间'
+
+    def __str__(self):
+        return self.time
