@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^data/bar3/$', views.bar3),
     path('manage/', views.manage),
     path('manage/timedata/', views.timedata),
+    path('test/', views.appoint_interview_time),
 ]

@@ -1,8 +1,12 @@
 import random
 
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from ..freshman import models
+from apps.freshman.models import Freshman
+import operator
+import random
+
 # Create your views here.
 def bar1(request):
     return render(request,'render.html')
@@ -20,6 +24,7 @@ def manage(request):
         return render(request,'manage.html')
     else:
         num = request.POST.get('num','')
+        print(num)
         try:
             num = int(num)
             name_date1 = '赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张鲁韦昌马苗凤花方'  # 32
@@ -59,7 +64,6 @@ def manage(request):
                     student.gender = '男'
                 else:
                     student.gender = '女'
-                print(a4)
                 if a4 == 20:
                     student.college = models.Academy.objects.get(id=str(19))
                     majors = models.Major.objects.filter(majorAcademy=str(19))
@@ -101,3 +105,86 @@ def timedata(request):
         return HttpResponse("成功")
     else:
         return HttpResponse("错误")
+
+
+def appoint_interview_time(request):
+    #month = request.POST.get("month", '')
+    #day = request.POST.get("day", '')
+    #month = ('09-24_','09-25_','09-26_','09-27_','09-28_','09-29_','09-30_')
+    month = ('9-27_','9-28_','9-29_','9-30_','9-31_','10-1_','10-2_')
+    month_len = len(month)
+    day = ('8:00-10:00','10:00-12:00','14:00-16:00','16:00-18:00','19:00-21:00')
+    day_len = len(day)
+
+    interview_day = {}
+    for a in range(month_len):
+        for b in range(day_len):
+            interview_day[month[a]+day[b]] = random.randint(65,120)
+
+    # interview_day = {"9-27_8:00-10:00": 85, "9-27_10:00-12:00": 90, "9-27_14:00-16:00": 90, "9-27_16:00-18:00": 90,"9-27_19:00-21:00": 70,
+    #                  "9-28_8:00-10:00": 75, "9-28_10:00-12:00": 50, "9-28_14:00-16:00": 100, "9-28_16:00-18:00": 110,"9-28_19:00-21:00": 70,
+    #                  "9-29_8:00-10:00": 95, "9-29_10:00-12:00": 130, "9-29_14:00-16:00": 100, "9-29_16:00-18:00": 70,"9-29_19:00-21:00": 120,
+    #                  "9-30_8:00-10:00": 65, "9-30_10:00-12:00": 70, "9-30_14:00-16:00": 100, "9-30_16:00-18:00": 110,"9-30_19:00-21:00": 110,
+    #                  "9-31_8:00-10:00": 110, "9-31_10:00-12:00": 115, "9-31_14:00-16:00": 40, "9-31_16:00-18:00": 80,"9-31_19:00-21:00": 90,
+    #                  "10-1_8:00-10:00": 90, "10-1_10:00-12:00": 70, "10-1_14:00-16:00": 110, "10-1_16:00-18:00": 70,"10-1_19:00-21:00": 90,
+    #                  "10-2_8:00-10:00": 90, "10-2_10:00-12:00": 110, "10-2_14:00-16:00": 90, "10-2_16:00-18:00": 90,"10-2_19:00-21:00": 90,
+    #                  }
+
+    sum = 0
+    for a in range(month_len):
+        for b in range(day_len):
+            sum += interview_day[month[a]+day[b]]
+
+    # if interview_day == '':
+    #     return '请输入面试时间'
+    all_student = Freshman.objects.all()
+    all_student_appointmenttime = [0 for a in range(len(all_student))]
+    for a in range(len(all_student)):
+        all_student_appointmenttime[a] = {"newstudent_id":all_student[a].newstudent_id,"appointment_one":
+            all_student[a].appointment_one, "appointment_two" : all_student[a].appointment_two,
+                                          "appointment_three":all_student[a].appointment_three}
+
+    #建立空字典列表，每个字典的值为列表，储存学生id
+    all_time_student = {}
+    for a in range(month_len):
+        for b in range(day_len):
+            all_time_student[month[a]+day[b]] = []
+
+    appointment_list = ['appointment_one', 'appointment_two', 'appointment_three']
+    #面试预约时间
+    for appointment in appointment_list:
+        for a in range(len(all_student_appointmenttime)):
+            if a >= len(all_student_appointmenttime):break
+            appointmenttime = all_student_appointmenttime[a][appointment]
+            if len(all_time_student[appointmenttime]) <= interview_day[appointmenttime]:
+                all_time_student[appointmenttime].append(all_student_appointmenttime.pop(a))
+    #安排剩下的学生，如果一次循环不行那就两次，不行就三次
+    for i in range(2):
+        for a in range(len(all_student_appointmenttime)):
+            for appointment in appointment_list:
+                if a >= len(all_student_appointmenttime): break
+                appointmenttime = all_student_appointmenttime[a][appointment]
+                for b in range(len(all_time_student[appointmenttime])):
+                    for appoint in appointment_list:
+                        if b >= len(all_time_student[appointmenttime]): break
+                        select_time = all_time_student[appointmenttime][b]
+                        select = select_time[appoint]
+                        if len(all_time_student[select]) <= interview_day[select]:
+                            all_time_student[select].append(all_time_student[appointmenttime].pop(b))
+                            if a >= len(all_student_appointmenttime): break
+                            all_time_student[appointmenttime].append(all_student_appointmenttime.pop(a))
+    #将数据存到数据库中
+    freshmansave = Freshman()
+    for a in month:
+        for b in day:
+            for student in all_time_student[a+b]:
+                newstudent_id = student['newstudent_id']
+                student_one = Freshman.objects.get(newstudent_id=newstudent_id)
+                student_one.interview_time = a+b
+                student_one.save()
+
+    return render_to_response('test.html', {'all_time_student':all_time_student, 'all_student_appointmenttime':all_student_appointmenttime,
+                                            'sum':sum})
+
+
+
