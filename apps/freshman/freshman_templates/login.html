@@ -19,12 +19,18 @@
     </div>
 </div>
 <div id="main">
-    <p id="tip">登录你的账号</p><br>
+    <p id="tip">登录你的账号</p>
+    <p id="error" class="error"><br></p>
+    <script>
+        var error_dict = JSON.parse('{{ error|safe }}');
+        var error = (error_dict["error"]);
+        document.getElementById("error").innerText = error;
+    </script>
     <div id="submit">
         <form action="{% url 'freshman:login' %}" method="post">
             {% csrf_token %}
-            <input type="text" id="uid" placeholder="请输入学号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入学号'" name="newstudent_id"><br>
-            <input type="password" id="pwd" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" name="password"><br>
+            <input type="text" id="uid" placeholder="请输入学号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入学号'" name="newstudent_id" value="{{ student_id }}"><br>
+            <input type="password" id="pwd" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" name="password"><br><br>
             <input type="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录" id="button">
         </form>
     </div>

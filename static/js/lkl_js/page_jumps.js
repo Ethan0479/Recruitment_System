@@ -1,8 +1,8 @@
 //第一页
 var firstpagehtml = '<form action="">\n' +
         '            <input type="text" id="name" placeholder="请输入姓名" value="" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入姓名\'" name=""><br>\n' +
-        '            <input type="number" id="uid" placeholder="请输入学号" value="" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入学号\'" name=""><br>\n' +
-        '            <input type="password" id="pwd" placeholder="请输入密码" value="" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入密码\'" name=""><br>\n' +
+        '            <input type="number" id="uid" placeholder="请输入学号" value="" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入学号\'" name="" onchange="corrected_id()"><br>\n' +
+        '            <input type="password" id="pwd" placeholder="请输入密码" value="" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入密码\'" name="" onchange="corrected_pwd()"><br>\n' +
         '            <span id="gender_tip" class="tip">请选择性别</span>&nbsp;\n' +
         '            <input type="radio" value="男" name="gender" hidden id="male" checked>\n' +
         '            <label class="male_icon" for="male"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n' +
@@ -17,8 +17,8 @@ var firstpagehtml = '<form action="">\n' +
 //第二页
 var secondpagehtml = "<form action=\"\">\n" +
         "            <input type=\"number\" id=\"QQ\" placeholder=\"请输入QQ\" value='' onfocus=\"this.placeholder=''\" onblur=\"this.placeholder='请输入QQ'\" name=\"\"><br>\n" +
-        "            <input type=\"number\" id=\"phone\" placeholder=\"请输入电话\" value='' onfocus=\"this.placeholder=''\" onblur=\"this.placeholder='请输入电话'\" name=\"\"><br>\n" +
-        "            <input type=\"email\" id=\"email\" placeholder=\"请输入邮箱\" value='' onfocus=\"this.placeholder=''\" onblur=\"this.placeholder='请输入邮箱'\" name=\"\"><br>\n" +
+        "            <input type=\"number\" id=\"phone\" placeholder=\"请输入电话\" value='' onfocus=\"this.placeholder=''\" onblur=\"this.placeholder='请输入电话'\" name=\"\" onchange='corrected_phone()'><br>\n" +
+        "            <input type=\"email\" id=\"email\" placeholder=\"请输入邮箱\" value='' onfocus=\"this.placeholder=''\" onblur=\"this.placeholder='请输入邮箱'\" name=\"\" onchange='corrected_email()'><br>\n" +
         "            <br>\n" +
         "            <div class=\"main_footer\">\n" +
         "                <input type=\"button\" value=\"上&nbsp;&nbsp;一&nbsp;&nbsp;步\" id=\"process1\" onclick='SecondToFirst()'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
@@ -226,6 +226,7 @@ function Form_Submit() {
             });} else {console.log(result);
             swal({
                 title : "注册失败啦",
+                //暂待修改
                 text: result,
                 type : "error",
                 confirmButtonText : "确定",
@@ -261,6 +262,7 @@ function get_major() {
                 'csrfmiddlewaretoken': getCookie('csrftoken')},
         success: function (result) {
             if (result !== ''){
+                console.log(result);
                 var major_list = result.split(',');
                 for (var i = 0; i < major_list.length; i++){
                     var item = document.createElement("option");
@@ -270,6 +272,12 @@ function get_major() {
                     set_major.appendChild(item);
                 }
             // alert(result);
+            }else{
+                var warn = document.createElement("option");
+                warn.disabled = true;
+                var warning_tip = document.createTextNode('本学院大一暂无专业！！！');
+                warn.appendChild(warning_tip);
+                set_major.appendChild(warn);
             }
         }
     });

@@ -9,6 +9,7 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="../../../static/css/zhb/css/inter_search_son.css" />
     <script src={% static '/css/zhb/js/JQuery_1.js' %}></script>
+
 </head>
 {% endblock%}
 
@@ -18,7 +19,7 @@
             <tr id="dd_dd">
                 <td class="dd1">名字</td>
                 <td class="dd2">学号</td>
-                <td class="dd3">男</td>
+                <td class="dd3">性别</td>
                 <td class="dd4">学院</td>
                 <td class="dd5">专业</td>
                 <td class="dd6">面试时间</td>
@@ -28,7 +29,7 @@
                 <td class="dd0">^</td>
             </tr>
             {% for a in data_list %}
-            <tr onclick="">
+            <tr onclick="changeFather(this)">
                 <td class="td1">{{ a.newname }}</td>
                 <td class="td2">{{ a.newstudent_id }}</td>
                 <td class="td3">{{ a.gender }}</td>
@@ -81,6 +82,10 @@
                 }
             }
             return cookieValue;
+        }
+        function changeFather(tr) {
+            var id = tr.childNodes[3].innerText;
+            window.parent.change(id)
         }
 </script>
 

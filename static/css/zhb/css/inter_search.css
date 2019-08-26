@@ -100,7 +100,8 @@ body {
 
 #mange_inter {
     width: 63%;
-    height: 820px;
+    height: 100%;
+    padding-bottom: 150px;
     margin: 0 auto;
     margin-top: 36px;
     /* text-align:center; */
@@ -219,7 +220,7 @@ select::-ms-expand {
     margin-top: 5px;
     margin-left: 10px;
     letter-spacing: 2px;
-    border: 1px solid red;
+    border: grey;
 }
 
 #inter_data span {

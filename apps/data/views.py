@@ -58,6 +58,8 @@ def manage(request):
                 student.newstudent_id = str(2019000000 + i)
                 student.newname = name_date1[a1] + name_date2[a2]
                 student.password = '123456'
+                student.apartment = '明泽苑1号楼'
+                student.dormitory = '123'
                 if (a2 + a3) % 2 == 0:
                     student.gender = '男'
                 else:

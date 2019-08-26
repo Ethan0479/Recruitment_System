@@ -149,21 +149,20 @@ def freshman_search(request):
                          "direction": people.direction, "evaluate": people.evaluate})
     return render_to_response('inter_search_son.html', {"data_list": (data_list), "number": len(data_list)})
 
-# 查看新生申请书
-def check_application(request):
-    newstudent_id = request.POST.get('newstudent_id')
-    application = ''
-    try:
-        application = Freshman.objects.filter(newstudent_id=newstudent_id)
-    except:
-        pass
+def info_check_out(request,a):
+    if request.method == 'GET':
+        stu = Freshman.objects.get(newstudent_id=a)
+        return render(request, 'student_info.html', {'a': stu})
+    else:
+        question = request.POST.get("question",'')
+        evaluate = request.POST.get('evaluate','')
+        if question == '':
+            pass
+        if evaluate == '':
+            pass
+        return HttpResponse(200)
 
-    return render({'application': application})
-
-def info_check_out(request):
-    return None
-
-
-def info_check_out_son(request):
-    return None
+def info_check_out_son(request,a):
+    print(a)
+    return HttpResponse(200)
 
