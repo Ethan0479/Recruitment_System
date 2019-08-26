@@ -1,9 +1,10 @@
-from django.shortcuts import render_to_response, HttpResponse
-from django.http import response
+from django.shortcuts import render_to_response, HttpResponse, redirect
+from django.http import HttpResponseRedirect, response
 from apps.freshman.models import Freshman
 import re
 from django.shortcuts import render
 from django.views.generic.base import View
+import json
 # from django.contrib.auth import login, authenticate, logout
 
 from .forms import Applyfrom
@@ -63,14 +64,12 @@ class LoginView(View):
 # 申请书
 class Audition(View):
     def get(self, request):
-        number = Freshman.objects.all()
-        number = len(number)
-        return render(request, 'inter_search.html', {'number': number})
+        data_list = {}
+        return render(request, 'inter_search.html', {'data_list': data_list})
 
     def post(self, request):
-        number = Freshman.objects.all()
-        number = len(number)
-        return render(request, 'inter_search.html', {'number': number})
+        data_list = []
+        return render(request, 'inter_search.html', {'data_list': data_list})
 
 
 # 登出
@@ -123,7 +122,7 @@ def freshman_search(request):
     if id_or_name == '':
         pass
     else:
-        regex = re.compile('^2019\\*{0,6}')
+        regex = re.compile('^2019\\d{6}$')
         if regex.match(id_or_name):
             student_data = Freshman.objects.filter(newstudent_id__contains=id_or_name)
             return student_data
@@ -147,7 +146,7 @@ def freshman_search(request):
                          "college": people.college, "major": people.major, "time": time,
                          "interview_place": people.interview_place,
                          "direction": people.direction, "evaluate": people.evaluate})
-    return render_to_response('inter_search_son.html', {"data_list": (data_list), "number": len(data_list)})
+    return render_to_response('inter_search_son.html', {"data_list": (data_list)})
 
 # 查看新生申请书
 def check_application(request):
