@@ -67,20 +67,21 @@
 			<!-- 内容 -->
 			<div class="content">
 				<p class="name1">修改个人信息</p>
+                <p id="error" class="error"><br></p>
 				<div class="bbox">
 					<form action="" method="post" class="box" id="alterinfo">
                     {% csrf_token %}
-						<input type="text" name="newname" value="{{ student.newname }}" placeholder="云小某" onfocus="this.placeholder=''" onblur="this.placeholder='云小某'" class="name" disabled><!--  姓名--><br/>
-						<input type="number" name="newstudent_id" value="{{ student.newstudent_id }}" placeholder="2019002234" onfocus="this.placeholder=''" onblur="this.placeholder='2019002234'" class="student" disabled><!--  学号--><br/>
-						<input type="password" name="password" value="{{ student.password }}" placeholder="******" onfocus="this.placeholder=''" onblur="this.placeholder='******'" class="pass"><!--  密码--><br/>
+						<input type="text" name="newname" value="{{ student.newname }}" placeholder="请输入姓名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入姓名'" class="name" disabled><!--  姓名--><br/>
+						<input type="number" name="newstudent_id" value="{{ student.newstudent_id }}" placeholder="请输入学号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入学号'" class="student" disabled><!--  学号--><br/>
+						<input type="password" id="pwd" name="password" value="{{ student.password }}" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" class="pass" onchange="corrected_pwd()"><!--  密码--><br/>
 						<div class="genders">
 							<p class="gender">性别</p>
                              {% if student.gender == '男' %}<img src="{% static 'img/male.svg' %}" alt="" class="boy"/>{% endif %}
                             {% if student.gender == '女' %}<img src="{% static 'img/female.svg' %}" alt="" class="boy"/>{% endif %}
 						</div>
-						<input type="number" name="qq" value="{{ student.qq }}" placeholder="1234567" onfocus="this.placeholder=''" onblur="this.placeholder='1234567'" class="qq"><!--  QQ--><br/>
-						<input type="number" name="phone" value="{{ student.phone }}" placeholder="12345678901" onfocus="this.placeholder=''" onblur="this.placeholder='12345678901'" class="phone"><!--  电话--><br/>
-						<input type="email" name="email" value="{{ student.email }}" placeholder="1234567@qq.com" onfocus="this.placeholder=''" onblur="this.placeholder='1234567@qq.com'" class="email"><!--  邮箱--><br/>
+						<input type="number" name="qq" value="{{ student.qq }}" placeholder="请输入QQ" onfocus="this.placeholder=''" onblur="this.placeholder='请输入QQ'" class="qq"><!--  QQ--><br/>
+						<input type="number" id="phone" name="phone" value="{{ student.phone }}" placeholder="请输入手机号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入手机号'" class="phone" onchange="corrected_phone()"><!--  电话--><br/>
+						<input type="email" id="email" name="email" value="{{ student.email }}" placeholder="请输入邮箱" onfocus="this.placeholder=''" onblur="this.placeholder='请输入邮箱'" class="email" onchange="corrected_email()"><!--  邮箱--><br/>
 						<select class="selectone" id="college" name="college" onchange="get_major()">
                             <option value="" selected="selected" class="tip" disabled>请选择学院</option>
                             {% for college in colleges %}
@@ -93,7 +94,7 @@
                             <option value="" selected="selected" class="tip" disabled>请选择专业</option>
 						</select>
                         <input type="hidden" id="student_major" value="{{ student.major }}">
-						<input type="number" name="newclass" value="{{ student.newclass }}" placeholder="1801" onfocus="this.placeholder=''" onblur="this.placeholder='1801'" class="classes"><!--  班级--><br/>
+						<input type="number" name="newclass" value="{{ student.newclass }}" placeholder="请输入班级" onfocus="this.placeholder=''" onblur="this.placeholder='请输入班级'" class="classes"><!--  班级--><br/>
 						<select class="selectthree" name="apartment">
                             <option value="明泽苑1号楼" {% if student.apartment == '明泽苑1号楼' %}selected="selected"{% endif %}>明泽苑1号楼</option>
                             <option value="明泽苑2号楼" {% if student.apartment == '明泽苑2号楼' %}selected="selected"{% endif %}>明泽苑2号楼</option>
@@ -118,7 +119,7 @@
                             <option value="明泽苑21号楼" {% if student.apartment == '明泽苑21号楼' %}selected="selected"{% endif %}>明泽苑21号楼</option>
                             <option value="明泽苑22号楼" {% if student.apartment == '明泽苑22号楼' %}selected="selected"{% endif %}>明泽苑22号楼</option>
 						</select>
-						<input type="number" name="dormitory" value="{{ student.dormitory }}" placeholder="209" onfocus="this.placeholder=''" onblur="this.placeholder='209'" class="room"><!--  宿舍号 --><br/>
+						<input type="number" name="dormitory" value="{{ student.dormitory }}" placeholder="请输入宿舍号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入宿舍号'" class="room"><!--  宿舍号 --><br/>
 						<input type="button" value="确认修改" id="button" onclick="a()">
 <!--						<input type="button" value="确认修改" id="button" onclick="b()">-->
 					</form>

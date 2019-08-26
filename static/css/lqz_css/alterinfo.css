@@ -25,8 +25,8 @@ body{
 	font-size: 12px;
 	letter-spacing:16px;
 	text-align: center;
-	margin-top: 17px;
-	margin-bottom: 30px;
+	margin-top: 18px;
+	margin-bottom: 0px;
 }
 
 .bbox{
@@ -306,4 +306,11 @@ input, button{
 input:disabled{
     opacity: 1;
     background-color: #fbfbfb;
+}
+.error{
+    font-size: 5%;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 10px;
+    color: red;
 }

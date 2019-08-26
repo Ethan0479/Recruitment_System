@@ -28,25 +28,6 @@ var secondpagehtml = "<form action=\"\">\n" +
         "        </form>";
 //第三页
 var thirdpagehtml = '<form action="">\n' +
-        // '            <div class="selected">\n' +
-        // '                <!--<label class="tip">请选择学院</label>-->\n' +
-        // '                <label>\n' +
-        // '                    <select name="college" class="select_list" id="college">\n' +
-        // '                        <option value="----" selected="selected" class="tip" disabled>请选择学院</option>\n' +
-        // '                        {% for college in colleges %}\n' +
-        // '                            <option value="{{ college }}">{{ college }}</option>\n' +
-        // '                        {% endfor %}' +
-        // '                    </select>\n' +
-        // '                </label>\n' +
-        // '            </div>\n' +
-        // '            <div class="selected">\n' +
-        // '                <!--<label class="tip">请选择专业</label>-->\n' +
-        // '                <label>\n' +
-        // '                    <select name="major" class="select_list" id="major">\n' +
-        // '                        <option value="" selected="selected" class="tip" disabled>请选择专业</option>\n' +
-        // '                    </select>\n' +
-        // '                </label>\n' +
-        // '            </div>\n' +
         '            <input type="text" id="class" placeholder="请输入班级" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入班级\'" name=""><br>\n' +
         '            <br>\n' +
         '            <div class="main_footer">\n' +
@@ -115,6 +96,7 @@ function SecondToThird() {
     //用于显示变化后的页面的值
     if (sessionStorage.getItem('college')){
         document.getElementById('college').value = sessionStorage.getItem('college');
+        get_major();
     }
     if (sessionStorage.getItem('major')){
         setTimeout("document.getElementById('major').value = sessionStorage.getItem('major');", 100);
@@ -262,7 +244,6 @@ function get_major() {
                 'csrfmiddlewaretoken': getCookie('csrftoken')},
         success: function (result) {
             if (result !== ''){
-                console.log(result);
                 var major_list = result.split(',');
                 for (var i = 0; i < major_list.length; i++){
                     var item = document.createElement("option");

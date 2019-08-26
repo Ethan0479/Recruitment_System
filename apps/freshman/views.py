@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic.base import View
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.contrib.auth.decorators import login_required
+from django.apps import apps
 
 import random
 import time
 import json
+import re
 
 from .forms import Applyfrom, ModifyForm
 from .models import Freshman, Academy, Major
@@ -213,8 +212,11 @@ class PersonalView(View):
                 return HttpResponse("202")
         else:
             errors = []
+            model = apps.get_model('freshman', 'Freshman')
+            fields = model._meta.fields
+            field = [f.name for f in fields]
             for error in modify_form.errors:
-                errors.append(error)
+                errors.append(re.sub('这个字段', fields[field.index(error)].verbose_name, modify_form.errors[error][0]))
             error_list = ','.join(errors)
             return HttpResponse(error_list)  # 提示错误信息
 
