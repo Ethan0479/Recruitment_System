@@ -69,7 +69,7 @@ class Applyfrom(forms.Form):
 
 
 class ModifyForm(forms.Form):
-    password = forms.CharField(required=True)
+    password = forms.CharField(required=True, min_length=6, error_messages={'min_length': '密码长度不得低于六位哇！'})
     college = forms.CharField(required=True)  # 下拉框
     major = forms.CharField(required=True)  # 下拉框
     newclass = forms.CharField(required=True)
