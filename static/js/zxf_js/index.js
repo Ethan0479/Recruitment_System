@@ -1,5 +1,5 @@
 //设置时间按钮
-function timeSet(sel) {
+function timeSet(sel, next) {
     for (i = 0; i < sel.length; i++) {
         if (sel[i].selected === true) {
             sel.style.backgroundColor = '#ffffff';
@@ -10,6 +10,10 @@ function timeSet(sel) {
             sel.style.color = "#ffffff";
             sel.style.border = "solid 1px #2b7bff"
         }
+    }
+    if (next !== undefined){
+        next.disabled = false;
+        next.style.backgroundColor = "#ffffff";
     }
 }
 

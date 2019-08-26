@@ -66,7 +66,7 @@ class RegisterView(View):
             applicant.email = request.POST.get('email', '')  # 邮箱
             applicant.apartment = request.POST.get('apartment', '')
             applicant.dormitory = request.POST.get('dormitory', '')
-
+            applicant.province = request.POST.get('city', '')
             applicant.save()
             # response = redirect('/login/')
             return HttpResponse("200")  # 注册成功跳转登录页面
@@ -237,7 +237,7 @@ class AppointmentView(View):
             return redirect('/login/')
         else:
             student = Freshman.objects.get(newstudent_id=newstudent_id)
-            if not student.direction and not student.appointment_one:
+            if not student.direction or not student.appointment_one:
                 return render(request, '../freshman_templates/sign_up.html', locals())  # 没选择方向以及至少一个预约时间的话跳转报名界面
             else:
                 return render(request, '../freshman_templates/sign_up_success.html', {'student': student})  # 选择了跳转报名成功界面

@@ -27,7 +27,7 @@
 
             <br/><br/>
             <div id="text2" class="text">请选择面试时间 </div>
-            <select name="direction" class="time_1" id="time_1_1" onchange="timeSet(this)">
+            <select name="direction" class="time_1" id="time_1_1" onchange="timeSet(this, document.getElementById('time_2_1'))">
                 <option class="opt" value="10-01">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-01</option>
                 <option class="opt" value="10-02">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-02</option>
                 <option class="opt" value="10-03">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-03</option>
@@ -35,18 +35,18 @@
                 <option class="opt" value="10-05">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-05</option>
                 <option class="opt" value="10-06">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-06</option>
                 <option class="opt" value="10-07">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-07</option>
-                <option class="opt" value="--"  selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
+                <option class="opt" value="" disabled selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
             </select>
-            <select name="direction" class="time_2" id="time_2_1" onchange="timeSet(this)">
+            <select name="direction" disabled style="background-color: #f5f5f5" class="time_2" id="time_2_1" onchange="timeSet(this, document.getElementById('time_1_2'))">
                 <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8:00-10:00</option>
                 <option class="opt" value="10:00-12:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10:00-12:00</option>
                 <option class="opt" value="14:00-16:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14:00-16:00</option>
                 <option class="opt" value="16:00-18:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:00-18:00</option>
                 <option class="opt" value="19:00-21:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19:00-21:00</option>
-                <option class="opt" value="--" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
+                <option class="opt" value="" disabled selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
             </select>
             <br/><br/>
-            <select name="direction" class="time_1" id="time_1_2" onchange="timeSet(this)">
+            <select name="direction" disabled style="background-color: #f5f5f5" class="time_1" id="time_1_2" onchange="timeSet(this, document.getElementById('time_2_2'))">
                 <option class="opt" value="10-01">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-01</option>
                 <option class="opt" value="10-02">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-02</option>
                 <option class="opt" value="10-03">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-03</option>
@@ -54,18 +54,18 @@
                 <option class="opt" value="10-05">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-05</option>
                 <option class="opt" value="10-06">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-06</option>
                 <option class="opt" value="10-07">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-07</option>
-                <option class="opt" value="--"  selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
+                <option class="opt" value=""  disabled selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
             </select>
-            <select name="direction" class="time_2" id="time_2_2" onchange="timeSet(this)">
+            <select name="direction" disabled style="background-color: #f5f5f5" class="time_2" id="time_2_2" onchange="timeSet(this, document.getElementById('time_1_3'))">
                 <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8:00-10:00</option>
                 <option class="opt" value="10:00-12:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10:00-12:00</option>
                 <option class="opt" value="14:00-16:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14:00-16:00</option>
                 <option class="opt" value="16:00-18:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:00-18:00</option>
                 <option class="opt" value="19:00-21:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19:00-21:00</option>
-                <option class="opt" value="--" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
+                <option class="opt" value="" disabled selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
             </select>
             <br/><br/>
-            <select name="direction" class="time_1" id="time_1_3" onchange="timeSet(this)">
+            <select name="direction" disabled style="background-color: #f5f5f5" class="time_1" id="time_1_3" onchange="timeSet(this, document.getElementById('time_2_3'))">
                 <option class="opt" value="10-01">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-01</option>
                 <option class="opt" value="10-02">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-02</option>
                 <option class="opt" value="10-03">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-03</option>
@@ -73,15 +73,15 @@
                 <option class="opt" value="10-05">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-05</option>
                 <option class="opt" value="10-06">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-06</option>
                 <option class="opt" value="10-07">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10-07</option>
-                <option class="opt" value="--"  selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
+                <option class="opt" value=""  disabled selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
             </select>
-            <select name="direction" class="time_2" id="time_2_3" onchange="timeSet(this)">
+            <select name="direction" disabled style="background-color: #f5f5f5" class="time_2" id="time_2_3" onchange="timeSet(this)">
                 <option class="opt" value="8:00-10:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8:00-10:00</option>
                 <option class="opt" value="10:00-12:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10:00-12:00</option>
                 <option class="opt" value="14:00-16:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14:00-16:00</option>
                 <option class="opt" value="16:00-18:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16:00-18:00</option>
                 <option class="opt" value="19:00-21:00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;19:00-21:00</option>
-                <option class="opt" value="--" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
+                <option class="opt" value="" disabled selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</option>
             </select>
             <br/>
             <input id="sbt" type="button" value="提交" onclick="appointment()">
