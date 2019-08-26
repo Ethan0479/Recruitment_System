@@ -151,8 +151,13 @@ input[type=password]{
     background-repeat: no-repeat;
     background-position-x: 100%;
 }
+#city{
+    background-image: url("/static/img/zhongguo.svg");
+}
 #apartment{
     background-image: url("/static/img/apartment.svg");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
 }
 #apartment:focus{
     background-image: url("/static/img/apartment_focus.svg");
