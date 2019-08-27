@@ -62,7 +62,7 @@ input, .select_list{
     font-weight: 100;
 }
 input[type=submit], input[type=button]{
-    margin-top: 50px;
+    margin-top: 40px;
     border-radius: 10px;
     width: 35%;
     color: #FFFFFF;
@@ -202,6 +202,7 @@ input:focus, .select_list:focus{
     letter-spacing: 9px;
     font-size: 14px;
     font-weight: 100;
+    color: #a5a4a2;
 }
 #gender_tip{
     position: relative;
@@ -212,6 +213,21 @@ input:focus, .select_list:focus{
     max-width: 40px;
     max-height: 40px;
     margin-top: 13px;
+}
+#code{
+    width: 37%;
+    text-indent: 10%;
+    margin-right: 3%;
+}
+#get_code{
+    border-radius: 10px;
+    border: solid 1px #5A5A68;
+    color: #5A5A68;
+    background-color: #FFFFFF;
+    margin-top: 30px;
+    width: 29%;
+    text-indent: 7px;
+    letter-spacing: 7px;
 }
 #process{
     border-radius: 10px;
@@ -289,4 +305,7 @@ input[type=radio]:checked+.female_icon{
     text-align: center;
     padding-top: 10px;
     color: red;
+    position: relative;
+    bottom:25%;
+    /*margin-left: 38%;*/
 }
