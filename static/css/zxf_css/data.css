@@ -9,8 +9,8 @@ body {
     border: solid 2px #9a9a9a;
     margin: 15px;
     padding: 15px;
+    height: 100px;
 }
-
 #time_table {
     border: solid 2px #a1a1b6;
     margin: 15px;

@@ -9,13 +9,12 @@ import random
 
 # Create your views here.
 def bar1(request):
-    # return render(request,'render.html')
-    return None
+    return render(request,'1.html')
 def bar3(request):
     return None
 
 def bar2(request):
-    return None
+    return render(request,'2.html')
 
 
 
