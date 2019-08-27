@@ -25,7 +25,7 @@ SECRET_KEY = 'qi4)c&u7+svs!lnllk957$e0t8^arheeh*_h0c-w0-^loq*i(!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.137.1']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.137.1', 'localhost']
 
 
 # Application definition
@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'Recruitment_System.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "recruitment_system",
+        'NAME': "recruitmentsystem",
         "USER": "root",
-        "PASSWORD": "mysql",
+        "PASSWORD": "nmb19720",
         "HOST": "127.0.0.1"
     }
 }

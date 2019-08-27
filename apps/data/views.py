@@ -162,7 +162,7 @@ def appoint_interview_time(request):
                                 all_time_student[select].append(all_time_student[appointmenttime].pop(b))
                                 if a >= len(all_student_appointmenttime): break
                                 all_time_student[appointmenttime].append(all_student_appointmenttime.pop(a))
-
+        print(all_time_student[appointmenttime][0])
         # 将数据存到数据库中
         for a in dateList:
             for student in all_time_student[a]:
@@ -171,8 +171,10 @@ def appoint_interview_time(request):
                 student_one.interview_time = a
                 student_one.save()
 
-        return render_to_response('test.html', {'all_time_student': all_time_student,
-                                                'all_student_appointmenttime': all_student_appointmenttime,
-                                                'sum': sum})
+        # return render_to_response('test.html', {'all_time_student': all_time_student,
+        #                                         'all_student_appointmenttime': all_student_appointmenttime,
+        #                                         'sum': sum})
+
+        return HttpResponse(all_student_appointmenttime)
     else:
         return HttpResponse("错误")

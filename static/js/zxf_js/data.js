@@ -57,7 +57,6 @@ function getAppointmentTime() {
         for (j = 1; j < timeList.length-1; j++) {
             date = date + timeList[0].value + '_' + timeList[j].value + '@';
         }
-        alert(date)
     }
     var csrf_token = getCookie('csrftoken');
     $.ajax({
@@ -100,11 +99,9 @@ function getAppointment(){
             'csrfmiddlewaretoken': csrf_token
         },
         success: function (result) {
-            if (result === '200') {
-                window.location.href = '/data/manage/'
-            }else if(result === '成功'){
+            if(result !== '[]'){
                 b[2].innerText = result;
-            }else if (result==='错误'){
+            }else{
                 b[2].innerText = result;
             }
         }

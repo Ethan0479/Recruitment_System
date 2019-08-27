@@ -100,7 +100,7 @@ body {
 
 #mange_inter {
     width: 63%;
-    height: 100%;
+    height: 700px;
     padding-bottom: 150px;
     margin: 0 auto;
     margin-top: 36px;
@@ -151,6 +151,10 @@ select::-ms-expand {
     border: 1px solid rgba(234, 234, 234, 1);
     /* outline:none ; */
     /* border-style:none;  去掉外边框 */
+}
+
+#select_data option{
+    line-height: 200px;
 }
 
 #select_data input {
