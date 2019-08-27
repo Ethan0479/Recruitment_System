@@ -40,7 +40,7 @@ class Freshman(models.Model):
     evaluate = models.TextField(max_length=300, verbose_name='评价', null=True, blank=True)
     interview_result_A = models.BooleanField(verbose_name='A轮面试结果', null=True, blank=True)
     interview_result_B = models.BooleanField(verbose_name='B轮面试结果', null=True, blank=True)
-    interview_name = models.CharField(max_length=60, verbose_name='面试官', null=True, blank=True)
+    interview_id = models.CharField(max_length=60, verbose_name='面试官', null=True, blank=True)
     province = models.CharField(max_length=30, verbose_name='省份', null=True, blank=True)
     apartment = models.CharField(max_length=25, verbose_name='宿舍楼', null=True, blank=True)
     dormitory = models.CharField(max_length=25, verbose_name='宿舍号', null=True, blank=True)

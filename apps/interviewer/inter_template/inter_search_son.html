@@ -14,8 +14,9 @@
 {% endblock%}
 
 <body>
-    <div>
-        <table id="list">
+    <div id="list">
+        <table>
+            <colgroup><col span="2" style="width: 100px;" /><col /></colgroup>
             <tr id="dd_dd">
                 <td class="dd1">名字</td>
                 <td class="dd2">学号</td>
@@ -26,8 +27,13 @@
                 <td class="dd7">面试地点</td>
                 <td class="dd8">面试方向</td>
                 <td class="dd9">面试类型</td>
-                <td class="dd0">^</td>
+                <td class="dd0"></td>
             </tr>
+        </table>
+    </div>
+    <div id="kong"></div>
+    <div id="td_list">
+        <table>
             {% for a in data_list %}
             <tr onclick="changeFather(this)">
                 <td class="td1">{{ a.newname }}</td>
@@ -60,12 +66,28 @@
                 type: "POST",
                 data:data,
                 success:function(result){
-                    document.getElementById('list').innerHTML = result;
+                    document.getElementById('td_list').innerHTML = result;
                 },
                 error:function(result){
-                    document.getElementById('list').innerHTML = "获取失败";
+                    document.getElementById('td_list').innerHTML = "获取失败";
                 }
             })
+    }
+
+    function interviewed() {
+        var data = {};
+        data['csrfmiddlewaretoken'] = getCookie('csrftoken');
+        $.ajax({
+            url: "/interview/interviewed/",
+            type: "POST",
+            data: data,
+            success:function(result){
+                document.getElementById('td_list').innerHTML = result;
+            },
+            error:function(result){
+                document.getElementById('td_list').innerHTML = "获取失败";
+            }
+        })
     }
 
     function getCookie(name) {

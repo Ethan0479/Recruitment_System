@@ -49,7 +49,7 @@
                     <input class="btn" id="btn2" type="button" value="设计" onmousedown="btnChange(this)">
                     <input class="btn" id="btn3" type="button" value=" 秘书处" onmousedown="btnChange(this)">
                 </div>
-                <div id="tip">1</div>
+                <div id="tip"> </div>
                 <input id="submit" type="button" value="登录" form="userForm" onclick="reg_submit()">
             </form>
             <div id="link_register">
@@ -98,37 +98,59 @@
             }*/
         }
 
-        function reg_submit(){
+        function reg_submit() {
             var input_id = document.getElementById('input_id').value;
             var input_name = document.getElementById('input_name').value;
             var input_password = document.getElementById('input_password').value;
             var input_direction = document.getElementById('btnlist').value;
-            var csrftoken = getCookie('csrftoken');
-            var data = {};
-            data['csrfmiddlewaretoken'] = csrftoken;
-            data['student_id'] = input_id;
-            data['name'] = input_name;
-            data['password'] = input_password;
-            data['direction'] = input_direction;
+            var num = 0;
+            var number = /201[0-8]+\d{6}/;
+            if (number.exec(input_id) && input_id.length == 10) {
+                num += 1;
+            } else {
+                tip.innerHTML = '学号错误，请填写正确学号';
+            }
 
-            $.ajax({
-                url:"/interview/register/",
-                type:"POST",
-                //data:$('#user_login').serialize(),
-                data:data,
-                success:function(result){
-                    if(result === "200"){
-                        tip.innerHTML="注册成功";
-                        setTimeout("window.location.href = '../login/'", 2000);
+            if (input_password.length > 5) {
+                num += 1;
+            } else {
+                tip.innerHTML = '密码太短，请输入至少六位密码';
+            }
+
+            if (input_direction == '开发' || input_direction == '设计' || input_direction == '秘书处') {
+                num += 1;
+            } else {
+                tip.innerHTML = '请选择方向';
+                {#tip.innerHTML = input_direction;#}
+            }
+            if (num >= 3) {
+                var csrftoken = getCookie('csrftoken');
+                var data = {};
+                data['csrfmiddlewaretoken'] = csrftoken;
+                data['student_id'] = input_id;
+                data['name'] = input_name;
+                data['password'] = input_password;
+                data['direction'] = input_direction;
+
+                $.ajax({
+                    url: "/interview/register/",
+                    type: "POST",
+                    //data:$('#user_login').serialize(),
+                    data: data,
+                    success: function (result) {
+                        if (result === "200") {
+                            tip.innerHTML = "注册成功";
+                            setTimeout("window.location.href = '../login/'", 2000);
+                        }
+                    },
+                    error: function (result) {
+                        if (result !== "200") {
+                            console.log(result);
+                            tip.innerHTML = "注册失败";
+                        }
                     }
-                },
-                error:function(result){
-                    if(result !== "200"){
-                        console.log(result);
-                        tip.innerHTML="注册失败";
-                    }
-                }
-            })
+                })
+            }
         }
 
         function goto_login() {
@@ -179,7 +201,7 @@
                 btn_2.style.backgroundColor = "#ffffff";
                 btn_1.style.color = "#bcbcbc";
                 btn_2.style.color = "#bcbcbc";
-                input_direction.value = "1";
+                input_direction.value = "开发";
             }else if (btn.id === "btn2"){
                 var btn_1 = document.getElementById("btn1");
                 var btn_2 = document.getElementById("btn3");
@@ -187,7 +209,7 @@
                 btn_2.style.backgroundColor = "#ffffff";
                 btn_1.style.color = "#bcbcbc";
                 btn_2.style.color = "#bcbcbc";
-                input_direction.value = "2";
+                input_direction.value = "设计";
             }else if (btn.id === "btn3") {
                 var btn_1 = document.getElementById("btn1");
                 var btn_2 = document.getElementById("btn2");
@@ -195,7 +217,7 @@
                 btn_2.style.backgroundColor = "#ffffff";
                 btn_1.style.color = "#bcbcbc";
                 btn_2.style.color = "#bcbcbc";
-                input_direction.value = "3";
+                input_direction.value = "秘书处";
             }else {
                 alert("错误")
             }
