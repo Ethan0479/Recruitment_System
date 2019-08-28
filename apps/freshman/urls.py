@@ -18,6 +18,7 @@ urlpatterns = [
     # url(r'^application/$',views.)
     # url(r'^result/$',views.)
     # url(r'^application/$',views.ApplicationView.get)
+    url(r'^$', ensure_csrf_cookie(IndexView.as_view()), name='index'),
     url(r'^index/$', ensure_csrf_cookie(IndexView.as_view()), name='index'),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^register/$', ensure_csrf_cookie(RegisterView.as_view()), name='register'),
