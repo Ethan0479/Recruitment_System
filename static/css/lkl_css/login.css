@@ -307,5 +307,12 @@ input[type=radio]:checked+.female_icon{
     color: red;
     position: relative;
     bottom:25%;
-    /*margin-left: 38%;*/
+}
+.login_error{
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 10px;
+    color: red;
+    position: relative;
 }
