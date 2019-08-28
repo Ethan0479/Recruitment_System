@@ -101,7 +101,7 @@ function changeFrom(score,evaluate) {
 
 //提交评论
 function submitEvaluate() {
-    var id = document.getElementById('stu_id').value;
+    var id = document.getElementById('stu_id').innerText;
     var scores = document.getElementById('mark').getElementsByTagName('INPUT');
     var a; //成绩
     for (i = 0; i < scores.length; i++) {

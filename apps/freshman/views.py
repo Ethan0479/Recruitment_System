@@ -70,6 +70,11 @@ class RegisterView(View):
             applicant.apartment = request.POST.get('apartment', '')
             applicant.dormitory = request.POST.get('dormitory', '')
             applicant.province = request.POST.get('city', '')
+            applicant.application = '请在这里编辑你的申请书吧'
+            applicant.evaluate = '请在这里编辑你对这位新人的评价'
+            applicant.score = 0
+            # b轮的时候把这个改成b
+            applicant.interview_result_A = 0
             applicant.save()
             # response = redirect('/login/')
             return HttpResponse("200")  # 注册成功跳转登录页面
@@ -141,6 +146,8 @@ class LoginView(View):
                     # url = '/index/' + newstudent_id + '/'
                     url = '/homepage/'
                     response = redirect(url)
+                    if not user.remark_1:
+                        user.remark_1 = ''
                     tmp = newstudent_id + user.remark_1
                     save_code = hashlib.md5()
                     save_code.update(tmp.encode(encoding='utf-8'))

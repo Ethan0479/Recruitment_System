@@ -27,7 +27,7 @@
     <img id="out_pic" src={% static '/css/zhb/img/out.svg' %} alt="">
     <p>欢迎你,小云云</p>
 </div>
-<div id="mange_inter">
+<div id="mange_inter" style="height: 900px">
     <!-- 除了学生信息以外的东西 -->
     <div id="inter_head">
         <div id="student_inter">
@@ -37,7 +37,7 @@
         <table id="list" style="border-bottom: 2px solid rgba(140, 156, 255, 0.16);">
             <tr id="dd_dd">
                 <td class="dd1">名字</td>
-                <td class="dd2" id="stu_id">学号</td>
+                <td class="dd2">学号</td>
                 <td class="dd3">性别</td>
                 <td class="dd4">学院</td>
                 <td class="dd5">专业</td>
@@ -48,7 +48,7 @@
             </tr>
             <tr>
                 <td class="td1"><b>{{ a.newname }}</b></td>
-                <td class="td2">{{ a.newstudent_id }}</td>
+                <td class="td2" id="stu_id">{{ a.newstudent_id }}</td>
                 <td class="td3">{{ a.gender }}</td>
                 <td class="td4">{{ a.college }}</td>
                 <td class="td5">{{ a.major }}</td>
@@ -70,14 +70,14 @@
                     <input type="button" id="sbt1" value="评价" class="sbt" onclick="changeFrom({{ a.score }},'{{ a.evaluate }}')">
                 </div>
                 {#                <iframe style="border: 0" id="question" src="/interview/management/{{ a.newstudent_id }}/son"></iframe>#}
-                <textarea id="question" readonly="readonly"></textarea><br/>
+                <textarea id="question" readonly="readonly">{{ que }}</textarea><br/>
                 <input type="button" id="sbt2" class="sbt" value="修改问题" onclick="editQuestion({{ a.newstudent_id }})">
             </div>
         </div>
         <div id="markdiv">
             <form>
                 <div id="footer_text">
-                    <span id="footer_text1">{{ a.interview_name }}</span><br/>
+                    <span id="footer_text1">{{ i }}</span><br/>
                     <span id="footer_text2">{{ a.score }}</span>
                 </div>
                 <div id="evaluate">
