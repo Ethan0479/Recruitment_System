@@ -1,10 +1,10 @@
-from django.shortcuts import render_to_response, HttpResponse, redirect
-from django.http import HttpResponseRedirect, response
+from django.shortcuts import render_to_response, HttpResponse
+from django.http import response, HttpResponseRedirect
 from apps.freshman.models import Freshman
-from django.http import JsonResponse
-from django.shortcuts import render
-from django.views.generic.base import View
+import re
 import json
+from django.shortcuts import render, redirect
+from django.views.generic.base import View
 # from django.contrib.auth import login, authenticate, logout
 
 from .forms import Applyfrom
@@ -15,10 +15,8 @@ from .models import Interview
 
 # 注册
 class RegisterView(View):
-
     def get(self, request):
         return render(request, 'inter_register.html')
-
     # 面试官注册
     def post(self, request):
         try:
@@ -38,7 +36,6 @@ class RegisterView(View):
         except:
             return HttpResponse("202")
 
-
 # 登录
 class LoginView(View):
 
@@ -48,53 +45,66 @@ class LoginView(View):
     def post(self, request):
         interview_id = request.POST.get("student_id")
         interview_password = request.POST.get("password")
-        check = interviewer_search(interview_id, interview_password)  # 验证:返回验证对象,失败则是None
-        print(check)
-        if check == '1':
-            return HttpResponse("200")
-        elif check == '2':
-            error = "姓名错误"
-            return render(request, "inter_search.html", {'error': error})
-        elif check == '3':
-            error = "学号错误"
-            return render(request, "inter_search.html", {'error': error})
-        return HttpResponse("qunimade")
+        check = interviewer_search(interview_id, interview_password)
+        if check == '登录成功':
+            student = Interview.objects.get(interview_id=interview_id)
+            interview_name = student.interview_name
+            request.session['interview_id'] = interview_id
+            request.session['interview_name'] = interview_name
+            return redirect('../management')
+        elif check == '密码不正确':
+            error = "密码错误"
+            return HttpResponse(error)
+        elif check == '学号不存在，请先注册':
+            error = "学号不存在，请先注册"
+            return HttpResponse(error)
+        return HttpResponse("错误")
 
+def interviewer_search(interview_id, interview_password):
+    try:
+        data = Interview.objects.get(interview_id=interview_id)
+        password = data.interview_password
+    except:
+        return '学号不存在，请先注册'  # '学号不存在'
+    # 查有此人
+    if interview_password == password:
+        return '登录成功'
+    # 密码不正确
+    elif interview_password != password:
+        return '密码不正确'
 
 # 申请书
 class Audition(View):
     def get(self, request):
-        data_list = {}
-        return render(request, 'inter_search.html', {'data_list': data_list})
+        try:
+            interview_id = request.session.get('interview_id')
+            interview_name = request.session.get('interview_name')
+            if interview_id and interview_name:
+                number = Freshman.objects.all()
+                number = len(number)
+                return render(request, 'inter_search.html', {'number': number})
+            else:
+                return HttpResponseRedirect("../login/")
+        except:
+            return HttpResponseRedirect("../login/")
 
     def post(self, request):
-        data_list = []
-        return render(request, 'inter_search.html', {'data_list': data_list})
-
+        try:
+            interview_id = request.session.get('interview_id')
+            interview_name = request.session.get('interview_name')
+            if interview_id and interview_name:
+                number = Freshman.objects.all()
+                number = len(number)
+                return render(request, 'inter_search.html', {'number': number})
+            else:
+                return HttpResponseRedirect("../login/")
+        except:
+            return HttpResponseRedirect("../login/")
 
 # 登出
 def acc_logout(request):
     # 用户登出，即删除记录登录信息的cookie
     return response('')
-
-
-def interviewer_search(interview_id, interview_password):
-    try:
-        data = Interview.objects.get(interview_id=interview_id)
-        id = data.interview_id
-        password = data.interview_password
-    except:
-        return id  # '没有注册'
-    # 查有此人
-    if interview_password == password:
-        return '1'
-    # 密码不正确
-    elif interview_password != password:
-        return '2'
-    # 学号不正确
-    elif interview_id != id:
-        return '3'
-
 
 # 评分和评价
 def scoree_valuate(request):
@@ -111,215 +121,116 @@ def scoree_valuate(request):
     fresh.save()
 
     return render({'data': '修改成功'})  # '修改成功'
-
-
-'''
-# 新生信息传给前端
+#过滤筛选
 def freshman_search(request):
-    # 用于模糊搜索新生,可以通过名字或者学号查
-    student_id = request.POST.get("student_id", "")
-    if(student_id == ""):
-        id_or_name = ''
-    else:
-        id_or_name = student_id
-
-    #之后再改，分辨是学号还是姓名
-    if(id_or_name != ""):
-        data_list = Freshman.objects.filter(newname__contains=id_or_name)
-        return HttpResponse(data_list)
-
-    else:
-        direction = request.POST.get("direction", "")
-        place = request.POST.get("place", "")
-        day = request.POST.get("day", "")
-        time = request.POST.get("time", "")
-        inter_type = request.POST.get("inter_type", "")
-        inter_time = day+time
-        #data_list = Freshman.objects.filter(direction=direction, interview_place=place, interview_time=inter_time,
-        #                                    interview_result=inter_type)
-        data = Freshman.objects.filter(direction=direction)
-        data_list = []
-        for people in data:
-            data_one = []
-            data_one.append({"newstudent_id":people.newstudent_id})
-            data_one.append({"newname":people.newname})
-            data_one.append({"appointment_one":people.gender})
-            data_one.append({"appointment_two":people.college})
-            data_one.append({"appointment_three":people.major})
-            # data_one.append({"appointment_one":people.appointment_one})
-            # data_one.append({"appointment_two":people.appointment_two})
-            # data_one.append({"appointment_three":people.appointment_three})
-            try:
-                daytime = people.interview_time.split('-')
-                day = daytime[0]
-                time = daytime[1]
-            except:
-                day=''
-                time=''
-            data_one.append({"day":day})
-            data_one.append({"time":time})
-            data_one.append({"interview_place":people.interview_place})
-            data_one.append({"evaluate":people.direction})
-            # data_one.append({"evaluate":people.evaluate})
-            data_list.append(data_one)
-        a = 1
-        b = 2
-        return render_to_response('inter_null.html', {"data_list" : json.dumps(data_list)})
-        #return HttpResponse(data_list)
-        #return HttpResponse({"status":"1", "data": data_list})
-        #return HttpResponse({"data": json.dumps(data_list)})
-        #return JsonResponse({"data":json.dumps(data_list)})
-        #return render(request, 'inter_search_son.html', {'data_list':data_list})
-        #return render(request, 'inter_null.html', {'data_list': data_list})
-'''
-
-
-def freshman_search(request, type=1):
-    if type:
-        id_or_name = request.POST.get("student_id", "")
-        direction = request.POST.get("direction", "")
-        place = request.POST.get("place", "")
-        day = request.POST.get("day", "")
-        time = request.POST.get("time", "")
-        inter_type = request.POST.get("inter_type", "")
-        data_direction = []
-        data_place = []
-        data_day = []
-        data_time = []
-        data_type = []
-
-        all_student_data = Freshman.objects.filter()
-        for student_one in all_student_data:
-            if direction == "":
-                data_direction.append(student_one)
-            elif student_one['direction'] == direction:
-                data_direction.append(student_one)
-
-        for student_one in data_direction:
-            if place == "":
-                data_place.append(student_one)
-            elif student_one['place'] == place:
-                data_place.append(student_one)
-
-        try:
-            daytime = student_one['interview_time']
-            daytime = daytime.split('-')
-            day = daytime[0]
-            time = daytime[1]
-        except:
-            day = ''
-            time = ''
-
-        for student_one in data_place:
-            if day == "":
-                data_day.append(student_one)
-            elif student_one['interview_time'] == day + '-' + time:
-                data_day.append(student_one)
-        for student_one in data_day:
-            if time == "":
-                data_time.append(student_one)
-            elif student_one['interview_time'] == day + '-' + time:
-                data_time.append(student_one)
-        for student_one in data_time:
-            if type == "":
-                data_type.append(student_one)
-            elif student_one['interview_result'] == type:
-                data_type.append(student_one)
-        return render_to_response('inter_null.html', {"data_list": data_type})
-
-    else:
-        pass
-
-
-# 查看新生申请书
-def check_application(request):
-    newstudent_id = request.POST.get('newstudent_id')
-    application = ''
-    try:
-        application = Freshman.objects.filter(newstudent_id=newstudent_id)
-    except:
-        pass
-
-    return render({'application': application})
-
-
-# 内网页的登录
-def internal(request):
     id_or_name = request.POST.get("student_id", "")
     direction = request.POST.get("direction", "")
     place = request.POST.get("place", "")
-    day = request.POST.get("day", "")
     time = request.POST.get("time", "")
     inter_type = request.POST.get("inter_type", "")
-    data_direction = []
-    data_place = []
-    data_day = []
-    data_time = []
-    data_type = []
+
+    all_student_data = Freshman.objects.all()
+
+    if id_or_name == '':
+        pass
+    else:
+        regex = re.compile(r'^2019+\d{0,6}')
+        if regex.match(id_or_name):
+            data_list = Freshman.objects.filter(newstudent_id__contains=id_or_name)
+            return render_to_response('inter_search_son.html', {"data_list": (data_list), "number": len(all_student_data),
+                                                         "num": len(data_list)})
+        else:
+            data_list = Freshman.objects.filter(newname__contains=id_or_name)
+            return render_to_response('inter_search_son.html', {"data_list": (data_list), "number": len(all_student_data),
+                                                         "num": len(data_list)})
+
+    if direction != '':
+        all_student_data = Freshman.objects.filter(direction=direction)
+    if place != '':
+        all_student_data = all_student_data.filter(place=place)
+    if time != '':
+        all_student_data = all_student_data.filter(interview_time=time)
+    if inter_type != '':
+        all_student_data = all_student_data.filter(interview_result=inter_type)
+
     data_list = []
+    for people in all_student_data:
+        data_list.append({"newstudent_id": people.newstudent_id, "newname": people.newname, "gender": people.gender,
+                         "college": people.college, "major": people.major, "time": people.interview_time,
+                         "interview_place": people.interview_place,
+                         "direction": people.direction, "evaluate": people.evaluate})
 
-    all_student_data = Freshman.objects.filter()
-    all_student_data = all_student_data[:20]
-    for student_one in all_student_data:
-        if direction == "":
-            data_direction.append(student_one)
-        elif student_one['direction'] == direction:
-            data_direction.append(student_one)
+    return render_to_response('inter_search_son.html', {"data_list": (data_list), "number": len(all_student_data),
+                                                        "num":len(data_list)})
+#查看自己面试过的人
+def interviewed(request):
+    interview_id = request.session.get('interview_id')
+    interviewed_student = Freshman.objects.filter(interview_id=interview_id)
+    data_list = []
+    for people in interviewed_student:
+        data_list.append({"newstudent_id": people.newstudent_id, "newname": people.newname, "gender": people.gender,
+                          "college": people.college, "major": people.major, "time": people.interview_time,
+                          "interview_place": people.interview_place,
+                          "direction": people.direction, "evaluate": people.evaluate})
+    return render_to_response('inter_search_son.html', {"data_list": (data_list), "num":len(data_list)})
 
-    for student_one in data_direction:
-        if place == "":
-            data_place.append(student_one)
-        elif student_one['place'] == place:
-            data_place.append(student_one)
+class Inter_addfreshman(View):
+    def get(self, request):
+        return render(request, 'inter_addfreshman.html')
 
-    try:
-        daytime = student_one['interview_time']
-        daytime = daytime.split('-')
-        day = daytime[0]
-        time = daytime[1]
-    except:
-        day = ''
-        time = ''
+    def post(self, request):
+        newstudent_id = request.POST.get('newstudent_id', '')
+        password = request.POST.get('password', '')
+        newname = request.POST.get('newname', '')
+        gender = request.POST.get('gender', '')
+        college = request.POST.get('college', '')
+        major = request.POST.get('major', '')
+        newclass = request.POST.get('newclass', '')
+        phone = request.POST.get('phone', '')
+        qq = request.POST.get('qq', '')
+        email = request.POST.get('email', '')
+        direction = request.POST.get('direction', '')
+        interview_time = request.POST.get('interview_time', '')
+        interview_place = request.POST.get('interview_place', '')
+        province = request.POST.get('province', '')
+        apartment = request.POST.get('apartment', '')
+        dormitory = request.POST.get('dormitory', '')
 
-    for student_one in data_place:
-        if day == "":
-            data_day.append(student_one)
-        elif student_one['interview_time'] == day + '-' + time:
-            data_day.append(student_one)
-    for student_one in data_day:
-        if time == "":
-            data_time.append(student_one)
-        elif student_one['interview_time'] == day + '-' + time:
-            data_time.append(student_one)
-    for student_one in data_time:
-        if inter_type == "":
-            data_type.append(student_one)
-        elif student_one['interview_result'] == inter_type:
-            data_type.append(student_one)
+        student_one = Freshman()
+        student_one.newstudent_id = newstudent_id
+        student_one.password = password
+        student_one.newname = newname
+        student_one.gender = gender
+        student_one.college = college
+        student_one.major = major
+        student_one.newclass = newclass
+        student_one.phone = phone
+        student_one.qq = qq
+        student_one.email = email
+        student_one.direction = direction
+        student_one.interview_time = interview_time
+        student_one.interview_place = interview_place
+        student_one.province = province
+        student_one.apartment = apartment
+        student_one.dormitory = dormitory
+        student_one.save()
 
-    for people in data_type:
-        data_one = []
-        try:
-            daytime = people.interview_time.split('-')
-            day = daytime[0]
-            time = daytime[1]
-        except:
-            day = ''
-            time = ''
-        data_one.append({"newstudent_id": people.newstudent_id, "newname": people.newname, "appointment_one": people.gender,
-                         "appointment_two": people.college, "appointment_three": people.major, "day": day, "time": time,
-                         "interview_place": people.interview_place, "evaluate": people.direction})
-        data_list.append(data_one)
+        return HttpResponse('注册成功')
 
-    a = 1
-    b = 2
+def info_check_out(request,a):
+    if request.method == 'GET':
+        stu = Freshman.objects.get(newstudent_id=a)
+        return render(request, 'student_info.html', {'a': stu})
+    else:
+        question = request.POST.get("question",'')
+        evaluate = request.POST.get('evaluate','')
+        if question == '':
+            pass
+        if evaluate == '':
+            pass
+        return HttpResponse(200)
 
-    return render_to_response('inter_search_son.html', {"data_list": (data_list)})
+def info_check_out_son(request,a):
+    print(a)
+    return HttpResponse(200)
 
-
-def info_check_out(request):
-    return None
-
-
-def info_check_out_son(request):
-    return None

@@ -42,8 +42,9 @@
                 <input id="input_password" type="password" name="password" placeholder="请输入密码"
                     onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" />
                 <br />
-                <div id="tip">1</div>
+                <div id="tip"> </div>
                 <input id="submit" type="submit" value="登录" form="userForm" onclick="log_submit()">
+
             </form>
             <div id="link_register">
                 <a onclick="goto_register()">没有账号？去注册 &nbsp;></a>
@@ -81,23 +82,35 @@
                 data:$('#user_login').serialize(),
                 //data:data,
                 success:function(result){
-                    if(result === "200"){
-                        console.log(result)
-                        tip.innerHTML="登录成功";
-                        setTimeout("window.location.href = '../management/'", 2000);
+                    if(result === "密码错误"){
+                        tip.innerHTML="密码错误";
+                    }
+                    else if(result === "学号不存在，请先注册"){
+                        tip.innerHTML="学号不存在，请先注册";
+                    }
+                    else if(result){
+                        setTimeout("window.location.href = '../management/'", 500);
                     }
                 },
                 error:function(result){
                     if(result !== "200"){
-                        console.log(result);
-                        tip.innerHTML="登录失败";
+                        tip.innerHTML='登录失败，请刷新重试';
                     }
                 }
             })
         }
 
+        function sleep(numberMillis) {
+            var now = new Date();
+            var exitTime = now.getTime() + numberMillis;
+            while (true) {
+                now = new Date();
+                if (now.getTime() > exitTime)
+                    return;
+            }}
+
         function goto_register() {
-            setTimeout("window.location.href = '../register/'", 1000);
+            setTimeout("window.location.href = '../register/'", 300);
         }
 
         function post(URL, PARAMS) {

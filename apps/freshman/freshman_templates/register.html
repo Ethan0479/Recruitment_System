@@ -13,6 +13,11 @@
     <script type="text/javascript" src="{% static 'js/lkl_js/functions.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/lkl_js/page_jumps.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+    <script>
+        setTimeout("document.getElementById(\"name\").value = sessionStorage.getItem(\"name\");\n" +
+            "        document.getElementById(\"uid\").value = sessionStorage.getItem(\"uid\");\n" +
+            "        setRadioStatus(\"gender\");", 100);
+    </script>
 </head>
 <body>
 <div id="header">
@@ -27,17 +32,103 @@
     </div>
 </div>
 <div id="main">
-    <p id="tip">注册你的账号</p><br>
+    <p id="tip">注册你的账号</p>
+    <div class="selected" hidden id="college_list">
+    <!--<label class="tip">请选择学院</label>-->
+        <label>
+           <select name="college" class="select_list" id="college" onchange="get_major()">
+                <option value="" selected="selected" class="tip" disabled>请选择学院</option>
+                {% for college in colleges %}
+                    <option value="{{ college }}">{{ college }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+    <div class="selected" hidden id="major_list">
+        <!--<label class="tip">请选择专业</label>-->
+        <label>
+            <select name="major" class="select_list" id="major">
+                <option value="" selected="selected" class="tip" disabled>请选择专业</option>
+            </select>
+        </label>
+    </div>
+    <div class="selected" hidden id="city_list">
+        <select name="city" class="select_list" id="city">
+            <option value="" selected="selected" class="tip" disabled>请选择籍贯</option>
+            <option value="北京" >北京</option>
+            <option value="天津" >天津</option>
+            <option value="山西" >山西</option>
+            <option value="河北">河北</option>
+            <option value="内蒙古" >内蒙古</option>
+            <option value="辽宁" >辽宁</option>
+            <option value="吉林" >吉林</option>
+            <option value="黑龙江" >黑龙江</option>
+            <option value="上海" >上海</option>
+            <option value="江苏" >江苏</option>
+            <option value="浙江" >浙江</option>
+            <option value="安徽" >安徽</option>
+            <option value="福建" >福建</option>
+            <option value="江西" >江西</option>
+            <option value="山东" >山东</option>
+            <option value="河南" >河南</option>
+            <option value="湖南" >湖南</option>
+            <option value="湖北" >湖北</option>
+            <option value="广东" >广东</option>
+            <option value="广西" >广西</option>
+            <option value="海南" >海南</option>
+            <option value="重庆" >重庆</option>
+            <option value="四川" >四川</option>
+            <option value="贵州" >贵州</option>
+            <option value="云南" >云南</option>
+            <option value="西藏" >西藏</option>
+            <option value="陕西" >陕西</option>
+            <option value="甘肃" >甘肃</option>
+            <option value="青海" >青海</option>
+            <option value="宁夏" >宁夏</option>
+            <option value="新疆" >新疆</option>
+            <option value="香港" >香港</option>
+            <option value="澳门" >澳门</option>
+            <option value="台湾" >台湾</option>
+        </select>
+    </div>
+    <div class="selected" hidden id="apartment_list">
+        <select name="apartment" class="select_list" id="apartment">
+            <option value="" selected="selected" class="tip" disabled>请选择宿舍楼</option>
+            <option value="明泽苑1号楼" >明泽苑1号楼</option>
+            <option value="明泽苑2号楼" >明泽苑2号楼</option>
+            <option value="明泽苑3号楼" >明泽苑3号楼</option>
+            <option value="明泽苑4号楼" >明泽苑4号楼</option>
+            <option value="明泽苑5号楼" >明泽苑5号楼</option>
+            <option value="明泽苑6号楼" >明泽苑6号楼</option>
+            <option value="明泽苑7号楼" >明泽苑7号楼</option>
+            <option value="明泽苑8号楼" >明泽苑8号楼</option>
+            <option value="明泽苑9号楼" >明泽苑9号楼</option>
+            <option value="明泽苑10号楼" >明泽苑10号楼</option>
+            <option value="明泽苑11号楼" >明泽苑11号楼</option>
+            <option value="明泽苑12号楼" >明泽苑12号楼</option>
+            <option value="明泽苑13号楼" >明泽苑13号楼</option>
+            <option value="明泽苑14号楼" >明泽苑14号楼</option>
+            <option value="明泽苑15号楼" >明泽苑15号楼</option>
+            <option value="明泽苑16号楼" >明泽苑16号楼</option>
+            <option value="明泽苑17号楼" >明泽苑17号楼</option>
+            <option value="明泽苑18号楼" >明泽苑18号楼</option>
+            <option value="明泽苑19号楼" >明泽苑19号楼</option>
+            <option value="明泽苑20号楼" >明泽苑20号楼</option>
+            <option value="明泽苑21号楼" >明泽苑21号楼</option>
+            <option value="明泽苑22号楼" >明泽苑22号楼</option>
+        </select>
+    </div>
     <div id="submit">
         <form action="">
             <input type="text" id="name" placeholder="请输入姓名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入姓名'" name=""><br>
-            <input type="number" id="uid" placeholder="请输入学号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入学号'" name=""><br>
-            <input type="password" id="pwd" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" name=""><br>
-            <span id="gender_tip" class="tip">请选择性别</span>&nbsp;
+            <input type="number" id="uid" placeholder="请输入学号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入学号'" name="" onchange="corrected_id()"><br>
+            <input type="password" id="pwd" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" name="" onchange="corrected_pwd()"><br>
+            <span id="gender_tip" class="tip">请选择性别 </span>&nbsp;
             <input type="radio" value="男" name="gender" hidden id="male">
             <label class="male_icon" for="male"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="radio" id="female" value="女" name="gender" hidden>
             <label class="female_icon" for="female"></label>
+
             <br>
             <div class="main_footer">
                 <input type="button" value="下&nbsp;&nbsp;一&nbsp;&nbsp;步" id="process" onclick="FirstToSecond()"><br>
@@ -45,6 +136,7 @@
             </div>
         </form>
     </div>
+    <p hidden id="error" class="error"></p>
 </div>
 </body>
 </html>

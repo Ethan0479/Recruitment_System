@@ -1,5 +1,5 @@
 //设置时间按钮
-function timeSet(sel) {
+function timeSet(sel, next) {
     for (i = 0; i < sel.length; i++) {
         if (sel[i].selected === true) {
             sel.style.backgroundColor = '#ffffff';
@@ -10,6 +10,10 @@ function timeSet(sel) {
             sel.style.color = "#ffffff";
             sel.style.border = "solid 1px #2b7bff"
         }
+    }
+    if (next !== undefined){
+        next.disabled = false;
+        next.style.backgroundColor = "#ffffff";
     }
 }
 
@@ -97,12 +101,12 @@ function selectClick(time1,time2,time3) {
     }
     //时间段三
     for (i=0; i<select_1_3.length; i++){
-        if (select_1_3[i].value == time3_list[0]) {
+        if (select_1_3[i].value === time3_list[0]) {
             select_1_3[i].selected = true;
         }
     }
     for (i=0; i<select_2_3.length; i++){
-        if (select_2_3[i].value == time3_list[1]) {
+        if (select_2_3[i].value === time3_list[1]) {
             select_2_3[i].selected = true;
         }
     }

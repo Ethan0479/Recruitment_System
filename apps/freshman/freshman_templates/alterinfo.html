@@ -9,6 +9,8 @@
         <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 		 <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/lkl_js/page_jumps.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/lkl_js/functions.js' %}"></script>
     	<script type="text/javascript">
         	function a(){
         	    $.ajax({
@@ -26,62 +28,98 @@
                               window.location.href = '/homepage/'
                             });
 
+                        }else {
+                            if (result === '202'){
+                                swal({
+                                 title : "修改失败",
+                                 text: "新手机号和新邮箱都有人用了哦！",
+                                 type : "error",
+                                 confirmButtonText : "确定",
+                                 closeOnConfirm : false
+                             }, function () {
+                                    window.location.href = '/alterinfo/'
+                                });
+                            }else {
+                              swal({
+                                 title : "修改失败",
+                                 {# 暂待修改#}
+                                 text: "",
+                                 type : "error",
+                                 confirmButtonText : "确定",
+                                 closeOnConfirm : false
+                             }, function () {
+                                  window.location.href = '/alterinfo/'
+                              });
+                            }
                         }
                     }
                 });
         		}
-        // 		function b(){
-        //  swal({
-        // title : "修改失败",
-        // type : "error",
-        // confirmButtonText : "确定",
-        // closeOnConfirm : false
-        // });
-        // }
+            onload = function default_academy() {
+                setTimeout('document.getElementById("college").value = document.getElementById("student_college").value;get_major();', 100);
+                setTimeout('document.getElementById("major").value = document.getElementById("student_major").value;', 200);
+            }
     	</script>
 	</head>
 	<body>
 		<div class="header">修改信息</div>
-		
 		<div class="white">
 			<!-- 内容 -->
 			<div class="content">
 				<p class="name1">修改个人信息</p>
+                <p id="error" class="error"><br></p>
 				<div class="bbox">
 					<form action="" method="post" class="box" id="alterinfo">
                     {% csrf_token %}
-						<input type="text" name="newname" value="{{ student.newname }}" placeholder="云小某" onfocus="this.placeholder=''" onblur="this.placeholder='云小某'" class="name" disabled><!--  姓名--><br/>
-						<input type="number" name="newstudent_id" value="{{ student.newstudent_id }}" placeholder="2019002234" onfocus="this.placeholder=''" onblur="this.placeholder='2019002234'" class="student" disabled><!--  学号--><br/>
-						<input type="password" name="password" value="{{ student.password }}" placeholder="******" onfocus="this.placeholder=''" onblur="this.placeholder='******'" class="pass"><!--  密码--><br/>
+						<input type="text" name="newname" value="{{ student.newname }}" placeholder="请输入姓名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入姓名'" class="name" disabled><!--  姓名--><br/>
+						<input type="number" name="newstudent_id" value="{{ student.newstudent_id }}" placeholder="请输入学号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入学号'" class="student" disabled><!--  学号--><br/>
+						<input type="password" id="pwd" name="password" value="{{ student.password }}" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" class="pass" onchange="corrected_pwd()"><!--  密码--><br/>
 						<div class="genders">
 							<p class="gender">性别</p>
                              {% if student.gender == '男' %}<img src="{% static 'img/male.svg' %}" alt="" class="boy"/>{% endif %}
                             {% if student.gender == '女' %}<img src="{% static 'img/female.svg' %}" alt="" class="boy"/>{% endif %}
 						</div>
-						<input type="number" name="qq" value="{{ student.qq }}" placeholder="1234567" onfocus="this.placeholder=''" onblur="this.placeholder='1234567'" class="qq"><!--  QQ--><br/>
-						<input type="number" name="phone" value="{{ student.phone }}" placeholder="12345678901" onfocus="this.placeholder=''" onblur="this.placeholder='12345678901'" class="phone"><!--  电话--><br/>
-						<input type="email" name="email" value="{{ student.email }}" placeholder="1234567@qq.com" onfocus="this.placeholder=''" onblur="this.placeholder='1234567@qq.com'" class="email"><!--  邮箱--><br/>
-						<select class="selectone" name="college">
+						<input type="number" name="qq" value="{{ student.qq }}" placeholder="请输入QQ" onfocus="this.placeholder=''" onblur="this.placeholder='请输入QQ'" class="qq"><!--  QQ--><br/>
+						<input type="number" id="phone" name="phone" value="{{ student.phone }}" placeholder="请输入手机号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入手机号'" class="phone" onchange="corrected_phone()"><!--  电话--><br/>
+						<input type="email" id="email" name="email" value="{{ student.email }}" placeholder="请输入邮箱" onfocus="this.placeholder=''" onblur="this.placeholder='请输入邮箱'" class="email" onchange="corrected_email()"><!--  邮箱--><br/>
+						<select class="selectone" id="college" name="college" onchange="get_major()">
+                            <option value="" selected="selected" class="tip" disabled>请选择学院</option>
+                            {% for college in colleges %}
+                                <option value="{{ college }}">{{ college }}</option>
+                            {% endfor %}
+                            <input type="hidden" id="student_college" value="{{ student.college }}">
 {#                        后期还得改#}
-							<option value="大数据学院" {% if student.college == '大数据学院' %}selected="selected"{% endif %}>大数据学院</option>
-							<option value="生物医学学院" {% if student.college == '生物医学学院' %}selected="selected"{% endif %}>生物医学学院</option>
-							<option value="软件学院" {% if student.college == '软件学院' %}selected="selected"{% endif %}>软件学院</option>
-							<option value="计算机学院" {% if student.college == '计算机学院' %}selected="selected"{% endif %}>计算机学院</option>
 						</select>
-						<select class="selecttwo" name="major">
-							<option value="软件工程" {% if student.college == '软件工程' %}selected="selected"{% endif %}>软件工程</option>
-							<option value="计算机科学与技术" {% if student.college == '计算机科学与技术' %}selected="selected"{% endif %}>计算机科学与技术</option>
-							<option value="数据科学与技术" {% if student.college == '数据科学与技术' %}selected="selected"{% endif %}>数据科学与技术</option>
-							<option value="机械与运载工程" {% if student.college == '机械与运载工程' %}selected="selected"{% endif %}>机械与运载工程</option>
+						<select class="selecttwo" name="major" id="major">
+                            <option value="" selected="selected" class="tip" disabled>请选择专业</option>
 						</select>
-						<input type="number" name="newclass" value="{{ student.newclass }}" placeholder="1801" onfocus="this.placeholder=''" onblur="this.placeholder='1801'" class="classes"><!--  班级--><br/>
+                        <input type="hidden" id="student_major" value="{{ student.major }}">
+						<input type="number" name="newclass" value="{{ student.newclass }}" placeholder="请输入班级" onfocus="this.placeholder=''" onblur="this.placeholder='请输入班级'" class="classes"><!--  班级--><br/>
 						<select class="selectthree" name="apartment">
-							<option value="明泽苑16号楼" {% if student.college == '明泽苑16号楼' %}selected="selected"{% endif %}>明泽苑16号楼</option>
-							<option value="明泽苑17号楼" {% if student.college == '明泽苑17号楼' %}selected="selected"{% endif %}>明泽苑17号楼</option>
-							<option value="明泽苑18号楼" {% if student.college == '明泽苑18号楼' %}selected="selected"{% endif %}>明泽苑18号楼</option>
-							<option value="明泽苑19号楼" {% if student.college == '明泽苑19号楼' %}selected="selected"{% endif %}>明泽苑19号楼</option>
+                            <option value="明泽苑1号楼" {% if student.apartment == '明泽苑1号楼' %}selected="selected"{% endif %}>明泽苑1号楼</option>
+                            <option value="明泽苑2号楼" {% if student.apartment == '明泽苑2号楼' %}selected="selected"{% endif %}>明泽苑2号楼</option>
+                            <option value="明泽苑3号楼" {% if student.apartment == '明泽苑3号楼' %}selected="selected"{% endif %}>明泽苑3号楼</option>
+                            <option value="明泽苑4号楼" {% if student.apartment == '明泽苑4号楼' %}selected="selected"{% endif %}>明泽苑4号楼</option>
+                            <option value="明泽苑5号楼" {% if student.apartment == '明泽苑5号楼' %}selected="selected"{% endif %}>明泽苑5号楼</option>
+                            <option value="明泽苑6号楼" {% if student.apartment == '明泽苑6号楼' %}selected="selected"{% endif %}>明泽苑6号楼</option>
+                            <option value="明泽苑7号楼" {% if student.apartment == '明泽苑7号楼' %}selected="selected"{% endif %}>明泽苑7号楼</option>
+                            <option value="明泽苑8号楼" {% if student.apartment == '明泽苑8号楼' %}selected="selected"{% endif %}>明泽苑8号楼</option>
+                            <option value="明泽苑9号楼" {% if student.apartment == '明泽苑9号楼' %}selected="selected"{% endif %}>明泽苑9号楼</option>
+                            <option value="明泽苑10号楼" {% if student.apartment == '明泽苑10号楼' %}selected="selected"{% endif %}>明泽苑10号楼</option>
+                            <option value="明泽苑11号楼" {% if student.apartment == '明泽苑11号楼' %}selected="selected"{% endif %}>明泽苑11号楼</option>
+                            <option value="明泽苑12号楼" {% if student.apartment == '明泽苑12号楼' %}selected="selected"{% endif %}>明泽苑12号楼</option>
+                            <option value="明泽苑13号楼" {% if student.apartment == '明泽苑13号楼' %}selected="selected"{% endif %}>明泽苑13号楼</option>
+                            <option value="明泽苑14号楼" {% if student.apartment == '明泽苑14号楼' %}selected="selected"{% endif %}>明泽苑14号楼</option>
+                            <option value="明泽苑15号楼" {% if student.apartment == '明泽苑15号楼' %}selected="selected"{% endif %}>明泽苑15号楼</option>
+                            <option value="明泽苑16号楼" {% if student.apartment == '明泽苑16号楼' %}selected="selected"{% endif %}>明泽苑16号楼</option>
+                            <option value="明泽苑17号楼" {% if student.apartment == '明泽苑17号楼' %}selected="selected"{% endif %}>明泽苑17号楼</option>
+                            <option value="明泽苑18号楼" {% if student.apartment == '明泽苑18号楼' %}selected="selected"{% endif %}>明泽苑18号楼</option>
+                            <option value="明泽苑19号楼" {% if student.apartment == '明泽苑19号楼' %}selected="selected"{% endif %}>明泽苑19号楼</option>
+                            <option value="明泽苑20号楼" {% if student.apartment == '明泽苑20号楼' %}selected="selected"{% endif %}>明泽苑20号楼</option>
+                            <option value="明泽苑21号楼" {% if student.apartment == '明泽苑21号楼' %}selected="selected"{% endif %}>明泽苑21号楼</option>
+                            <option value="明泽苑22号楼" {% if student.apartment == '明泽苑22号楼' %}selected="selected"{% endif %}>明泽苑22号楼</option>
 						</select>
-						<input type="number" name="dormitory" value="{{ student.dormitory }}" placeholder="209" onfocus="this.placeholder=''" onblur="this.placeholder='209'" class="room"><!--  宿舍号 --><br/>
+						<input type="number" name="dormitory" value="{{ student.dormitory }}" placeholder="请输入宿舍号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入宿舍号'" class="room"><!--  宿舍号 --><br/>
 						<input type="button" value="确认修改" id="button" onclick="a()">
 <!--						<input type="button" value="确认修改" id="button" onclick="b()">-->
 					</form>

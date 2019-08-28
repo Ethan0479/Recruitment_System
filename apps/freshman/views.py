@@ -1,16 +1,18 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 from django.views.generic.base import View
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.contrib.auth.decorators import login_required
+from django.apps import apps
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 import random
 import time
+import json
+import re
+import hashlib
 
 from .forms import Applyfrom, ModifyForm
-from .models import Freshman
+from .models import Freshman, Academy, Major
 from Recruitment_System.settings import EMAIL_FROM
 
 
@@ -28,6 +30,14 @@ from Recruitment_System.settings import EMAIL_FROM
 '''
 
 
+# def page_not_found(request, exception, template_name='new_404.html'):
+#     return render(request, template_name)
+#
+#
+# def server_error(request, template_name='new_500.html'):
+#     return render(request, template_name)
+
+
 class IndexView(View):
     def get(self, request):
         return render(request, '../freshman_templates/index.html')
@@ -38,7 +48,8 @@ class RegisterView(View):
 
     def get(self, request):
         apply_form = Applyfrom()
-        return render(request, '../freshman_templates/register.html', locals())
+        colleges = Academy.objects.all()
+        return render(request, '../freshman_templates/register.html', {'colleges': colleges})
 
     def post(self, request):
         apply_form = Applyfrom(request.POST)
@@ -55,16 +66,21 @@ class RegisterView(View):
             applicant.phone = request.POST.get('phone', '')  # 手机号
             applicant.qq = request.POST.get('qq', '')  # QQ
             applicant.email = request.POST.get('email', '')  # 邮箱
+            applicant.remark_1 = request.POST.get('code', '')  # 邮箱验证码
             applicant.apartment = request.POST.get('apartment', '')
             applicant.dormitory = request.POST.get('dormitory', '')
-            # applicant.direction = request.POST.get('direction', '')  # 选择方向
+            applicant.province = request.POST.get('city', '')
             applicant.save()
             # response = redirect('/login/')
             return HttpResponse("200")  # 注册成功跳转登录页面
             # else:
             #     return render(request, 'register.html', {'error': error})
         else:
-            return HttpResponse(apply_form.errors)
+            errors = []
+            for error in apply_form.errors:
+                errors.append(error)
+            error_list = ','.join(errors)
+            return HttpResponse(error_list)
             # return render(request, '../freshman_templates/register.html')  # 提示错误信息
 
 # 随机生成数字验证码
@@ -77,12 +93,29 @@ def generate_code():
 
 
 # 可能需要重写
-def send_code_by_email(email):
-    title = '注册验证码'
-    code = generate_code()
-    content = '验证码为：' + code
-    status = send_mail(title, content, EMAIL_FROM, [email])
-    return status
+def send_code_by_email(request):
+    if request.method == 'POST':
+        email = request.POST.get('email', '')
+        title = '注册验证码'
+        code = generate_code()
+        content = '验证码为：' + code
+        status = send_mail(title, content, EMAIL_FROM, [email])
+        return HttpResponse(code)
+
+
+def get_major(request):
+    if request.method == 'POST':
+        college = request.POST.get('academy', '')
+        if not college:
+            return HttpResponse('')
+        else:
+            college_id = Academy.objects.get(academy=college).id
+            majors = Major.objects.filter(majorAcademy_id=college_id)
+            majors_name = []
+            for i in range(len(majors)):
+                majors_name.append(majors[i].major)
+            majors_str = ','.join(majors_name)
+            return HttpResponse(majors_str)
 
 
 # 查询的登录界面(可查询、更改预约时间，申请书；查询面试通知，查询面试结果）（需要学号，密码）
@@ -96,23 +129,34 @@ class LoginView(View):
         # user = authenticate(username=student_id, password=password)
         try:
             user = Freshman.objects.get(newstudent_id=newstudent_id)
+        except Freshman.DoesNotExist:
+            json_data = json.dumps({'error': '同学还没有注册吧，先注册哦'})
+            return render(request, '../freshman_templates/login.html', {'error': json_data})
+        if password == '':
+            json_error = json.dumps({'error': '表乱来，密码还没填呢'})
+            return render(request, '../freshman_templates/login.html',{'error': json_error, 'student_id': user.newstudent_id})
+        else:
             if user is not None:
                 if user.password == password:
                     # url = '/index/' + newstudent_id + '/'
                     url = '/homepage/'
                     response = redirect(url)
+                    tmp = newstudent_id + user.remark_1
+                    save_code = hashlib.md5()
+                    save_code.update(tmp.encode(encoding='utf-8'))
+                    print(save_code)
                     response.set_cookie('newstudent_id', newstudent_id)
                     response.set_cookie('idnum', user.id)
+                    response.set_cookie('save_code', save_code.hexdigest())
                     return response  # 跳转到选择界面，选择查看预约、申请书、方向选择、面试通知或面试结果
                 else:
-                    return render(request, '../freshman_templates/login.html', {'error': '用户名或密码不正确！'})
-        except Freshman.DoesNotExist:
-            return render(request, '../freshman_templates/register.html', {'error': '你还没有注册报名哦'})
+                    json_error = json.dumps({'error': '啊，用户名和密码不匹配呀！'})
+                    return render(request, '../freshman_templates/login.html', {'error': json_error, 'student_id': user.newstudent_id})
 
 
 def student_search(request):
     newstudent_id = request.COOKIES.get('newstudent_id', '')
-    if newstudent_id == '':
+    if newstudent_id == '' or not newstudent_id:
         return 'no_student_id'
     else:
         return newstudent_id
@@ -136,23 +180,30 @@ class PersonalView(View):
         if newstudent_id == 'no_student_id':
             return redirect('/login/')
         else:
-            student = Freshman.objects.get(newstudent_id=newstudent_id)  # 根据cookie中的
-            # newstudent_id在数据库中取出该学生传给前端
-            return render(request, '../freshman_templates/alterinfo.html', {'student': student})
+            student = Freshman.objects.get(newstudent_id=newstudent_id)  # 根据cookie中的newstudent_id在数据库中取出该学生传给前端
+            colleges = Academy.objects.all()
+            return render(request, '../freshman_templates/alterinfo.html', {'student': student, 'colleges': colleges})
 
     def post(self, request):
         newstudent_id = request.COOKIES.get('newstudent_id', '')
         student = Freshman.objects.get(newstudent_id=newstudent_id)
         modify_form = ModifyForm(request.POST)  # 验证手机号的格式是否正确
         if modify_form.is_valid():
-            same_phones = Freshman.objects.filter(phone=request.POST.get('phone', ))
+            same_phones = Freshman.objects.filter(phone=request.POST.get('phone', ''))
+            same_emails = Freshman.objects.filter(email=request.POST.get('email',''))
             dumplicated_phone = None
+            dumplicated_email = None
             # 根据id检验手机号是否与别人重复
             for same_phone in same_phones:
                 if same_phone.id != student.id:
-                    dumplicated_phone = '手机号重复！'
+                    dumplicated_phone = '新手机号已经被用过啦！'
+                    break
+            for same_email in same_emails:
+                if same_email.id != student.id:
+                    dumplicated_email = '新邮箱已经被用过啦！'
+                    break
             # 如果不重复则保存，有重复则返回该页面并提示
-            if not dumplicated_phone:
+            if not dumplicated_phone and not dumplicated_email:
                 student.password = request.POST.get('password', '')
                 student.college = request.POST.get('college', '')
                 student.major = request.POST.get('major', '')
@@ -163,17 +214,27 @@ class PersonalView(View):
                 student.apartment = request.POST.get('apartment', '')  # 宿舍楼
                 student.dormitory = request.POST.get('dormitory', '')  # 宿舍号
                 student.save()
-                msg = '修改成功'
                 return HttpResponse("200")  # 成功则返回主页面
                 # if newstudent_id == student.newstudent_id:  # 没改学号正常跳回index页面
                 #     return render(request, 'index.html', {'msg': msg})
                 # else:  # 改了学号则需要退出并重新登录
                 #     response = log_out(request)
                 #     return response
+            elif not dumplicated_email:
+                return HttpResponse(dumplicated_phone)
+            elif not dumplicated_phone:
+                return HttpResponse(dumplicated_email)
             else:
-                return render(request, '../freshman_templates/alterinfo.html', locals())
+                return HttpResponse("202")
         else:
-            return render(request, '../freshman_templates/alterinfo.html', )  # 提示错误信息
+            errors = []
+            model = apps.get_model('freshman', 'Freshman')
+            fields = model._meta.fields
+            field = [f.name for f in fields]
+            for error in modify_form.errors:
+                errors.append(re.sub('这个字段', fields[field.index(error)].verbose_name, modify_form.errors[error][0]))
+            error_list = ','.join(errors)
+            return HttpResponse(error_list)  # 提示错误信息
 
 
 # 选择、修改预约时间和方向（报名）界面
@@ -184,7 +245,7 @@ class AppointmentView(View):
             return redirect('/login/')
         else:
             student = Freshman.objects.get(newstudent_id=newstudent_id)
-            if not student.direction and not student.appointment_one:
+            if not student.direction or not student.appointment_one:
                 return render(request, '../freshman_templates/sign_up.html', locals())  # 没选择方向以及至少一个预约时间的话跳转报名界面
             else:
                 return render(request, '../freshman_templates/sign_up_success.html', {'student': student})  # 选择了跳转报名成功界面

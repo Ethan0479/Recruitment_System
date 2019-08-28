@@ -25,7 +25,7 @@ SECRET_KEY = 'qi4)c&u7+svs!lnllk957$e0t8^arheeh*_h0c-w0-^loq*i(!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','192.168.137.1', 'localhost']
 
 
 # Application definition
@@ -64,7 +64,9 @@ TEMPLATES = [
 
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
                  os.path.join(BASE_DIR, 'apps/interviewer/inter_template'),
-                 os.path.join(BASE_DIR, 'apps/freshman/freshman_templates')],
+                 os.path.join(BASE_DIR, 'apps/freshman/freshman_templates'),
+                 os.path.join(BASE_DIR, 'apps/data/templates'),
+                 ],
 
         'APP_DIRS': True,
         'OPTIONS': {
@@ -93,6 +95,7 @@ DATABASES = {
         "HOST": "127.0.0.1"
     }
 }
+
 
 
 # Password validation
