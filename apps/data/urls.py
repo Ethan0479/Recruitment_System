@@ -9,4 +9,5 @@ urlpatterns = [
     path('manage/', views.manage),
     path('manage/timedata/', views.timedata),
     path('manage/test/', views.appoint_interview_time),
+    path('manage/<slug:num>/', views.creatimg)
 ]

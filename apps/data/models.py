@@ -1,8 +1,8 @@
 from django.db import models
 
 # Create your models here.
-from pyecharts import Bar
-from pyecharts import Pie
+# from pyecharts import Bar
+# from pyecharts import Pie
 # from django.db import models
 class Data(models.Model):
     info = models.CharField(max_length=60)
