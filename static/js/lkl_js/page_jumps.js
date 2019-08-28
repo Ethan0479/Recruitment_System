@@ -238,7 +238,11 @@ function Form_Submit() {
 function send_code() {
     var email = document.getElementById('email').value;
     if (email === ''){
-        alert('none');
+        document.getElementById('email').style.borderBottom = "1px solid red";
+        var error = document.getElementById('error');
+        error.hidden = false;
+        var msg = document.createTextNode('没有邮箱怎么发哇！');
+        error.appendChild(msg);
     }else{
         var code_button = document.getElementById('get_code');
         var wait_time = 60;

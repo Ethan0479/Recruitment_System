@@ -76,6 +76,7 @@ class ModifyForm(forms.Form):
     phone = forms.CharField(required=True)
     qq = forms.CharField(required=True)
     email = forms.EmailField(required=True)
+    dormitory = forms.CharField(required=True)
 
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
