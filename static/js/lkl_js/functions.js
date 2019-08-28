@@ -97,7 +97,7 @@ function corrected_pwd() {
 }
 function corrected_phone() {
     var phone = document.getElementById("phone");
-    var reg = /^1((3[0-9])|(4[579])|(5[0-9])|(66)|(7[0135678])|(8[0-9])|(9[89]))\d{8}$/;
+    var reg = /^1((3[0-9])|(4[579])|(5[469])|(66)|(7[35678])|(8[0-9])|(9[89]))\d{8}$/;
     var error = document.getElementById("error");
     var is_match = reg.exec(phone.value);
     if (is_match === null){

@@ -27,9 +27,6 @@ body{
 #header_top{
     height: 64px;
 }
-a{
-    text-decoration: none;
-}
 #header_main{
     height: 136px;
     width: 89%;
@@ -37,7 +34,6 @@ a{
     position: relative;
     left: 11%;
     font-size: 13px;
-    letter-spacing: 2px;
 }
 #header_main b{
     font-size: 25px;
@@ -304,7 +300,6 @@ input[type=radio]:checked+.female_icon{
     width: 100%;
 }
 .error{
-    letter-spacing: 2px;
     font-size: 10px;
     font-weight: 700;
     text-align: center;
@@ -314,7 +309,6 @@ input[type=radio]:checked+.female_icon{
     bottom:25%;
 }
 .login_error{
-    letter-spacing: 2px;
     font-size: 10px;
     font-weight: 700;
     text-align: center;

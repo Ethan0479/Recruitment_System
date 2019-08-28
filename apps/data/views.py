@@ -4,26 +4,13 @@ from django.http import HttpResponse
 from django.shortcuts import render, render_to_response
 from ..freshman import models
 from apps.freshman.models import *
-import operator
 import random
-# from example.commons import Collector
-# from pyecharts import options as opts
-# from pyecharts.charts import Page, Sunburst
+from example.commons import Collector
+from pyecharts import options as opts
+from pyecharts.charts import Page, Sunburst
 
 
 # Create your views here.
-def bar1(request):
-    return render(request, '1.html')
-
-
-def bar3(request):
-    return None
-
-
-def bar2(request):
-    return render(request, '2.html')
-
-
 def manage(request):
     if request.method == "GET":
         return render(request, 'manage.html')
@@ -186,93 +173,113 @@ def appoint_interview_time(request):
 
 
 def creatimg(request, num):
-    print(num)
-    return HttpResponse("ccc")
-    # if num == 1:
-    #     majorList = []
-    #     collegeList = []
-    #     colleges = Academy.objects.all()
-    #     for i in range(0, len(colleges)):
-    #         Aname = colleges[i].academy
-    #         Avalue = Freshman.objects.filter(college=Aname)
-    #         majors = Major.objects.filter(majorAcademy_id=colleges[i].id)
-    #         for j in range(0, len(majors)):
-    #             Mname = majors[j].major
-    #             Mvalue = Avalue.filter(major=Mname)
-    #             r = str(random.randint(0, 255))
-    #             g = str(random.randint(0, 255))
-    #             b = str(random.randint(0, 255))
-    #             majorList.append(opts.SunburstItem(name=Mname, value=len(Mvalue), itemstyle_opts=opts.ItemStyleOpts(
-    #                 color="rgb({0},{1},{2})".format(r, g, b))))  # 专业数据
-    #         r = str(random.randint(0, 255))
-    #         g = str(random.randint(0, 255))
-    #         b = str(random.randint(0, 255))
-    #         collegeList.append(opts.SunburstItem(name=Aname, value=len(Avalue), children=majorList,
-    #                                              itemstyle_opts=opts.ItemStyleOpts(
-    #                                                  color="rgb({0},{1},{2})".format(r, g, b))))  # 学院数据
-    #     data = [opts.SunburstItem(name="云顶书院", children=collegeList)]
-    # elif num == 2:
-    #     directionList = []
-    #     genderList = []
-    #     directions = ['开发', '设计', '秘书处']
-    #     genders = ['男', '女']
-    #     for i in directions:
-    #         Dname = i
-    #         Dvalue = Freshman.objects.filter(direction=Dname)
-    #         for j in genders:
-    #             r = str(random.randint(0, 255))
-    #             g = str(random.randint(0, 255))
-    #             b = str(random.randint(0, 255))
-    #             Gvalue = Dvalue.filter(gender=j)
-    #             genderList.append(opts.SunburstItem(name=j, value=len(Gvalue), itemstyle_opts=opts.ItemStyleOpts(
-    #                 color="rgb({0},{1},{2})".format(r, g, b))), )
-    #         r = str(random.randint(0, 255))
-    #         g = str(random.randint(0, 255))
-    #         b = str(random.randint(0, 255))
-    #         directionList.append(opts.SunburstItem(name=i, value=len(Dvalue), children=genderList,
-    #                                                itemstyle_opts=opts.ItemStyleOpts(
-    #                                                    color="rgb({0},{1},{2})".format(r, g, b))))
-    #     data = [opts.SunburstItem(name="云顶书院", children=directionList)]
-    #
-    # else:
-    #     pass
-    # return HttpResponse('成功')
+    if num == '1':
+        c = major_academy()
+        c.render(path='apps/data/templates/one.html')
+        return render(request,'one.html')
+    elif num == '2':
+        c = gender_direction()
+        c.render(path='apps/data/templates/two.html')
+        return render(request,'two.html')
+    else:
+        pass
+        return HttpResponse('生成错误')
 
 
-# def sunburst_base() -> Sunburst:
-#     data = [
-#         opts.SunburstItem(
-#             name="云顶书院",
-#             children=[
-#                 opts.SunburstItem(
-#                     name="大数据学院",
-#                     value=15,
-#                     children=[
-#                         opts.SunburstItem(name="Cousin Jack", value=2),
-#                         opts.SunburstItem(
-#                             name="Cousin Mary",
-#                             value=5,
-#                             children=[opts.SunburstItem(name="Jackson", value=2)],
-#                         ),
-#                         opts.SunburstItem(name="Cousin Ben", value=4),
-#                     ],
-#                 ),
-#                 opts.SunburstItem(
-#                     name="机械学院",
-#                     value=10,
-#                     children=[
-#                         opts.SunburstItem(name="Me", value=5),
-#                         opts.SunburstItem(name="Brother Peter", value=1),
-#                     ],
-#                 ),
-#             ],
-#         ),
-#     ]
-#
-#     c = (
-#         Sunburst(init_opts=opts.InitOpts(width="1000px", height="600px"))
-#             .add(series_name="", data_pair=data, radius=[0, "90%"])
-#             .set_global_opts(title_opts=opts.TitleOpts(title="Sunburst-基本示例"))
-#             .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}"))
-#     )
-#     return c
+def major_academy() -> Sunburst:
+    colleges = Academy.objects.all()
+    collegeList = []
+    for i in range(0, len(colleges)):
+        Aname = colleges[i].academy
+        Avalue = Freshman.objects.filter(college=Aname)
+        majors = Major.objects.filter(majorAcademy_id=colleges[i].id)
+        majorList = []
+        for j in range(0, len(majors)):
+            Mname = majors[j].major
+            Mvalue = Avalue.filter(major=Mname)
+            r = str(random.randint(0, 255))
+            g = str(random.randint(0, 255))
+            b = str(random.randint(0, 255))
+            majorList.append(opts.SunburstItem(name=Mname, value=len(Mvalue), itemstyle_opts=opts.ItemStyleOpts(
+                color="rgb({0},{1},{2})".format(r, g, b))))  # 专业数据
+        r = str(random.randint(0, 255))
+        g = str(random.randint(0, 255))
+        b = str(random.randint(0, 255))
+        collegeList.append(opts.SunburstItem(name=Aname, value=len(Avalue), children=majorList,
+                                             itemstyle_opts=opts.ItemStyleOpts(
+                                                 color="rgb({0},{1},{2})".format(r, g, b))))  # 学院数据
+    data = [opts.SunburstItem(name="云顶书院", children=collegeList)]
+    c = (
+        Sunburst(init_opts=opts.InitOpts(width="1000px", height="600px"))
+            .add(series_name="",
+                 data_pair=data,
+                 radius=[0, "90%"],
+                 levels=[
+                     {},
+                     {
+                         "r0": "15%",
+                         "r": "35%",
+                         "itemStyle": {"borderWidth": 2},
+                         "label": {"rotate": "tangential"},
+                     },
+                     {"r0": "35%", "r": "70%", "label": {"align": "right"}},
+                     {
+                         "r0": "70%",
+                         "r": "72%",
+                         "label": {"position": "outside", "padding": 3, "silent": False},
+                         "itemStyle": {"borderWidth": 3},
+                     },
+                 ],
+                 )
+            .set_global_opts(title_opts=opts.TitleOpts(title="学院专业"))
+            .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}"))
+    )
+    return c
+
+
+def gender_direction() -> Sunburst:
+    directions = ['开发', '设计', '秘书处']
+    genders = ['男', '女']
+    directionList = []
+    for i in directions:
+        Dname = i
+        Dvalue = Freshman.objects.filter(direction=Dname)
+        genderList = []
+        for j in genders:
+            r = str(random.randint(0, 255))
+            g = str(random.randint(0, 255))
+            b = str(random.randint(0, 255))
+            Gvalue = Dvalue.filter(gender=j)
+            genderList.append(opts.SunburstItem(name=j, value=len(Gvalue), itemstyle_opts=opts.ItemStyleOpts(
+                color="rgb({0},{1},{2})".format(r, g, b))), )
+        r = str(random.randint(0, 255))
+        g = str(random.randint(0, 255))
+        b = str(random.randint(0, 255))
+        directionList.append(opts.SunburstItem(name=i, value=len(Dvalue), children=genderList,
+                                               itemstyle_opts=opts.ItemStyleOpts(
+                                                   color="rgb({0},{1},{2})".format(r, g, b))))
+    data = [opts.SunburstItem(name="云顶书院", children=directionList)]
+    c = (
+        Sunburst(init_opts=opts.InitOpts(width="1000px", height="600px"))
+            .add(series_name="", data_pair=data, radius=[0, "90%"],
+                 levels=[
+                     {},
+                     {
+                         "r0": "15%",
+                         "r": "35%",
+                         "itemStyle": {"borderWidth": 2},
+                         "label": {"rotate": "tangential"},
+                     },
+                     {"r0": "35%", "r": "70%", "label": {"align": "right"}},
+                     {
+                         "r0": "70%",
+                         "r": "72%",
+                         "label": {"position": "outside", "padding": 3, "silent": False},
+                         "itemStyle": {"borderWidth": 3},
+                     },
+                 ],
+                 )
+            .set_global_opts(title_opts=opts.TitleOpts(title="学院专业"))
+            .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}"))
+    )
+    return c
