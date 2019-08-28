@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response, HttpResponse
 from django.http import response, HttpResponseRedirect
-from apps.freshman.models import Freshman
+from apps.freshman.models import *
+from apps.interviewer.models import *
 import re
 import json
 from django.shortcuts import render, redirect
@@ -17,6 +18,7 @@ from .models import Interview
 class RegisterView(View):
     def get(self, request):
         return render(request, 'inter_register.html')
+
     # 面试官注册
     def post(self, request):
         try:
@@ -35,6 +37,7 @@ class RegisterView(View):
             return HttpResponse("200")  # 提交信息成功后跳转面试界面
         except:
             return HttpResponse("202")
+
 
 # 登录
 class LoginView(View):
@@ -60,6 +63,8 @@ class LoginView(View):
             return HttpResponse(error)
         return HttpResponse("错误")
 
+
+# 面试官登陆检验
 def interviewer_search(interview_id, interview_password):
     try:
         data = Interview.objects.get(interview_id=interview_id)
@@ -73,7 +78,8 @@ def interviewer_search(interview_id, interview_password):
     elif interview_password != password:
         return '密码不正确'
 
-# 申请书
+
+# 申请书/面试官
 class Audition(View):
     def get(self, request):
         try:
@@ -101,10 +107,12 @@ class Audition(View):
         except:
             return HttpResponseRedirect("../login/")
 
-# 登出
+
+# 注销
 def acc_logout(request):
     # 用户登出，即删除记录登录信息的cookie
-    return response('')
+    return HttpResponse('')
+
 
 # 评分和评价
 def scoree_valuate(request):
@@ -121,7 +129,11 @@ def scoree_valuate(request):
     fresh.save()
 
     return render({'data': '修改成功'})  # '修改成功'
-#过滤筛选
+
+
+# 代码有问题
+
+# 过滤筛选
 def freshman_search(request):
     id_or_name = request.POST.get("student_id", "")
     direction = request.POST.get("direction", "")
@@ -137,12 +149,14 @@ def freshman_search(request):
         regex = re.compile(r'^2019+\d{0,6}')
         if regex.match(id_or_name):
             data_list = Freshman.objects.filter(newstudent_id__contains=id_or_name)
-            return render_to_response('inter_search_son.html', {"data_list": (data_list), "number": len(all_student_data),
-                                                         "num": len(data_list)})
+            return render_to_response('inter_search_son.html',
+                                      {"data_list": (data_list), "number": len(all_student_data),
+                                       "num": len(data_list)})
         else:
             data_list = Freshman.objects.filter(newname__contains=id_or_name)
-            return render_to_response('inter_search_son.html', {"data_list": (data_list), "number": len(all_student_data),
-                                                         "num": len(data_list)})
+            return render_to_response('inter_search_son.html',
+                                      {"data_list": (data_list), "number": len(all_student_data),
+                                       "num": len(data_list)})
 
     if direction != '':
         all_student_data = Freshman.objects.filter(direction=direction)
@@ -156,13 +170,15 @@ def freshman_search(request):
     data_list = []
     for people in all_student_data:
         data_list.append({"newstudent_id": people.newstudent_id, "newname": people.newname, "gender": people.gender,
-                         "college": people.college, "major": people.major, "time": people.interview_time,
-                         "interview_place": people.interview_place,
-                         "direction": people.direction, "evaluate": people.evaluate})
+                          "college": people.college, "major": people.major, "time": people.interview_time,
+                          "interview_place": people.interview_place,
+                          "direction": people.direction, "evaluate": people.evaluate})
 
     return render_to_response('inter_search_son.html', {"data_list": (data_list), "number": len(all_student_data),
-                                                        "num":len(data_list)})
-#查看自己面试过的人
+                                                        "num": len(data_list)})
+
+
+# 查看自己面试过的人
 def interviewed(request):
     interview_id = request.session.get('interview_id')
     interviewed_student = Freshman.objects.filter(interview_id=interview_id)
@@ -172,7 +188,7 @@ def interviewed(request):
                           "college": people.college, "major": people.major, "time": people.interview_time,
                           "interview_place": people.interview_place,
                           "direction": people.direction, "evaluate": people.evaluate})
-    return render_to_response('inter_search_son.html', {"data_list": (data_list), "num":len(data_list)})
+    return render_to_response('inter_search_son.html', {"data_list": (data_list), "num": len(data_list)})
 
 class Inter_addfreshman(View):
     def get(self, request):
@@ -213,24 +229,45 @@ class Inter_addfreshman(View):
         student_one.province = province
         student_one.apartment = apartment
         student_one.dormitory = dormitory
+        student_one.application = '请在这里编辑你的申请书吧'
+        student_one.evaluate = '请在这里编辑你对这位新人的评价'
+        student_one.score = 0
+        #b轮的时候把这个改成b
+        student_one.interview_result_A = 0
         student_one.save()
 
         return HttpResponse('注册成功')
 
-def info_check_out(request,a):
+# 详情页信息回显
+def info_check_out(request, a):
+    stu = Freshman.objects.get(newstudent_id=a)  # 获取访问学生id
+    interview_id = request.session.get('interview_id')  # 获取当前面试官id
     if request.method == 'GET':
-        stu = Freshman.objects.get(newstudent_id=a)
-        return render(request, 'student_info.html', {'a': stu})
-    else:
-        question = request.POST.get("question",'')
-        evaluate = request.POST.get('evaluate','')
-        if question == '':
-            pass
-        if evaluate == '':
-            pass
+        try:
+            que = Question.objects.get(interview_id=interview_id)  # 试图获取数据库记录的问题
+        except:
+            que = Question()
+            que.content = '请在这里写您将要面试的问题(仅作记录)'
+            que.interview_id = interview_id
+            que.save()
+        try:
+            interviewer = Interview.objects.get(interview_id=stu.interview_id)  # 新生的面试官
+            i = interviewer.interview_name  # 新生面试官的名字
+        except:
+            i = ''
+        return render(request, 'student_info.html', {'a': stu, 'i': i, 'que': que})
+    else:  # ajax 异步提交
+        question = request.POST.get("question", '')
+        evaluate = request.POST.get('evaluate', '')
+        if question == '':  # 问题每变，修改评价
+            scores = request.POST.get("scores", "")
+            stu.evaluate = evaluate
+            stu.interview_id = interview_id
+            stu.score = scores
+            stu.interview_result_A = 1
+            stu.save()
+        elif evaluate == '':  # 评价没变,修改问题
+            que = Question.objects.get(interview_id=interview_id)
+            que.content = question
+            que.save()
         return HttpResponse(200)
-
-def info_check_out_son(request,a):
-    print(a)
-    return HttpResponse(200)
-

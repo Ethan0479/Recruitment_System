@@ -19,6 +19,8 @@ var secondpagehtml = "<form action=\"\">\n" +
         "            <input type=\"number\" id=\"QQ\" placeholder=\"请输入QQ\" value='' onfocus=\"this.placeholder=''\" onblur=\"this.placeholder='请输入QQ'\" name=\"\"><br>\n" +
         "            <input type=\"number\" id=\"phone\" placeholder=\"请输入电话\" value='' onfocus=\"this.placeholder=''\" onblur=\"this.placeholder='请输入电话'\" name=\"\" onchange='corrected_phone()'><br>\n" +
         "            <input type=\"email\" id=\"email\" placeholder=\"请输入邮箱\" value='' onfocus=\"this.placeholder=''\" onblur=\"this.placeholder='请输入邮箱'\" name=\"\" onchange='corrected_email()'><br>\n" +
+        "            <input type=\"text\" id=\"code\" placeholder=\"请输入验证码\" onfocus=\"this.placeholder=''\" onblur=\"this.placeholder='请输入验证码'\" name=\"\">\n" +
+        "            <input type=\"button\" id=\"get_code\" value=\"邮箱验证码\" onclick='send_code()'>\n" +
         "            <br>\n" +
         "            <div class=\"main_footer\">\n" +
         "                <input type=\"button\" value=\"上&nbsp;&nbsp;一&nbsp;&nbsp;步\" id=\"process1\" onclick='SecondToFirst()'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
@@ -63,15 +65,18 @@ function FirstToSecond() {
     document.getElementById('QQ').value = sessionStorage.getItem('QQ');
     document.getElementById('phone').value = sessionStorage.getItem('phone');
     document.getElementById('email').value = sessionStorage.getItem('email');
+    document.getElementById('code').value = sessionStorage.getItem('input_code');
 }
 function SecondToFirst() {
      //保存当前页面数据
     var QQ = document.getElementById('QQ').value;
     var phone = document.getElementById('phone').value;
     var email = document.getElementById('email').value;
+    var input_code = document.getElementById('code').value;
     sessionStorage.setItem("QQ", QQ);
     sessionStorage.setItem("phone", phone);
     sessionStorage.setItem("email", email);
+    sessionStorage.setItem("input_code", input_code);
     //显示上/下一页面
     document.getElementById('submit').innerHTML = firstpagehtml;
     //用于显示变化后的页面的值
@@ -85,18 +90,19 @@ function SecondToThird() {
     var QQ = document.getElementById('QQ').value;
     var phone = document.getElementById('phone').value;
     var email = document.getElementById('email').value;
+    var input_code = document.getElementById('code').value;
     sessionStorage.setItem("QQ", QQ);
     sessionStorage.setItem("phone", phone);
     sessionStorage.setItem("email", email);
+    sessionStorage.setItem("input_code", input_code);
     //显示上/下一页面
     document.getElementById('submit').innerHTML = thirdpagehtml;
     document.getElementById('college_list').hidden = false;
     document.getElementById('major_list').hidden = false;
-    get_major();
+    setTimeout("get_major();", 100);
     //用于显示变化后的页面的值
     if (sessionStorage.getItem('college')){
         document.getElementById('college').value = sessionStorage.getItem('college');
-        get_major();
     }
     if (sessionStorage.getItem('major')){
         setTimeout("document.getElementById('major').value = sessionStorage.getItem('major');", 100);
@@ -118,6 +124,7 @@ function ThirdToSecond() {
     document.getElementById('QQ').value = sessionStorage.getItem('QQ');
     document.getElementById('phone').value = sessionStorage.getItem('phone');
     document.getElementById('email').value = sessionStorage.getItem('email');
+    document.getElementById('code').value = sessionStorage.getItem('input_code');
 }
 function ThirdToForth() {
      //保存当前页面数据
@@ -161,21 +168,6 @@ function ForthToThird() {
         document.getElementById('college').value = sessionStorage.getItem('college');
     }
     if (sessionStorage.getItem('major')){
-        // console.log(sessionStorage.getItem('major'));
-        // document.getElementById('major').value = sessionStorage.getItem('major');
-        // setTimeout("var list = document.getElementById('major').getElementsByTagName(\"option\");\n" +
-        //     "       var length = list.length;\n" +
-        //     "       for (var j = 0; j < length; j++){\n" +
-        //     "           console.log(list[j].value);\n" +
-        //     "           console.log(j);\n" +
-        //     "           console.log(length);\n" +
-        //     "           if (list[j].value === sessionStorage.getItem('major')) {\n" +
-        //     "               console.log('match!');\n" +
-        //     "               list[j].selecetd = true;\n" +
-        //     "               document.getElementById('major').value = list[j].value;\n" +
-        //     "               break;\n" +
-        //     "           }\n" +
-        //     "       }", 100);
         setTimeout("document.getElementById('major').value = sessionStorage.getItem('major');", 100);
     }
     document.getElementById('class').value = sessionStorage.getItem('class');
@@ -187,8 +179,9 @@ function Form_Submit() {
     sessionStorage.setItem("city", city);
     sessionStorage.setItem("apartment", apartment);
     sessionStorage.setItem("dormitory", dormitory);
-    var csrf_token = getCookie('csrftoken');
-    $.ajax({
+    if (sessionStorage.getItem('input_code') === sessionStorage.getItem('code')){
+        var csrf_token = getCookie('csrftoken');
+        $.ajax({
         url: '/register/',
         type: "POST",
         data:{'newname' : sessionStorage.getItem('name'),
@@ -204,6 +197,7 @@ function Form_Submit() {
         'city' : sessionStorage.getItem('city'),
         'apartment' : sessionStorage.getItem('apartment'),
         'dormitory' : sessionStorage.getItem('dormitory'),
+        'code' : sessionStorage.getItem('input_code'),
         'csrfmiddlewaretoken' : csrf_token},
         success:function (result) {
             if (result === '200'){
@@ -228,18 +222,68 @@ function Form_Submit() {
             });}
             }
     });
+    } else {
+        swal({
+            title : "验证码输错了哦！",
+            type : "error",
+            confirmButtonText : "确定",
+            closeOnConfirm : false
+        }, function () {
+            sessionStorage.removeItem('code');
+            sessionStorage.removeItem('input_code');
+            window.location.href = '/register/'
+        });
+    }
 }
 function send_code() {
-    var email = document.getElementById('email_code').value;
-    $.ajax({
-        url: "/email_code/",
-        type: "POST",
-        data: {'email': email,
-                'csrfmiddlewaretoken': getCookie('csrftoken')}
-    });
+    var email = document.getElementById('email').value;
+    if (email === ''){
+        document.getElementById('email').style.borderBottom = "1px solid red";
+        var error = document.getElementById('error');
+        error.hidden = false;
+        var msg = document.createTextNode('没有邮箱怎么发哇！');
+        error.appendChild(msg);
+    }else{
+        var code_button = document.getElementById('get_code');
+        var wait_time = 60;
+        $.ajax({
+            url: "/email_code/",
+            type: "POST",
+            data: {'email': email,
+                   'csrfmiddlewaretoken': getCookie('csrftoken')},
+            success: function (result) {
+                sessionStorage.setItem('code', result);
+            }
+        });
+        count_down(wait_time, code_button);
+        console.log('已发送！')
+    }
 }
+function count_down(wait_time, button) {
+        if (wait_time === 0){
+            button.disabled = false;
+            button.value = '邮箱验证码';
+            button.style.backgroundColor = "#ffffff";
+            wait_time = 60;
+        } else {
+            button.disabled = true;
+            button.value = wait_time + 's';
+            button.style.backgroundColor = '#eaeaea';
+            wait_time--;
+            setTimeout(function () {
+                count_down(wait_time, button)
+            }, 1000);
+        }
+    }
 function get_major() {
-    var academy = document.getElementById('college').value;
+    var academy;
+    if (sessionStorage.getItem('college') === document.getElementById('college').value){
+        academy = sessionStorage.getItem('college');
+        console.log(sessionStorage.getItem('college'), document.getElementById('college').value);
+    } else {
+        academy = document.getElementById('college').value;
+        console.log(sessionStorage.getItem('college'), document.getElementById('college').value);
+    }
     var set_major = document.getElementById("major");
     var old_list = document.getElementById('major').getElementsByTagName('option');
     var length = old_list.length;
@@ -262,7 +306,6 @@ function get_major() {
                     item.appendChild(textnode);
                     set_major.appendChild(item);
                 }
-            // alert(result);
             }else{
                 var warn = document.createElement("option");
                 warn.disabled = true;

@@ -32,7 +32,6 @@ function btnChange(btn) {
         btn_2.style.color = "#bcbcbc";
         direction.value = "开发";
         var tip = document.getElementById("head_2").value;
-        tip.innerHTML = "nishizhuma";
     }else if (btn.id === "btn2"){
         var btn_1 = document.getElementById("btn1");
         var btn_2 = document.getElementById("btn3");

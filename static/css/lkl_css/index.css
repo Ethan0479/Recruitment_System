@@ -3,8 +3,7 @@
     padding: 0;
 }
 body{
-    background-image: url("/static/img/backgorund.png");background-repeat: no-repeat;background-size: 100%;
-    height: 120%;
+    background-image: url("/static/img/backgorund.png");background-repeat: no-repeat;background-size: 100% 130%;
 }
 #top{
      height: 93px;
@@ -34,9 +33,10 @@ body{
     font-size: 18px;
     text-decoration: none;
     color: #FFFFFF;
-    padding-left: 28%;padding-right: 28%;
+    /*padding-left: 28%;padding-right: 28%;*/
     position: relative;
     top: 7px;
+    text-align: center;
 }
 #register:hover,#login:hover{
     background-color: #297AFF;

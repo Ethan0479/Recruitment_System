@@ -12,5 +12,4 @@ urlpatterns = [
     path('interviewed/', views.interviewed),
     path('inter_addfreshman/', Inter_addfreshman.as_view(), name='addfreshman'),
     path('management/<slug:a>/', views.info_check_out),
-    path('management/<slug:a>/son/', views.info_check_out_son),
 ]

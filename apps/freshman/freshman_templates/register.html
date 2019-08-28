@@ -33,7 +33,6 @@
 </div>
 <div id="main">
     <p id="tip">注册你的账号</p>
-    <p hidden id="error" class="error"></p>
     <div class="selected" hidden id="college_list">
     <!--<label class="tip">请选择学院</label>-->
         <label>
@@ -124,11 +123,12 @@
             <input type="text" id="name" placeholder="请输入姓名" onfocus="this.placeholder=''" onblur="this.placeholder='请输入姓名'" name=""><br>
             <input type="number" id="uid" placeholder="请输入学号" onfocus="this.placeholder=''" onblur="this.placeholder='请输入学号'" name="" onchange="corrected_id()"><br>
             <input type="password" id="pwd" placeholder="请输入密码" onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" name="" onchange="corrected_pwd()"><br>
-            <span id="gender_tip" class="tip">请选择性别</span>&nbsp;
+            <span id="gender_tip" class="tip">请选择性别 </span>&nbsp;
             <input type="radio" value="男" name="gender" hidden id="male">
             <label class="male_icon" for="male"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="radio" id="female" value="女" name="gender" hidden>
             <label class="female_icon" for="female"></label>
+
             <br>
             <div class="main_footer">
                 <input type="button" value="下&nbsp;&nbsp;一&nbsp;&nbsp;步" id="process" onclick="FirstToSecond()"><br>
@@ -136,6 +136,7 @@
             </div>
         </form>
     </div>
+    <p hidden id="error" class="error"></p>
 </div>
 </body>
 </html>

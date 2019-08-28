@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 from django.views.generic.base import View
 from django.core.mail import send_mail
 from django.apps import apps
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 import random
 import time
 import json
 import re
+import hashlib
 
 from .forms import Applyfrom, ModifyForm
 from .models import Freshman, Academy, Major
@@ -64,9 +66,15 @@ class RegisterView(View):
             applicant.phone = request.POST.get('phone', '')  # 手机号
             applicant.qq = request.POST.get('qq', '')  # QQ
             applicant.email = request.POST.get('email', '')  # 邮箱
+            applicant.remark_1 = request.POST.get('code', '')  # 邮箱验证码
             applicant.apartment = request.POST.get('apartment', '')
             applicant.dormitory = request.POST.get('dormitory', '')
             applicant.province = request.POST.get('city', '')
+            applicant.application = '请在这里编辑你的申请书吧'
+            applicant.evaluate = '请在这里编辑你对这位新人的评价'
+            applicant.score = 0
+            # b轮的时候把这个改成b
+            applicant.interview_result_A = 0
             applicant.save()
             # response = redirect('/login/')
             return HttpResponse("200")  # 注册成功跳转登录页面
@@ -97,7 +105,7 @@ def send_code_by_email(request):
         code = generate_code()
         content = '验证码为：' + code
         status = send_mail(title, content, EMAIL_FROM, [email])
-        return HttpResponse(status)
+        return HttpResponse(code)
 
 
 def get_major(request):
@@ -126,24 +134,31 @@ class LoginView(View):
         # user = authenticate(username=student_id, password=password)
         try:
             user = Freshman.objects.get(newstudent_id=newstudent_id)
-            if password == '':
-                json_error = json.dumps({'error': '表乱来，密码还没填呢'})
-                return render(request, '../freshman_templates/login.html',{'error': json_error, 'student_id': user.newstudent_id})
-            else:
-                if user is not None:
-                    if user.password == password:
-                        # url = '/index/' + newstudent_id + '/'
-                        url = '/homepage/'
-                        response = redirect(url)
-                        response.set_cookie('newstudent_id', newstudent_id)
-                        response.set_cookie('idnum', user.id)
-                        return response  # 跳转到选择界面，选择查看预约、申请书、方向选择、面试通知或面试结果
-                    else:
-                        json_error = json.dumps({'error': '啊，用户名和密码不匹配呀！'})
-                        return render(request, '../freshman_templates/login.html', {'error': json_error, 'student_id': user.newstudent_id})
         except Freshman.DoesNotExist:
             json_data = json.dumps({'error': '同学还没有注册吧，先注册哦'})
             return render(request, '../freshman_templates/login.html', {'error': json_data})
+        if password == '':
+            json_error = json.dumps({'error': '表乱来，密码还没填呢'})
+            return render(request, '../freshman_templates/login.html',{'error': json_error, 'student_id': user.newstudent_id})
+        else:
+            if user is not None:
+                if user.password == password:
+                    # url = '/index/' + newstudent_id + '/'
+                    url = '/homepage/'
+                    response = redirect(url)
+                    if not user.remark_1:
+                        user.remark_1 = ''
+                    tmp = newstudent_id + user.remark_1
+                    save_code = hashlib.md5()
+                    save_code.update(tmp.encode(encoding='utf-8'))
+                    print(save_code)
+                    response.set_cookie('newstudent_id', newstudent_id)
+                    response.set_cookie('idnum', user.id)
+                    response.set_cookie('save_code', save_code.hexdigest())
+                    return response  # 跳转到选择界面，选择查看预约、申请书、方向选择、面试通知或面试结果
+                else:
+                    json_error = json.dumps({'error': '啊，用户名和密码不匹配呀！'})
+                    return render(request, '../freshman_templates/login.html', {'error': json_error, 'student_id': user.newstudent_id})
 
 
 def student_search(request):
