@@ -17,7 +17,7 @@ function addDate(btn) {
     div.id = name + '_div';
     div.className = 'appoint_time';
     div.innerHTML = "日期:<input type=\"text\" class=\"date\"/><br/><br/>\n" +
-        "        时间:<input type=\"text\" class = \"text\"/><input type=\"text\" class = \"text\"/><input type=\"text\" class = \"text\"/><input id=\"" + name + "\" type=\"button\" value=\"增加\" onclick=\"addTime(this)\"/><br/>\n";
+        "时间:<input type=\"text\" class = \"text\"/><input type=\"text\" class = \"text\"/><input type=\"text\" class = \"text\"/><input id=\"" + name + "\" type=\"button\" value=\"增加\" onclick=\"addTime(this)\"/><br/>\n";
     var add = document.getElementById('add_date');
     time.insertBefore(div, add);
 }
@@ -50,11 +50,12 @@ function getAppointmentTime() {
     var b = document.getElementsByTagName('B');
     b[1].innerText = '生成中';
     var appointment_time = document.getElementsByClassName("appoint_time");
+    var long = appointment_time.length;
     var date = '';
-    for (i = 0; i < appointment_time.length; i++) {
-        var timeList = appointment_time[i].childNodes;
-        for (j=0;j<timeList.length-8;j++){
-            date = date+timeList[1].value + '_' + timeList[j+5].value + '@';
+    for (i = 1; i <= long; i++) {
+        var timeList = $("#date"+i+"_div > input");
+        for (j = 1; j < timeList.length-1; j++) {
+            date = date + timeList[0].value + '_' + timeList[j].value + '@';
         }
     }
     var csrf_token = getCookie('csrftoken');
@@ -75,5 +76,34 @@ function getAppointmentTime() {
             }
         }
     })
+}
 
+function getAppointment(){
+    var b = document.getElementsByTagName('B');
+    b[2].innerText = '生成中';
+    var appointment_time = document.getElementsByClassName("appoint_time");
+    var long = appointment_time.length;
+    var date = '';
+    for (i = 1; i <= long; i++) {
+        var timeList = $("#date"+i+"_div > input");
+        for (j = 1; j < timeList.length-1; j++) {
+            date = date + timeList[0].value + '_' + timeList[j].value + '@';
+        }
+    }
+    var csrf_token = getCookie('csrftoken');
+    $.ajax({
+        url: "/data/manage/test/",
+        type: "POST",
+        data: {
+            'date': date,
+            'csrfmiddlewaretoken': csrf_token
+        },
+        success: function (result) {
+            if(result !== '[]'){
+                b[2].innerText = result;
+            }else{
+                b[2].innerText = result;
+            }
+        }
+    })
 }

@@ -213,7 +213,7 @@ function Form_Submit() {
             swal({
                 title : "注册失败啦",
                 //暂待修改
-                text: result,
+                text: '是不是学号已经注册过啦\n看看自己前面是不是有空忘记填',
                 type : "error",
                 confirmButtonText : "确定",
                 closeOnConfirm : false

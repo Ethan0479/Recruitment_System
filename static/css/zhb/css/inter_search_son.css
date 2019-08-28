@@ -4,22 +4,29 @@
     font-family: "思源黑体 CN";
 }
 
-/*输入框内阴影字*/
-input::-webkit-input-placeholder {
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: rgba(187,187,187,1);
+/*input::-webkit-input-placeholder {*/
+/*    font-size: 14px;*/
+/*    letter-spacing: 2px;*/
+/*    color: rgba(187,187,187,1);*/
+/*}*/
+
+#list {
+    position:fixed;
+    z-index:2;
+    top: -2px;
+    background: white;
 }
 
-#list tr {
+table tr {
     height: 40px;
     text-align: center;
     font-size: 12px;
     cursor: default;
 }
 
-table{
-    border-collapse: collapse;
+#td_list{
+    overflow-y:auto;
+    margin-top: -10px;
 }
 
 #dd_dd{
@@ -36,6 +43,16 @@ table{
 .dd7 {width: 180px;}
 .dd8 {width: 100px;}
 .dd9 {width: 100px;}
+
+.td1 {width: 50px;}
+.td2 {width: 110px;}
+.td3 {width: 40px;}
+.td4 {width: 150px;}
+.td5 {width: 150px;}
+.td6 {width: 120px;}
+.td7 {width: 180px;}
+.td8 {width: 100px;}
+.td9 {width: 100px;}
 
 .td1{cursor: pointer;}
 .td2{cursor: pointer;}
