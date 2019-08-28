@@ -237,22 +237,23 @@ function Form_Submit() {
 }
 function send_code() {
     var email = document.getElementById('email').value;
-    var code_button = document.getElementById('get_code');
-    // code_button.disabled  = true;
-    // code_button.style.backgroundColor = "#bcbcbc";
-    var wait_time = 60;
-
-    $.ajax({
-        url: "/email_code/",
-        type: "POST",
-        data: {'email': email,
-                'csrfmiddlewaretoken': getCookie('csrftoken')},
-        success: function (result) {
-            sessionStorage.setItem('code', result);
-        }
-    });
-    count_down(wait_time, code_button);
-    console.log('已发送！')
+    if (email === ''){
+        alert('none');
+    }else{
+        var code_button = document.getElementById('get_code');
+        var wait_time = 60;
+        $.ajax({
+            url: "/email_code/",
+            type: "POST",
+            data: {'email': email,
+                   'csrfmiddlewaretoken': getCookie('csrftoken')},
+            success: function (result) {
+                sessionStorage.setItem('code', result);
+            }
+        });
+        count_down(wait_time, code_button);
+        console.log('已发送！')
+    }
 }
 function count_down(wait_time, button) {
         if (wait_time === 0){
