@@ -89,20 +89,6 @@
                         tip.innerHTML="学号不存在，请先注册";
                     }
                     else if(result){
-                        {#result = JSON.parse(result);#}
-                        {#var interview_id = result['interview_id'];#}
-                        {#var interview_name = result['interview_name'];#}
-                        {#window.sessionStorage['interview_id'] = JSON.stringify(interview_id);#}
-                        {#window.sessionStorage['interview_name'] = JSON.stringify(interview_name);#}
-                        {#sessionStorage.setItem('interview_id', interview_id);#}
-                        {#sessionStorage.setItem('interview_name', interview_name);#}
-                        {#interview_id = sessionStorage.getItem('interview_id');#}
-                        {#interview_name = sessionStorage.getItem('interview_name');#}
-
-                        {#console.log(interview_id);#}
-                        {#console.log(interview_name);#}
-                        {#tip.innerHTML='登录成功';#}
-                        {#sleep(3000);#}
                         setTimeout("window.location.href = '../management/'", 500);
                     }
                 },
