@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'Recruitment_System.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "recruitment_system",
+        'NAME': "recruitmentsystem",
         "USER": "root",
-        "PASSWORD": "111111",
+        "PASSWORD": "nmb19720",
         "HOST": "127.0.0.1"
     }
 }

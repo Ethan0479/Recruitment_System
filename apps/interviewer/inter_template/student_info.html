@@ -20,12 +20,12 @@
 <body onload="marginChangeTest2();widthChangeTest4()">
 <div id="head">
     <img id="logo_blue_pic" src={% static '/css/zhb/img/logo_blue.svg' %} alt="">
-    <div>资料</div>
-    <div>评价</div>
+        <span id="ziliao">资料</span>
+        <span id="pingjia">评价</span>
 </div>
 <div id="out">
     <img id="out_pic" src={% static '/css/zhb/img/out.svg' %} alt="">
-    <p>欢迎你,小云云</p>
+    <p>欢迎你,{{ name }}</p>
 </div>
 <div id="mange_inter" style="height: 900px">
     <!-- 除了学生信息以外的东西 -->

@@ -11,5 +11,6 @@ urlpatterns = [
     path('search/', views.freshman_search),
     path('interviewed/', views.interviewed),
     path('inter_addfreshman/', Inter_addfreshman.as_view(), name='addfreshman'),
+    path('logout/', views.acc_logout),
     path('management/<slug:a>/', views.info_check_out),
 ]

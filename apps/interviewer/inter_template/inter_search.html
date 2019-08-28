@@ -14,13 +14,13 @@
 
 <body>
     <div id="head">
-        <img id="logo_blue_pic" src={% static '/css/zhb/img/logo_blue.svg' %} alt="">
-        <div>资料</div>
-        <div>评价</div>
+        <img src={% static '/css/zhb/img/logo_blue.svg' %} alt="">
+        <span id="ziliao">资料</span>
+        <span id="pingjia">评价</span>
     </div>
     <div id="out">
-        <img id="out_pic" src={% static '/css/zhb/img/out.svg' %} alt="">
-        <p>欢迎你,小云云</p>
+        <img id="out_pic" src={% static '/css/zhb/img/out.svg' %} alt="" onclick="logout()">
+        <p id="inter_name">欢迎你,{{ name }}</p>
     </div>
     <div id="mange_inter">
         <!-- 除了学生信息以外的东西 -->
@@ -99,7 +99,7 @@
                             onblur="this.placeholder='请输入学号/姓名'" onchange = 'form_submit()'>
                         <!-- <input type="submit" id="submit" value="查询" /> -->
                         <div>
-                            <span>{{ number }}</span>
+                            <span style="color: #297AFF">{{ number }}</span>
                             <br />
                             <p style="color: rgb(153,153,153) ">已报名人数</p>
                         </div>
@@ -108,10 +108,9 @@
             </div>
             <hr style="width: 81%; margin-top: 27px;" />
             <div id="choice">
-                <span>已显示{{ num }}人</span>
                 <div onclick="">修改面试时间</div>
                 <div onclick="inter_addfreshman()">添加面试人员</div>
-                <div onclick="Interviewed()">查看面试过谁</div>
+                <div onclick="Interviewed()">查看已面试者</div>
             </div>
             <div id="student_data">
                 <div id="student">
@@ -158,6 +157,24 @@
             }
             return cookieValue;
         }
+        function logout() {
+            var data = {'csrfmiddlewaretoken':getCookie('csrftoken')};
+            $.ajax({
+            url: "/interview/logout/",
+            type: "POST",
+            data: data,
+            success:function(result){
+                {#document.getElementById('td_list').innerHTML = result;#}
+                setTimeout("window.location.href = '../login/'", 500);
+            },
+            error:function(result){
+                document.getElementById('td_list').innerHTML = "获取失败";
+            }
+        })
+        }
+        /*function updatenumber(number) {
+            document.getElementById('number').innerHTML = number;
+        }*/
         function change(id){
             window.location.href = '/interview/management/'+id;
         }

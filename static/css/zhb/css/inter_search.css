@@ -61,19 +61,15 @@ body {
 
 #head {
     width: 1920px;
-    height: 50px;
+    height: 64px;
     background-color: white;
-    border-bottom: 2px solid rgba(140, 156, 255, 0.2);
+    /*border-bottom: 2px solid rgba(140, 156, 255, 0.2);*/
+    -moz-box-shadow:0 8px 16px rgba(204, 204, 250, 0.1);
+    box-shadow: 0 8px 16px rgba(204, 204, 250, 0.1);
 }
 
-#logo_blue_pic{
-    background: url("/static/css/zhb/img/logo_blue.svg");
-}
-
-#head img {
-    float: left;
-    margin-top: 10px;
-    margin-left: 360px;
+#out_pic{
+    cursor: pointer;
 }
 
 #out {
@@ -90,11 +86,15 @@ body {
     margin-left: 40px;
 }
 
-#head div {
+#head img {
+    margin-top: 20px;
+    margin-left: 350px;
+}
+
+#ziliao, #pingjia {
     height: 48px;
     width: 50px;
-    float: left;
-    margin-top: 14px;
+    margin-top: -10px;
     margin-left: 100px;
 }
 
@@ -194,7 +194,7 @@ select::-ms-expand {
 
 #choice {
     height: 20px;
-    margin-top: 53px;
+    margin-top: 59px;
     margin-left: 30px;
 }
 
@@ -212,7 +212,7 @@ select::-ms-expand {
     font-size: 16px;
 }
 
-#choice div:hover{border: 1px solid rgba(42,122,255, 0.6); color: rgba(42,122,255,0.6)}
+#choice div:hover{border: 1px solid rgba(42,122,255, 1); color: rgba(42,122,255,1)}
 
 #inter_data {
     margin-top: 25px;
@@ -232,6 +232,7 @@ select::-ms-expand {
 }
 
 #inner_box {
+    margin-top: 10px;
     width: 100%;
     height: 600px;
      /*border: 1px solid black;*/
