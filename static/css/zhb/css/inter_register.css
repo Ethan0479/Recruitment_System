@@ -125,7 +125,7 @@ body {
     #input_id:focus{
         border-left: 2px solid rgb(41, 126, 255);
         -moz-box-shadow:0px 3px 6px rgba(0, 0, 0, 0.1);
-        box-shadow:0px 3px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
         background: url(../img/student_id_link.svg) no-repeat right top;
         background-size: 60px;
     }

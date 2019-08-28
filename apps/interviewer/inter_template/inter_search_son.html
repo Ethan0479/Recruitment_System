@@ -27,11 +27,10 @@
                 <td class="dd7">面试地点</td>
                 <td class="dd8">面试方向</td>
                 <td class="dd9">面试类型</td>
-                <td class="dd0"></td>
+{#                <td class="dd0"></td>#}
             </tr>
         </table>
     </div>
-    <div id="kong"></div>
     <div id="td_list">
         <table>
             {% for a in data_list %}
@@ -42,7 +41,7 @@
                 <td class="td4">{{ a.college }}</td>
                 <td class="td5">{{ a.major }}</td>
                 <td class="td6">{{ a.time }}</td>
-                <td class="td7">{{ a.place }}</td>
+                <td class="td7">{{ a.interview_place }}</td>
                 <td class="td8">{{ a.direction }}</td>
                 <td class="td9">{{ a.evaluate }}</td>
 {#                <td class="td0"></td>#}
@@ -67,6 +66,7 @@
                 data:data,
                 success:function(result){
                     document.getElementById('td_list').innerHTML = result;
+                    window.parent.updatenumber({{ num }});
                 },
                 error:function(result){
                     document.getElementById('td_list').innerHTML = "获取失败";
@@ -82,6 +82,7 @@
             type: "POST",
             data: data,
             success:function(result){
+                {#document.getElementById('td_list').innerHTML = result;#}
                 document.getElementById('td_list').innerHTML = result;
             },
             error:function(result){

@@ -17,6 +17,12 @@
     background: white;
 }
 
+#dd_dd{
+    border-collapse: collapse;
+    border-bottom:2px solid rgba(140, 156, 255, 0.16);
+    color: rgb(102,102,102);
+}
+
 table tr {
     height: 40px;
     text-align: center;
@@ -25,26 +31,29 @@ table tr {
 }
 
 #td_list{
-    overflow-y:auto;
-    margin-top: -10px;
-}
-
-#dd_dd{
-    border-bottom:2px solid rgba(140, 156, 255, 0.16);
+    /*overflow-y:auto;*/
+    margin-top: 35px;
+    /*margin-left: 20px;*/
     color: rgb(102,102,102);
 }
 
+
 .dd1 {width: 50px;}
 .dd2 {width: 110px;}
-.dd3 {width: 40px;}
-.dd4 {width: 150px;}
-.dd5 {width: 150px;}
+.dd3 {width: 50px;}
+.dd4 {width: 120px;}
+.dd5 {width: 160px;}
 .dd6 {width: 120px;}
 .dd7 {width: 180px;}
-.dd8 {width: 100px;}
+.dd8 {width: 110px;}
 .dd9 {width: 100px;}
 
-.td1 {width: 50px;}
+.td1 {
+    width: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(51,51,51);
+}
 .td2 {width: 110px;}
 .td3 {width: 40px;}
 .td4 {width: 150px;}
