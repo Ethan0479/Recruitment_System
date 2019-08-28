@@ -51,11 +51,19 @@ function appointment() {
 }
 function is_choice() {
     var time_list = document.getElementsByName('direction');
+    var count = 0;
     for (var i = 0; i < time_list.length; i++){
         if (time_list[i].value === ''){
             time_list[i].style.backgroundColor = "#ffffff";
             time_list[i].style.borderColor = "#d1d1d1";
             time_list[i].style.color = "#c1bfbf";
+            count++;
+            if (count === 1){
+
+            } else {
+                time_list[i].disabled = true;
+                time_list[i].style.backgroundColor = "#f5f5f5";
+            }
         }
     }
 }
