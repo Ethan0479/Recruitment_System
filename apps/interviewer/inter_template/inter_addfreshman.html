@@ -1,0 +1,133 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+{% block statics%}
+<head>
+    <meta http-equiv="Content-Type" charset="UTF-8" lang="zh">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>添加新生</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="../../../static/css/zhb/css/inter_addfreshman.css"/>
+    <script src={% static '/css/zhb/js/JQuery_1.js' %}></script>
+    <script>
+        function add_submit() {
+            var newstudent_id = document.getElementById('input_id').value;
+            var newname = document.getElementById('input_name').value;
+            var password = document.getElementById('input_password').value;
+            var gender = document.getElementById('input_gender').value;
+            var qq = document.getElementById('input_qq').value;
+            var phone = document.getElementById('input_phone').value;
+            var email = document.getElementById('input_email').value;
+            var college = document.getElementById('input_college').value;
+            var major = document.getElementById('input_major').value;
+            var newclass = document.getElementById('input_class').value;
+            var province = document.getElementById('input_province').value;
+            var apartment = document.getElementById('input_apartment').value;
+            var dormitory = document.getElementById('input_dormitory').value;
+            var direction = document.getElementById('input_direction').value;
+            var interview_time = document.getElementById('input_intertime').value;
+
+            console.log(newstudent_id);
+
+            var data = {};
+            data['csrfmiddlewaretoken'] = getCookie('csrftoken');
+            data['newstudent_id'] = newstudent_id;
+            data['newname'] = newname;
+            data['password'] = password;
+            data['gender'] = gender;
+            data['qq'] = qq;
+            data['phone'] = phone;
+            data['email'] = email;
+            data['college'] = college;
+            data['major'] = major;
+            data['newclass'] = newclass;
+            data['province'] = province;
+            data['apartment'] = apartment;
+            data['dormitory'] = dormitory;
+            data['direction'] = direction;
+            data['interview_time'] = interview_time;
+
+            $.ajax({
+                url: "/interview/inter_addfreshman/",
+                type: "POST",
+                data: data,
+                success: function (result) {
+                        tip.innerHTML = result;
+                        setTimeout("window.location.href = '../management/'", 1000);
+                },
+                error: function (result) {
+                    if (result !== "200") {
+                        console.log(result);
+                        tip.innerHTML = "注册失败";
+                    }
+                }
+            })
+        }
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</head>
+{% endblock%}
+{% block main %}
+    <div>
+        <div>
+            <p>添加新生</p>
+        </div>
+        <div>
+            <form id="student_form">
+                <table>
+                    <input id="input_id" type="text" name="student_id" placeholder="请输入学号"
+                           onfocus="this.placeholder='' " onblur="this.placeholder='请输入学号'" />
+                    <input id="input_name" type="text" name="name" placeholder="请输入姓名"
+                           onfocus="this.placeholder='' " onblur="this.placeholder='请输入姓名'" />
+                    <input id="input_password" type="password" name="password" placeholder="请输入密码"
+                        onfocus="this.placeholder='' " onblur="this.placeholder='请输入密码'" />
+                    <input id="input_gender" type="text" name="gender" placeholder="性别"
+                           onfocus="this.placeholder='' " onblur="this.placeholder='请输入性别'" />
+                    <p>仅限男、女</p>
+                    <input id="input_qq" type="text" name="qq" placeholder="QQ"
+                        onfocus="this.placeholder='' " onblur="this.placeholder='请输入QQ'" />
+                    <input id="input_phone" type="text" name="phone" placeholder="电话"
+                        onfocus="this.placeholder='' " onblur="this.placeholder='请输入电话'" />
+                    <input id="input_email" type="text" name="email" placeholder="邮箱"
+                        onfocus="this.placeholder='' " onblur="this.placeholder='请输入邮箱'" />
+                    <input id="input_college" type="text" name="college" placeholder="学院"
+                        onfocus="this.placeholder='' " onblur="this.placeholder='请输入学院'" />
+                    <input id="input_major" type="text" name="major" placeholder="专业"
+                        onfocus="this.placeholder='' " onblur="this.placeholder='请输入专业'" />
+                    <input id="input_class" type="text" name="class" placeholder="班级"
+                        onfocus="this.placeholder=''" onblur="this.placeholder='请输入班级'" />
+                    <input id="input_province" type="text" name="province" placeholder="籍贯"
+                        onfocus="this.placeholder='' " onblur="this.placeholder='请输入籍贯'" />
+                    <input id="input_apartment" type="text" name="apartment" placeholder="宿舍楼"
+                        onfocus="this.placeholder='' " onblur="this.placeholder='请输入宿舍楼'" />
+                    <input id="input_dormitory" type="text" name="dormitory" placeholder="宿舍号"
+                        onfocus="this.placeholder='' " onblur="this.placeholder='请输入宿舍号'" />
+                    <input id="input_direction" type="text" name="name" placeholder="请输入方向"
+                           onfocus="this.placeholder='' "onblur="this.placeholder='请输入方向'" />
+                    <p>仅限 开发、设计、秘书处</p>
+                    <input id="input_intertime" type="text" name="name" placeholder="请输入面试时间"
+                           onfocus="this.placeholder='' "onblur="this.placeholder='请输入面试时间'" />
+                    <p>格式例如：09-22_14:00-16:00</p>
+                    <input id="submit" type="button" value="注册" form="userForm" onclick="add_submit()">
+                </table>
+            </form>
+            <p id="tip">0</p>
+        </div>
+    </div>
+{% endblock %}
+</html>

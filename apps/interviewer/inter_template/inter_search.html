@@ -110,7 +110,7 @@
             <div id="choice">
                 <span>已显示{{ num }}人</span>
                 <div onclick="">修改面试时间</div>
-                <div onclick="">添加面试人员</div>
+                <div onclick="inter_addfreshman()">添加面试人员</div>
                 <div onclick="Interviewed()">查看面试过谁</div>
             </div>
             <div id="student_data">
@@ -160,6 +160,9 @@
         }
         function change(id){
             window.location.href = '/interview/management/'+id;
+        }
+        function inter_addfreshman() {
+            window.location.href = '../inter_addfreshman';
         }
     </script>
 </body>

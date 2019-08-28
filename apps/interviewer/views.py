@@ -174,6 +174,49 @@ def interviewed(request):
                           "direction": people.direction, "evaluate": people.evaluate})
     return render_to_response('inter_search_son.html', {"data_list": (data_list), "num":len(data_list)})
 
+class Inter_addfreshman(View):
+    def get(self, request):
+        return render(request, 'inter_addfreshman.html')
+
+    def post(self, request):
+        newstudent_id = request.POST.get('newstudent_id', '')
+        password = request.POST.get('password', '')
+        newname = request.POST.get('newname', '')
+        gender = request.POST.get('gender', '')
+        college = request.POST.get('college', '')
+        major = request.POST.get('major', '')
+        newclass = request.POST.get('newclass', '')
+        phone = request.POST.get('phone', '')
+        qq = request.POST.get('qq', '')
+        email = request.POST.get('email', '')
+        direction = request.POST.get('direction', '')
+        interview_time = request.POST.get('interview_time', '')
+        interview_place = request.POST.get('interview_place', '')
+        province = request.POST.get('province', '')
+        apartment = request.POST.get('apartment', '')
+        dormitory = request.POST.get('dormitory', '')
+
+        student_one = Freshman()
+        student_one.newstudent_id = newstudent_id
+        student_one.password = password
+        student_one.newname = newname
+        student_one.gender = gender
+        student_one.college = college
+        student_one.major = major
+        student_one.newclass = newclass
+        student_one.phone = phone
+        student_one.qq = qq
+        student_one.email = email
+        student_one.direction = direction
+        student_one.interview_time = interview_time
+        student_one.interview_place = interview_place
+        student_one.province = province
+        student_one.apartment = apartment
+        student_one.dormitory = dormitory
+        student_one.save()
+
+        return HttpResponse('注册成功')
+
 def info_check_out(request,a):
     if request.method == 'GET':
         stu = Freshman.objects.get(newstudent_id=a)

@@ -38,9 +38,9 @@
             </div>
             <form id="user_login">
                 {% csrf_token %}
-                <input id="input_id" type="test" name="student_id" placeholder="请输入学号" onfocus="this.placeholder=''"
+                <input id="input_id" type="text" name="student_id" placeholder="请输入学号" onfocus="this.placeholder=''"
                     onblur="this.placeholder='请输入学号'" />
-                <input id="input_name" type="test" name="name" placeholder="请输入姓名" onfocus="this.placeholder=''"
+                <input id="input_name" type="text" name="name" placeholder="请输入姓名" onfocus="this.placeholder=''"
                     onblur="this.placeholder='请输入姓名'" />
                 <input id="input_password" type="password" name="password" placeholder="请输入密码"
                     onfocus="this.placeholder=''" onblur="this.placeholder='请输入密码'" />
@@ -140,7 +140,7 @@
                     success: function (result) {
                         if (result === "200") {
                             tip.innerHTML = "注册成功";
-                            setTimeout("window.location.href = '../login/'", 2000);
+                            setTimeout("window.location.href = '../login/'", 1000);
                         }
                     },
                     error: function (result) {
@@ -154,7 +154,7 @@
         }
 
         function goto_login() {
-            setTimeout("window.location.href = '../login/'", 2000);
+            setTimeout("window.location.href = '../login/'", 1000);
         }
 
         /*function reg_submit(){
