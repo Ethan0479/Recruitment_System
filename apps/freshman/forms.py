@@ -41,7 +41,7 @@ class Applyfrom(forms.Form):
 
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
-        regex = re.compile('^1((3[0-9])|(4[579])|(5[469])|(66)|(7[35678])|(8[0-9])|(9[89]))\\d{8}$')
+        regex = re.compile('^1((3[0-9])|(4[579])|(5[0-9])|(66)|(7[0135678])|(8[0-9])|(9[89]))\\d{8}$')
         if regex.match(phone):
             if Freshman.objects.filter(phone=phone):
                 raise forms.ValidationError('该手机号已提交', code='duplicated phone')
@@ -80,7 +80,7 @@ class ModifyForm(forms.Form):
 
     def clean_phone(self):
         phone = self.cleaned_data.get('phone')
-        regex = re.compile('^1((3[0-9])|(4[579])|(5[469])|(66)|(7[35678])|(8[0-9])|(9[89]))\\d{8}$')
+        regex = re.compile('^1((3[0-9])|(4[579])|(5[0-9])|(66)|(7[0135678])|(8[0-9])|(9[89]))\\d{8}$')
         if regex.match(phone):
             return phone
         else:

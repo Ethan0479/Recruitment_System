@@ -6,9 +6,9 @@ from ..freshman import models
 from apps.freshman.models import *
 import operator
 import random
-from example.commons import Collector
-from pyecharts import options as opts
-from pyecharts.charts import Page, Sunburst
+# from example.commons import Collector
+# from pyecharts import options as opts
+# from pyecharts.charts import Page, Sunburst
 
 
 # Create your views here.
@@ -58,7 +58,7 @@ def manage(request):
                 a7 = random.randint(1, 15)  # 班级
                 a8 = random.randint(100000000, 999999999)  # 手机号 qq号
                 a9 = random.randint(0, 22)  # 方向
-                student = models.Freshman()
+                student = Freshman()
                 student.newstudent_id = str(2019000000 + i)
                 student.newname = name_date1[a1] + name_date2[a2]
                 student.password = '123456'
@@ -239,40 +239,40 @@ def creatimg(request, num):
     # return HttpResponse('成功')
 
 
-def sunburst_base() -> Sunburst:
-    data = [
-        opts.SunburstItem(
-            name="云顶书院",
-            children=[
-                opts.SunburstItem(
-                    name="大数据学院",
-                    value=15,
-                    children=[
-                        opts.SunburstItem(name="Cousin Jack", value=2),
-                        opts.SunburstItem(
-                            name="Cousin Mary",
-                            value=5,
-                            children=[opts.SunburstItem(name="Jackson", value=2)],
-                        ),
-                        opts.SunburstItem(name="Cousin Ben", value=4),
-                    ],
-                ),
-                opts.SunburstItem(
-                    name="机械学院",
-                    value=10,
-                    children=[
-                        opts.SunburstItem(name="Me", value=5),
-                        opts.SunburstItem(name="Brother Peter", value=1),
-                    ],
-                ),
-            ],
-        ),
-    ]
-
-    c = (
-        Sunburst(init_opts=opts.InitOpts(width="1000px", height="600px"))
-            .add(series_name="", data_pair=data, radius=[0, "90%"])
-            .set_global_opts(title_opts=opts.TitleOpts(title="Sunburst-基本示例"))
-            .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}"))
-    )
-    return c
+# def sunburst_base() -> Sunburst:
+#     data = [
+#         opts.SunburstItem(
+#             name="云顶书院",
+#             children=[
+#                 opts.SunburstItem(
+#                     name="大数据学院",
+#                     value=15,
+#                     children=[
+#                         opts.SunburstItem(name="Cousin Jack", value=2),
+#                         opts.SunburstItem(
+#                             name="Cousin Mary",
+#                             value=5,
+#                             children=[opts.SunburstItem(name="Jackson", value=2)],
+#                         ),
+#                         opts.SunburstItem(name="Cousin Ben", value=4),
+#                     ],
+#                 ),
+#                 opts.SunburstItem(
+#                     name="机械学院",
+#                     value=10,
+#                     children=[
+#                         opts.SunburstItem(name="Me", value=5),
+#                         opts.SunburstItem(name="Brother Peter", value=1),
+#                     ],
+#                 ),
+#             ],
+#         ),
+#     ]
+#
+#     c = (
+#         Sunburst(init_opts=opts.InitOpts(width="1000px", height="600px"))
+#             .add(series_name="", data_pair=data, radius=[0, "90%"])
+#             .set_global_opts(title_opts=opts.TitleOpts(title="Sunburst-基本示例"))
+#             .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}"))
+#     )
+#     return c
